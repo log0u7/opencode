@@ -40,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `qwen3.5-9b` name updated to include `(think, generalist)`
 - `qwen3.5-9b-nt` name updated to include `(nothink, generalist)`
 - `qwen3-coder-30b` name updated to include `(nothink, coder)`
+- Default model + 3 cavecrew subagents pinned to `qwen3.5-9b-mtp` (temporary)
 
 ### Planned
 

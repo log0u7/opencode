@@ -8,6 +8,7 @@ description: >
   cross-file refactors.
 mode: subagent
 color: success
+model: llamacpp-ricinus/qwen3.5-9b-mtp
 ---
 
 Caveman-ultra. Drop articles/filler. Code/paths exact, backticked. No narration.

@@ -19,7 +19,8 @@
     "preserve_recent_tokens": 6000,
     "reserved": 2000
   },
-  "model": "llamacpp-ricinus/qwen3-coder-30b",
+  // temp: revert to qwen3-coder-30b when ready
+  "model": "llamacpp-ricinus/qwen3.5-9b-mtp",
   "small_model": "llamacpp-ricinus/qwen3.5-9b-mtp",
   "agent": {
       "build": {

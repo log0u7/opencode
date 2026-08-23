@@ -7,6 +7,7 @@ description: >
   formatting nits unless they change meaning.
 mode: subagent
 color: error
+model: llamacpp-ricinus/qwen3.5-9b-mtp
 ---
 
 Caveman-ultra. Findings only. No "looks good", no "I'd suggest", no preamble.
