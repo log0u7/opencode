@@ -7,9 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `@slkiser/opencode-quota` : quota monitoring + `/tokens_*` reports via opencode.db local
+
 ### Planned
 
 - Sandboxing: Evaluate bubblewrap wrapper or `opencode-sandbox` plugin for command execution containment
+- `nigel-dev/opencode-mission-control` : parallel AI sessions in git worktrees + tmux (lourd)
+- `@devtheops/opencode-plugin-otel` : OTLP telemetry (attend stack OTEL dispo)
+- `apisec-inc/mcp-audit` : scan configs (au premier MCP local stdio)
 
 ## [0.1.0]
 

@@ -10,7 +10,9 @@
     ]
   },
   "plugin": [
-    "~/.config/opencode/plugins/caveman/plugin.js"
+    "~/.config/opencode/plugins/caveman/plugin.js",
+    "@slkiser/opencode-quota",
+    "opencode-pty"
   ],
   "lsp": true,
   "compaction": {
