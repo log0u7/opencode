@@ -21,6 +21,13 @@ Receive "A plan file exists ... execute on it" message:
 - Update todo continuously: `in_progress` on work start, `completed` on finish.
 - New work discovered = new todo immediately.
 
+## Todo discipline
+
+- Tool `todowrite` replaces the WHOLE list each call: always resend ALL items.
+- Tick `completed` IMMEDIATELY after each finished step. Never batch.
+- Exactly ONE item stays `in_progress` while working.
+- Finished work must NEVER remain `pending`.
+
 ## State of the art
 
 - Research best practices, idioms, tooling before non-trivial work.
