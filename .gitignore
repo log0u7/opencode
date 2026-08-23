@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Backups (transient)
+*.bak
+*.backup
+*.old
+*~
+*.orig
+*.rej
+
+# Editor
+*.swp
+
+# Runtime state (generated)
+.caveman-active
+.caveman-opencode-ownership.json
