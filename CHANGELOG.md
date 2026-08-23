@@ -17,6 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pinning `small_model`, `title`, `summary`, `compaction` agents to `qwen3.5-9b-mtp` to avoid model swap overhead with `--models-max 1`
 - Conventional commits workflow
 - Semver release tags
+- `shfmt` 3.8.0 via apt (dépôts distro)
+- `gh` 2.98.0 via repo apt officiel cli.github.com (keyring signé)
+- `glab` 1.114.0 via .deb officiel, sha256 vérifié
 
 ### Changed
 
