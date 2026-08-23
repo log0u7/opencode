@@ -13,5 +13,10 @@ node_modules/
 *.swp
 
 # Runtime state (generated)
-.caveman-active
-.caveman-opencode-ownership.json
+.caveman-*
+
+# Environment variables
+.env
+
+# opencode
+.env.opencode
