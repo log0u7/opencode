@@ -20,43 +20,43 @@
     "reserved": 2000
   },
   "model": "llamacpp-ricinus/qwen3-coder-30b",
-  // Disabled: with --models-max 1, any utility agent pinned to a model other
-  // than the current session's triggers a full swap + cache loss on both sides.
-  // "small_model": "llamacpp-ricinus/qwen3-coder-30b",
+  "small_model": "llamacpp-ricinus/qwen3.5-9b-mtp",
   "agent": {
       "build": {
         "model": "llamacpp-ricinus/qwen3.5-9b-mtp",
-      "temperature": 0.6,
-      "top_p": 0.95,
-      "steps": 60,
-      "color": "info"
-    },
-    "plan": {
-      "model": "opencode/big-pickle",
-      //"temperature": 0.7,
-      //"top_p": 0.8,
-      "color": "warning"
-    },
-    "general": {
-      "model": "opencode/big-pickle"
-    },
+        "temperature": 0.6,
+        "top_p": 0.95,
+        "steps": 60,
+        "color": "info"
+      },
+      "plan": {
+        "model": "opencode/big-pickle",
+        "color": "warning"
+      },
+      "general": {
+        "model": "opencode/big-pickle"
+      },
       "explore": {
         "model": "llamacpp-ricinus/qwen3.5-9b-mtp",
-      "temperature": 0.6,
-      "top_p": 0.95,
-      "steps": 60
-    }
-    // "title": {
-    //   "model": "llamacpp-ricinus/qwen3-coder-30b"
-    // },
-    // "summary": {
-    //   "model": "llamacpp-ricinus/qwen3-coder-30b"
-    // },
-    // "compaction": {
-    //   "model": "llamacpp-ricinus/qwen3-coder-30b"
-    // }
+        "temperature": 0.6,
+        "top_p": 0.95,
+        "steps": 60
+      }
+      "title": {
+        "model": "llamacpp-ricinus/qwen3.5-9b-mtp"
+      },
+      "summary": {
+        "model": "llamacpp-ricinus/qwen3.5-9b-mtp"
+      },
+  "share": "disabled",
+  "compaction": {
+        "model": "llamacpp-ricinus/qwen3.5-9b-mtp"
+      }
   },
+  "autoupdate": "notify",
+  "formatter": true,
   "provider": {
+    "enabled_providers": ["llamacpp-ricinus", "ollama-ricinus", "opencode"],
     "llamacpp-ricinus": {
       "npm": "@ai-sdk/openai-compatible",
       "name": "00 llama.cpp@ricinus-communis",
@@ -68,15 +68,16 @@
         "chunkTimeout": 180000
       },
       "models": {
-        "qwen3-coder-30b": {
-          "id": "qwen3-coder-30b-a3b-q4_K_M",
-          "name": "Qwen3-Coder 30B-A3B (nothink, coder)",
-          "tool_call": true,
-          "limit": {
-            "context": 30000,
-            "output": 4096
-          }
-        },
+        // Disabled: superseded by qwen3.5-9b family
+        // "qwen3-coder-30b": {
+        //   "id": "qwen3-coder-30b-a3b-q4_K_M",
+        //   "name": "Qwen3-Coder 30B-A3B (nothink, coder)",
+        //   "tool_call": true,
+        //   "limit": {
+        //     "context": 30000,
+        //     "output": 4096
+        //   }
+        // },
         "glm-4.7-flash": {
           "id": "glm-4.7-flash",
           "name": "GLM-4.7-Flash 30B-A3B (think, coder)",
@@ -116,7 +117,7 @@
             "context": 94000, 
             "output": 4096 
           } 
-        }
+        },
         // Disabled in models.ini: verbose, hits context ceiling, cohere2moe
         // arch not in stock llama.cpp. Cohere's own config uses
         // "interleaved": { "field": "reasoning" }.
