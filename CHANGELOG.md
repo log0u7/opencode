@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - AGENTS.md rule: always verify subagent findings (reviewer/investigator) before acting
 - AGENTS.md rule: all committed artifacts English-only
 - AGENTS.md rule: `gitleaks` as the standard secret scanner (pre-commit hook on commit, CI job on push)
+- AGENTS.md rule: prefer `glab`/`gh` over `curl` for repo and CI management, human-gated writes
 - pre-commit quality gates: JSON checks, markdownlint on owned docs, gitleaks secret scan (checksum-verified binary), commitlint (Conventional Commits)
 - Makefile targets: `lint`, `smoke`, `skills-update`
 - GitLab CI pipeline: pre-commit lint job + gitleaks security job

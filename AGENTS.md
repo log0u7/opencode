@@ -51,6 +51,12 @@ Receive "A plan file exists ... execute on it" message:
 - Small, focused, incremental changes.
 - Investigate before assumptions.
 
+## Platform CLI
+
+- **MUST** use `glab` (GitLab) or `gh` (GitHub) for repo and CI management (pipelines, jobs, MRs/PRs, issues, releases).
+- Fallback to `curl` + platform API only when the CLI lacks the feature.
+- Human authorization required before any write operation; read-only queries allowed freely.
+
 ## Third-party dependencies and repositories
 
 - **MUST** prefer official repositories (highest stars, active, vendor-backed).
