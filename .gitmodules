@@ -1,3 +1,6 @@
 [submodule "skills/gitlab-ci-skill"]
 	path = skills/gitlab-ci-skill
 	url = https://gitlab.com/gitlab-org/ci-cd/gitlab-ci-skill.git
+[submodule "skills/ui-ux-pro-max"]
+	path = skills/ui-ux-pro-max
+	url = https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git
