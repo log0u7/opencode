@@ -1,0 +1,36 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-json
+        exclude: ^opencode\.json$ # JSONC comments allowed by convention
+      - id: check-merge-conflict
+      - id: check-added-large-files
+
+  - repo: local
+    hooks:
+      - id: gitleaks
+        name: Detect hardcoded secrets
+        language: system
+        entry: gitleaks git --pre-commit --staged --redact --verbose
+        pass_filenames: false
+        always_run: true
+
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.17.2 # newest release compatible with system Node >= 18; bump with Node
+    hooks:
+      - id: markdownlint-cli2
+        files: ^(README|CHANGELOG|CONTRIBUTING|AGENTS)\.md$ # owned docs only, not agent prompts
+
+  - repo: local
+    hooks:
+      - id: commitlint
+        name: commitlint
+        language: node
+        entry: commitlint
+        args: [--edit]
+        additional_dependencies:
+          - "@commitlint/cli@19.8.1" # major 21 requires Node >= 22; bump with Node
+          - "@commitlint/config-conventional@19.8.1"
+        stages: [commit-msg]
+        always_run: true
