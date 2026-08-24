@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `@slkiser/opencode-quota` : quota monitoring + `/tokens_*` reports via opencode.db local
 - Submodule `nextlevelbuilder/ui-ux-pro-max-skill` (MIT, 120k⭐) : 7 skills design UI/UX via double chemin `skills/` et `skills/ui-ux-pro-max/.claude/skills/`
+- AGENTS.md rule: always verify subagent findings (reviewer/investigator) before acting
 
 
 ### Planned

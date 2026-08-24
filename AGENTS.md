@@ -86,6 +86,7 @@ Receive "A plan file exists ... execute on it" message:
 - Surgical edit, scope known, ≤2 files: hand path:line to `@cavecrew-builder`.
 - Review diff/file for bugs: `@cavecrew-reviewer`.
 - Full decision matrix: `cavecrew` skill.
+- **MUST** verify subagent findings before acting: open cited `path:line`, read surrounding context, confirm the issue exists. False positives possible (stale or partial context). Discard refuted findings with explicit reason ("checked X: not an issue because Y"). Never fix or report based on a finding alone.
 
 ## Changelog
 
