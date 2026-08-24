@@ -4,7 +4,7 @@ Personal OpenCode configuration directory.
 
 ## Layout
 
-```
+```text
 .
 ├── AGENTS.md              # Agent instructions
 ├── opencode.json          # Main config
@@ -23,17 +23,18 @@ Personal OpenCode configuration directory.
 
 ## Providers
 
-- **llamacpp-ricinus** : llama.cpp server (192.168.1.26:9931)
-- **ollama-ricinus** : Ollama server (192.168.1.26:11434)
-- **opencode** : OpenCode Zen (cloud)
+- **llamacpp-ricinus**: llama.cpp server (192.168.1.26:9931)
+- **ollama-ricinus**: Ollama server (192.168.1.26:11434)
+- **opencode**: OpenCode Zen (cloud)
 
 ## Submodules
 
-- `skills/gitlab-ci-skill` : Official GitLab CI skill (submodule)
+- `skills/gitlab-ci-skill`: Official GitLab CI skill (submodule)
+- `skills/ui-ux-pro-max`: UI/UX design skill suite (submodule, 7 skills loaded via dual skills path)
 
 ## Security
 
-- API keys are factices (LAN only)
+- API keys are placeholders (LAN only)
 - No secrets in git (auth in `~/.local/share/opencode`)
 
 ## Usage

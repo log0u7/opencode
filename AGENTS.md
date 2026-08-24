@@ -4,6 +4,7 @@
 
 - Never use em dash (`—`). Use `:`, `,`, or `()`. Plain hyphen `-` for dash.
 - Prompts in English. Command templates, agent prompts, skill bodies, model input. Conversation replies follow user language.
+- All committed artifacts English-only: docs, changelog, code comments, commit messages.
 
 ## Engineering principles
 
@@ -16,6 +17,7 @@
 ## Handoff plan -> build
 
 Receive "A plan file exists ... execute on it" message:
+
 - Existing todo list: continue it.
 - No todo: create `todowrite` covering all steps before edits/bash.
 - Update todo continuously: `in_progress` on work start, `completed` on finish.
@@ -73,7 +75,7 @@ Receive "A plan file exists ... execute on it" message:
 - **MUST** verify checksums, prefer official registries.
 - **MUST** scan container images for CVEs, minimal base images, never root.
 - **MUST** deny network by default, allow only needed outbound.
-- **MUST** scan repos for secrets (`trufflehog`, `gitleaks`).
+- **MUST** scan repos for secrets with `gitleaks` (standard): pre-commit hook on commit, CI job on push.
 - **MUST** keep audit logs, never log credentials.
 - **MUST** maintain incident response runbook, test restoration.
 - **MUST** sign releases/checksums.

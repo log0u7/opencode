@@ -9,17 +9,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `@slkiser/opencode-quota` : quota monitoring + `/tokens_*` reports via opencode.db local
-- Submodule `nextlevelbuilder/ui-ux-pro-max-skill` (MIT, 120k⭐) : 7 skills design UI/UX via double chemin `skills/` et `skills/ui-ux-pro-max/.claude/skills/`
+- `@slkiser/opencode-quota`: quota monitoring + `/tokens_*` reports via opencode.db local
+- Submodule `nextlevelbuilder/ui-ux-pro-max-skill` (MIT, 120k stars): 7 UI/UX design skills via dual path `skills/` and `skills/ui-ux-pro-max/.claude/skills/`
 - AGENTS.md rule: always verify subagent findings (reviewer/investigator) before acting
-
+- AGENTS.md rule: all committed artifacts English-only
+- AGENTS.md rule: `gitleaks` as the standard secret scanner (pre-commit hook on commit, CI job on push)
+- pre-commit quality gates: JSON checks, markdownlint on owned docs, gitleaks secret scan (checksum-verified binary), commitlint (Conventional Commits)
+- Makefile targets: `lint`, `smoke`, `skills-update`
+- GitLab CI pipeline: pre-commit lint job + gitleaks security job
 
 ### Planned
 
 - Sandboxing: Evaluate bubblewrap wrapper or `opencode-sandbox` plugin for command execution containment
-- `nigel-dev/opencode-mission-control` : parallel AI sessions in git worktrees + tmux (lourd)
-- `@devtheops/opencode-plugin-otel` : OTLP telemetry (attend stack OTEL dispo)
-- `apisec-inc/mcp-audit` : scan configs (au premier MCP local stdio)
+- `nigel-dev/opencode-mission-control`: parallel AI sessions in git worktrees + tmux (heavy)
+- `@devtheops/opencode-plugin-otel`: OTLP telemetry (waiting for OTEL stack)
+- `apisec-inc/mcp-audit`: scan configs (on first local stdio MCP)
+
+### Changed
+
+- Translate remaining French documentation strings to English
 
 ## [0.1.0]
 
@@ -42,7 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pinning `small_model`, `title`, `summary`, `compaction` agents to `qwen3.5-9b-mtp` to avoid model swap overhead with `--models-max 1`
 - Conventional commits workflow
 - Semver release tags
-- `shfmt` 3.8.0 via apt (dépôts distro)
+- `shfmt` 3.8.0 via apt (distro repositories)
 - `gh` 2.98.0 via repo apt officiel cli.github.com (keyring signé)
 - `glab` 1.114.0 via .deb officiel, sha256 vérifié
 

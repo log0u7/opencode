@@ -13,28 +13,33 @@ All commits must follow [Conventional Commits](https://www.conventionalcommits.o
 
 ## Semver
 
-- **MAJOR** (v1.x.x) : Breaking API changes
-- **MINOR** (vx.y.x) : New features, backwards compatible
-- **PATCH** (vxy.z) : Bug fixes, backwards compatible
+- **MAJOR** (v1.x.x): Breaking API changes
+- **MINOR** (vx.y.x): New features, backwards compatible
+- **PATCH** (vxy.z): Bug fixes, backwards compatible
 
 ## Changelog
 
 Follow [Keep a Changelog](https://keepachangelog.com/).
 
-- `[Unreleased]` : Pending changes
-- `[v0.1.0]` : Previous releases with date
+- `[Unreleased]`: Pending changes
+- `[v0.1.0]`: Previous releases with date
 
 ## Submodule Workflow
 
 1. Clone with submodules:
+
    ```bash
    git clone --recursive https://<your-remote>/opencode
    ```
+
 2. Update submodules:
+
    ```bash
    git submodule update --init --recursive
    ```
+
 3. Commit changes:
+
    ```bash
    git add .
    git commit -m "chore: ..."
