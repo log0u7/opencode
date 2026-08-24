@@ -23,6 +23,13 @@ Receive "A plan file exists ... execute on it" message:
 - Update todo continuously: `in_progress` on work start, `completed` on finish.
 - New work discovered = new todo immediately.
 
+## Plan mode output contract
+
+While in plan mode (read-only phase), how to end a turn depends on tool availability:
+
+- Exit tool available (`plan_exit`, `exit_plan_mode`, or equivalent): call it once the plan is complete. Never also ask for approval in text.
+- No exit tool available: present the final plan and stop. Do NOT propose "go", "approve", "adjust", or any confirmation dialogue. The user switches agents manually and starts execution themselves.
+
 ## Todo discipline
 
 - Tool `todowrite` replaces the WHOLE list each call: always resend ALL items.

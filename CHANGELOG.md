@@ -42,6 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Translate remaining French documentation strings to English
+- AGENTS.md rule: plan mode ends silently when no exit tool is available (no "go"/"approve" proposals); with `plan_exit` available, call it and never duplicate approval in text
 
 ## [0.1.0]
 
