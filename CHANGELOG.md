@@ -18,6 +18,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - pre-commit quality gates: JSON checks, markdownlint on owned docs, gitleaks secret scan (checksum-verified binary), commitlint (Conventional Commits)
 - Makefile targets: `lint`, `smoke`, `skills-update`
 - GitLab CI pipeline: pre-commit lint job + gitleaks security job
+- Skill submodules per tech stack (11 repos; discovered by the recursive `skills/` scan, explicit `skills.paths` entries added only for hidden skill dirs `ui-ux-pro-max/.claude` and `impeccable/.opencode`):
+  - `pbakaus/impeccable` (Apache-2.0, 62k stars): design quality + AI-slop detector, native `.opencode/skills/`
+  - `antfu/skills` (MIT, 5.8k): Vue, Vite, Pinia, VueUse, Vitest, pnpm, Turborepo
+  - `onmax/nuxt-skills` (701): Nuxt, NuxtHub, Vue ecosystem
+  - `mcollina/skills` (MIT, 1.9k): Node.js, Fastify, TypeScript by Node TSC member
+  - `laravel/agent-skills` (official Laravel org, 699; no LICENSE file yet): starter-kit upgrade, Laravel Cloud deploy, Nightwatch
+  - `dev-toolings/superpowers-symfony` (MIT, 205): 44 Symfony 7.4 LTS / 8.x skills
+  - `Lombiq/Tailwind-Agent-Skills` (BSD-3-Clause): Tailwind CSS v4 docs skill
+  - `trailofbits/skills` (CC-BY-SA-4.0, 6.8k): cherry-picked modern-python, modern-cpp, c-review, rust-review
+  - `wsvincent/django-skills` (MIT): Django
+  - `edgarMeinart/ruby-rails-rspec-skill` (no LICENSE file yet): Ruby style + Rails conventions + RSpec, exposed via local `ruby` wrapper skill
+  - `leonardomso/rust-skills` (MIT, 440): 265 Rust rules with progressive disclosure
+- Self-authored skills: `web-fundamentals` (HTML/CSS/vanilla JS), `jquery`, `php-lang`, `flask-fastapi`, `cpp`, `asm-x86-arm`, `ruby` (wrapper over ruby-rails-rspec-skill)
 
 ### Planned
 

@@ -7,7 +7,8 @@
   "skills": {
     "paths": [
       "~/.config/opencode/skills",
-      "~/.config/opencode/skills/ui-ux-pro-max/.claude/skills"
+      "~/.config/opencode/skills/ui-ux-pro-max/.claude/skills",
+      "~/.config/opencode/skills/impeccable/.opencode/skills"
     ]
   },
   "plugin": [

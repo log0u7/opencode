@@ -4,3 +4,36 @@
 [submodule "skills/ui-ux-pro-max"]
 	path = skills/ui-ux-pro-max
 	url = https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git
+[submodule "skills/impeccable"]
+	path = skills/impeccable
+	url = https://github.com/pbakaus/impeccable
+[submodule "skills/antfu-skills"]
+	path = skills/antfu-skills
+	url = https://github.com/antfu/skills
+[submodule "skills/nuxt-skills"]
+	path = skills/nuxt-skills
+	url = https://github.com/onmax/nuxt-skills
+[submodule "skills/node-skills"]
+	path = skills/node-skills
+	url = https://github.com/mcollina/skills
+[submodule "skills/laravel"]
+	path = skills/laravel
+	url = https://github.com/laravel/agent-skills
+[submodule "skills/symfony"]
+	path = skills/symfony
+	url = https://github.com/dev-toolings/superpowers-symfony
+[submodule "skills/tailwind"]
+	path = skills/tailwind
+	url = https://github.com/Lombiq/Tailwind-Agent-Skills
+[submodule "skills/trailofbits"]
+	path = skills/trailofbits
+	url = https://github.com/trailofbits/skills
+[submodule "skills/django"]
+	path = skills/django
+	url = https://github.com/wsvincent/django-skills
+[submodule "skills/ruby-rails"]
+	path = skills/ruby-rails
+	url = https://github.com/edgarMeinart/ruby-rails-rspec-skill
+[submodule "skills/rust"]
+	path = skills/rust
+	url = https://github.com/leonardomso/rust-skills
