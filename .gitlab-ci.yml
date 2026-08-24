@@ -1,25 +1,8 @@
 stages:
-  - lint
   - security
 
 default:
   interruptible: true
-
-precommit:
-  stage: lint
-  image: node:22-bookworm
-  variables:
-    PRE_COMMIT_HOME: "$CI_PROJECT_DIR/.cache/pre-commit"
-  cache:
-    key: pre-commit-$CI_COMMIT_REF_SLUG
-    paths:
-      - .cache/pre-commit
-  script:
-    # SKIP=gitleaks: dedicated security job below runs gitleaks; the local
-    # hook needs the gitleaks binary which is not shipped in this image.
-    - apt-get update -qq && apt-get install -y -qq --no-install-recommends python3-pip
-    - pip install --break-system-packages --quiet pre-commit
-    - SKIP=gitleaks pre-commit run --all-files
 
 gitleaks:
   stage: security

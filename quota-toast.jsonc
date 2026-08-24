@@ -1,0 +1,6 @@
+{
+  "tuiSidebarPanel": { "enabled": true },
+  "enableToast": true,
+  "tuiCompactStatus": { "enabled": true },
+  "tuiCommandDisplay": "inline"
+}

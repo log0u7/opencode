@@ -51,10 +51,10 @@
     },
     "summary": {
       "model": "llamacpp-ricinus/qwen3.5-9b-mtp"
-    },
-    "compaction": {
-      "model": "llamacpp-ricinus/qwen3.5-9b-mtp"
-    }
+    }//,
+    //"compaction": {
+    //  "model": "llamacpp-ricinus/qwen3.5-9b-mtp"
+    //}
   },
   "share": "disabled",
   "autoupdate": "notify",
