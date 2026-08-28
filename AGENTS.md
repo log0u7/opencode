@@ -18,6 +18,7 @@
 
 Receive "A plan file exists ... execute on it" message:
 
+- **MUST** operate under the build agent model, not the plan agent model.
 - Existing todo list: continue it.
 - No todo: create `todowrite` covering all steps before edits/bash.
 - Update todo continuously: `in_progress` on work start, `completed` on finish.
@@ -27,7 +28,7 @@ Receive "A plan file exists ... execute on it" message:
 
 While in plan mode (read-only phase), how to end a turn depends on tool availability:
 
-- Exit tool available (`plan_exit`, `exit_plan_mode`, or equivalent): call it once the plan is complete. Never also ask for approval in text.
+- Exit tool available (`plan_exit`, `exit_plan_mode`, or equivalent): call it once the plan is complete. **NEVER** ask "do you want to switch to build or continue?" - just call the tool silently. The user decides whether to switch.
 - No exit tool available: present the final plan and stop. Do NOT propose "go", "approve", "adjust", or any confirmation dialogue. The user switches agents manually and starts execution themselves.
 
 ## Todo discipline
@@ -63,6 +64,21 @@ While in plan mode (read-only phase), how to end a turn depends on tool availabi
 - **MUST** use `glab` (GitLab) or `gh` (GitHub) for repo and CI management (pipelines, jobs, MRs/PRs, issues, releases).
 - Fallback to `curl` + platform API only when the CLI lacks the feature.
 - Human authorization required before any write operation; read-only queries allowed freely.
+
+## Process management
+
+- **MUST NOT** kill opencode processes (`pkill opencode`, `kill` on opencode PIDs, `killall opencode`). Restarting opencode is the user's decision.
+- `kill <PID>` (SIGTERM) only on processes started by the current task. Escalate to SIGTERM -9 only with user confirmation.
+- When a process outside the task's ownership must stop: return the exact command to the user instead of running it.
+- `pkill`, `kill -9`, `killall` are hard-blocked by the damage-control plugin. Do not attempt bypasses (wrappers, alternate binaries).
+
+## Tool and binary version pinning
+
+- **MUST** detect and respect project-pinned tool versions before executing any binary.
+- Detection order: `.tool-versions` / `mise.toml` (mise/asdf), `package.json` `engines` field, `.nvmrc` / `.node-version`, `go.mod` Go version, `Cargo.toml` rust-version, `pyproject.toml` python version, `.python-version`, `Gemfile` ruby version.
+- **MUST NOT** install or invoke a different version than what the project declares.
+- When no pinned version exists, use the system default. Never assume or pick a version.
+- If the required version is missing: report the exact gap ("project requires X, found Y or none") and ask the user before proceeding.
 
 ## Third-party dependencies and repositories
 

@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `wsvincent/django-skills` (MIT): Django
   - `edgarMeinart/ruby-rails-rspec-skill` (no LICENSE file yet): Ruby style + Rails conventions + RSpec, exposed via local `ruby` wrapper skill
   - `leonardomso/rust-skills` (MIT, 440): 265 Rust rules with progressive disclosure
+- `venomous2/opencode-seo` (MIT, v0.20.2, commit 6fa3a45): SEO suite installed via official `install.sh`, no DataForSEO credentials configured (deterministic layer only): 88 skills, 4 agents, 12 slash commands, data layer + 54 YAML rules under `seo-suite/`; offline lint verified (`seo_lint.py --file`)
 - Self-authored skills: `web-fundamentals` (HTML/CSS/vanilla JS), `jquery`, `php-lang`, `flask-fastapi`, `cpp`, `asm-x86-arm`, `ruby` (wrapper over ruby-rails-rspec-skill)
 
 ### Planned
@@ -41,6 +42,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `damage-control.json`: unprotect `node_modules/` and `/etc/` (substring matching flagged benign diagnostics like `ls node_modules 2>/dev/null` as writes); replace over-broad `Recursive delete from root` (`rm\s+-rf\s+/` matched any absolute path) and `Pipe curl to shell` (`\|\s*sh` matched `| sha256sum`) with anchored patterns; reorder rm patterns so anchored root/home blocks precede the re-added generic rm ask (first match wins, added patterns run last). Validated 24/24 simulated cases against the installed 1.5.0 plugin (`/tmp/opencode/dc-audit-test.mjs`); audit evidence: 23 path blocks in the log, 100% false positives except 1 legitimate ask (`out/` matched every `/home/l-out-/...` absolute path)
+- `quota-toast.jsonc`: explicit `enabledProviders` `["openrouter"]` - OpenCode Go source disabled until subscription (the `opencode` auth.json key made the plugin poll the Go usage API, answering 403 EntitlementError toasts on every idle/interrupt); anthropic/openai disabled as quota sources; reason documented as JSONC comment in the file. **Moved** from `~/.config/opencode/quota-toast.jsonc` to `~/.config/opencode/opencode-quota/quota-toast.jsonc` - the path the plugin actually reads (config.ts:206); the file at the old path was never loaded, which is why the 403 persisted across restarts
+- `opencode.json`: `disabled_providers` `["anthropic", "openai"]` (authed but unused; models route via openrouter/llamacpp-ricinus)
+- `damage-control.json`: added `Recursive delete of a home directory` block pattern (`rm -rf /home/<user>` as complete arg) to back the narrowed opencode.json bash globs
+- `opencode.json`: removed JSONC comments (strict-JSON consumers logged `WARN Failed to add detected providers... Cannot parse JSON config`); `permission.edit` `ask` -> `allow` (dangerous edits still guarded by damage-control path tiers); anchored over-broad bash deny globs (`rm -rf /*`, `rm -rf ~*`, `rm -rf ..*`, `chmod -R 777 /*` matched every absolute path because the glob `*` crosses `/`) down to exact catastrophic forms (`rm -rf /`, `rm -rf ~`, `rm -rf ~/`, `rm -rf ..`); `external_directory` now allows `/tmp/opencode/**` permanently (scratch dir) with `*` still `ask`
 - Translate remaining French documentation strings to English
 - AGENTS.md rule: plan mode ends silently when no exit tool is available (no "go"/"approve" proposals); with `plan_exit` available, call it and never duplicate approval in text
 

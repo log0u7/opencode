@@ -1,0 +1,14 @@
+{
+  "tuiSidebarPanel": { "enabled": true },
+  "enableToast": true,
+  "tuiCompactStatus": { "enabled": true },
+  "tuiCommandDisplay": "inline",
+  // "opencode-go" is deliberately excluded: the "opencode" auth.json key makes
+  // the plugin poll the OpenCode Go usage API, which answers 403
+  // EntitlementError ("OpenCode Go subscription required") without a
+  // subscription, producing error toasts on every idle/interrupt.
+  // Re-add "opencode-go" once subscribed. Context: draft-issue-opencode-go-403.md
+  // in the opencode-quota fork.
+  // anthropic/openai disabled as quota sources: providers disabled in opencode.json.
+  "enabledProviders": ["openrouter"]
+}

@@ -1,0 +1,40 @@
+{
+  "patterns": {
+    "remove": [
+      "Recursive delete from root",
+      "Pipe curl to shell",
+      "Pipe wget to shell",
+      "rm with recursive or force flags",
+      "rm with --recursive flag",
+      "rm with --force flag"
+    ],
+    "add": [
+      { "pattern": "rm\\s+-rf\\s+~", "reason": "Recursive delete from home directory", "action": "block" },
+      { "pattern": "rm\\s+-rf\\s+\\.\\.", "reason": "Recursive delete of parent directory", "action": "block" },
+      { "pattern": "rm\\s+(?:-[a-zA-Z]+\\s+)+/(?:\\s|$|\\*)", "reason": "Recursive delete from filesystem root", "action": "block" },
+      { "pattern": "rm\\s+(?:-[a-zA-Z]+\\s+)+/(?:boot|etc|home|lib|lib64|media|mnt|opt|proc|root|run|sbin|srv|sys|tmp|usr|var)(?:\\s|$)", "reason": "Recursive delete of top-level system directory", "action": "block" },
+      { "pattern": "rm\\s+(?:-[a-zA-Z]+\\s+)+/home/[A-Za-z0-9._-]+(?:\\s|$)", "reason": "Recursive delete of a home directory", "action": "block" },
+      { "pattern": "\\brm\\s+(-[^\\s]*)*-[rRf]", "reason": "rm with recursive or force flags", "action": "ask" },
+      { "pattern": "\\brm\\s+--recursive", "reason": "rm with --recursive flag", "action": "ask" },
+      { "pattern": "\\brm\\s+--force", "reason": "rm with --force flag", "action": "ask" },
+      { "pattern": "curl[^|]*\\|\\s*(?:ba|z)?sh\\b", "reason": "Pipe curl to shell", "action": "block" },
+      { "pattern": "wget[^|]*\\|\\s*(?:ba|z)?sh\\b", "reason": "Pipe wget to shell", "action": "block" },
+      { "pattern": "pkill", "reason": "Process killer: pkill", "action": "block" },
+      { "pattern": "kill -9", "reason": "Force kill: kill -9", "action": "block" },
+      { "pattern": "killall", "reason": "Process killer: killall", "action": "block" },
+      { "pattern": "pkill -9", "reason": "Force process killer: pkill -9", "action": "block" },
+      { "pattern": "history\\s+-c", "reason": "Clear shell history", "action": "block" },
+      { "pattern": "\\bhalt\\b", "reason": "System halt", "action": "block" },
+      { "pattern": "git\\s+clean\\s+.*-fdx", "reason": "git clean -fdx (deletes ALL untracked incl. ignored, unrecoverable)", "action": "ask" },
+      { "pattern": "git\\s+clean\\s+.*-fx", "reason": "git clean -fx (deletes ALL untracked incl. ignored, unrecoverable)", "action": "ask" }
+    ]
+  },
+  "paths": {
+    "override": {
+      "out/": "none",
+      "~/.config/opencode": "none",
+      "node_modules/": "none",
+      "/etc/": "none"
+    }
+  }
+}
