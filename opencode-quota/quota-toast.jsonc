@@ -1,6 +1,10 @@
 {
   "tuiSidebarPanel": { "enabled": true },
+  // Toast triggers: the interrupt pop is the "session.idle" event, so
+  // showOnIdle=false disables idle + interrupt toasts. enableToast=false
+  // would silence every toast; showOnQuestion/showOnCompact stay available.
   "enableToast": true,
+  "showOnIdle": false,
   "tuiCompactStatus": { "enabled": true },
   "tuiCommandDisplay": "inline",
   // "opencode-go" is deliberately excluded: the "opencode" auth.json key makes
