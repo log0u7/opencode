@@ -13,7 +13,7 @@
   },
   "plugin": [
     "~/.config/opencode/plugins/caveman/plugin.js",
-    "@slkiser/opencode-quota",
+    "/home/logout/opencode-quota/dist/index.js",
     "opencode-pty",
     "opencode-damage-control"
   ],
