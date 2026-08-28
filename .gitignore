@@ -23,3 +23,7 @@ node_modules/
 
 # Tooling caches
 .cache/
+
+# Python bytecode
+__pycache__/
+*.pyc
