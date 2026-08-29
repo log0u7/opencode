@@ -14,6 +14,10 @@
 - **SOLID**: Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion.
 - **Secure by design**: validate inputs, least privilege, no hardcoded secrets, deny by default, explicit errors, minimal attack surface.
 
+## Versioning
+
+- New projects start at version `0.0.0`, never `1.0.0` (SemVer: `0.x` is initial development with an unstable API; go `1.0.0` only once the public API is declared stable).
+
 ## Handoff plan -> build
 
 Receive "A plan file exists ... execute on it" message:
@@ -28,7 +32,8 @@ Receive "A plan file exists ... execute on it" message:
 
 While in plan mode (read-only phase), how to end a turn depends on tool availability:
 
-- Exit tool available (`plan_exit`, `exit_plan_mode`, or equivalent): call it once the plan is complete. **NEVER** ask "do you want to switch to build or continue?" - just call the tool silently. The user decides whether to switch.
+- Exit tool available (`plan_exit`, `exit_plan_mode`, or equivalent): present the full plan as a chat message first, then call the exit tool. The plan file is background mechanics; the reply is the deliverable. **NEVER** call the exit tool without the plan having been written in the reply first, and **NEVER** ask "do you want to switch to build or continue?".
+- Write the plan file in a single final complete write once the plan is settled; avoid many incremental edits (TUI noise).
 - No exit tool available: present the final plan and stop. Do NOT propose "go", "approve", "adjust", or any confirmation dialogue. The user switches agents manually and starts execution themselves.
 
 ## Todo discipline

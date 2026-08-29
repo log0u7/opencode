@@ -9,10 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `@slkiser/opencode-quota`: quota monitoring + `/tokens_*` reports via opencode.db local
+- `@slkiser/opencode-quota`: quota monitoring + `/tokens_*` reports via opencode.db local; runtime points at the local fork `/home/logout/opencode-quota` (403 EntitlementError fix, upstream issue slkiser/opencode-quota#247, PR #248 open) - switch back to the npm package once a release above 4.8.2 ships it
 - Submodule `nextlevelbuilder/ui-ux-pro-max-skill` (MIT, 120k stars): 7 UI/UX design skills via dual path `skills/` and `skills/ui-ux-pro-max/.claude/skills/`
 - AGENTS.md rule: always verify subagent findings (reviewer/investigator) before acting
 - AGENTS.md rule: all committed artifacts English-only
+- AGENTS.md rule: new projects start versioning at `0.0.0` (SemVer initial development), not `1.0.0`
+- AGENTS.md rule: present the full plan in the chat reply before calling the plan exit tool (plan file stays background)
 - AGENTS.md rule: `gitleaks` as the standard secret scanner (pre-commit hook on commit, CI job on push)
 - AGENTS.md rule: prefer `glab`/`gh` over `curl` for repo and CI management, human-gated writes
 - pre-commit quality gates: JSON checks, markdownlint on owned docs, gitleaks secret scan (checksum-verified binary), commitlint (Conventional Commits)
@@ -32,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `leonardomso/rust-skills` (MIT, 440): 265 Rust rules with progressive disclosure
 - `venomous2/opencode-seo` (MIT, v0.20.2, commit 6fa3a45): SEO suite installed via official `install.sh`, no DataForSEO credentials configured (deterministic layer only): 88 skills, 4 agents, 12 slash commands, data layer + 54 YAML rules under `seo-suite/`; offline lint verified (`seo_lint.py --file`)
 - Self-authored skills: `web-fundamentals` (HTML/CSS/vanilla JS), `jquery`, `php-lang`, `flask-fastapi`, `cpp`, `asm-x86-arm`, `ruby` (wrapper over ruby-rails-rspec-skill)
+- Patched `opencode-damage-control` 1.5.0 locally (dist in `~/.cache/opencode/packages/`): directory patterns (`out/`, `dist/`, ...) now match on path-segment boundaries instead of raw substring (`/home/logout/...` no longer trips `out/`); `paths.override "out/": "none"` removed, the guard is active again with correct matching. Upstream: issue whjvenyl/opencode-damage-control#1, fix branch `fix/path-protection-segment-matching` on fork `log0u7/opencode-damage-control` (PR creation blocked server-side by GitHub at this time). Re-apply the patch if the opencode plugin cache is refreshed before an upstream release ships the fix.
 
 ### Planned
 
