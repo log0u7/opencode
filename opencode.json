@@ -52,7 +52,19 @@
     },
     "doom_loop": "ask"
   },
-  "lsp": true,
+  "lsp": {
+    "typescript": {
+      "command": [
+        "/home/logout/.npm-global/bin/typescript-language-server",
+        "--stdio"
+      ],
+      "initialization": {
+        "tsserver": {
+          "path": "/home/logout/.local/share/opencode/ts5/node_modules/typescript/lib/tsserver.js"
+        }
+      }
+    }
+  },
   "compaction": {
     "auto": true,
     "prune": true,
@@ -161,7 +173,7 @@
     },
     "opencode-go": {}
   },
-  "enabled_providers": ["llamacpp-ricinus", "ollama-ricinus", "opencode", "openrouter"],
+  "enabled_providers": ["llamacpp-ricinus", "opencode", "openrouter"],
   "disabled_providers": ["anthropic", "openai"],
   "mcp": {
     "context7": {
