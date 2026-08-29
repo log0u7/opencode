@@ -31,7 +31,6 @@
   },
   "paths": {
     "override": {
-      "out/": "none",
       "~/.config/opencode": "none",
       "node_modules/": "none",
       "/etc/": "none"
