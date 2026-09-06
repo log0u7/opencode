@@ -127,6 +127,14 @@ docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp -e COREPACK_ENABLE_DOWNL
   pnpm install --frozen-lockfile && pnpm build && pnpm test"
 ```
 
+## RTK and Ponytail plugins (global)
+
+- The `openrtk` plugin transparently rewrites allowlisted shell commands through `rtk` (Rust Token Killer) to compress output before it reaches the model. Run commands normally, do NOT manually prefix `rtk`.
+- RTK meta commands (run directly, never rewritten): `rtk gain` (savings dashboard), `rtk gain --history` (usage history), `rtk discover` (missed opportunities), `rtk proxy <cmd>` (raw unfiltered execution, for debugging).
+- Caution: `rtk` output is compressed, so counts, sizes, and truncation reported by it may be summarized. Re-run via `rtk proxy` when exact full output matters.
+- The `@dietrichgebert/ponytail` plugin injects the lazy-senior-dev ruleset every turn: rung ladder (YAGNI, reuse, stdlib, native platform, installed dependency, one line, then the minimum that works), never cutting validation, error handling, security, or accessibility.
+- Ponytail level per session: `/ponytail lite|full|ultra|off` (default `full`). It complements caveman (terse communication), they are independent.
+
 ## Third-party dependencies and repositories
 
 - **MUST** prefer official repositories (highest stars, active, vendor-backed).

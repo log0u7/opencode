@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Plugin `openrtk` 0.1.0 (npm): transparently routes allowlisted shell commands (git, gh, cargo, file ops, JS/TS tooling, docker, kubectl, curl) through `rtk` for 60-90% output compression. RTK binary built from source: `cargo install --git https://github.com/rtk-ai/rtk --tag v0.48.0` (upstream Apache-2.0, 79k stars, active). Verified the npm tarball source (pure command rewriting in `tool.execute.before`, no network calls, self-disables when `rtk` is absent); npm package caveats: single release (2026-03-11) and dead repo URL (`martins/openrtk` 404). Trap documented: crates.io `rtk` is an unrelated stale package (Rust Type Kit), `cargo install rtk` installs the wrong tool
+- Plugin `@dietrichgebert/ponytail` 4.9.0 (npm, MIT, repo DietrichGebert/ponytail 128k stars): lazy-senior-dev ruleset injected every turn (YAGNI ladder, never cuts validation/security), `/ponytail lite|full|ultra|off` commands, default `full`. Official scoped package; squatter packages `opencode-ponytail` and `ponytail-opencode-plugin` (published by third parties against the same repo) avoided
+- AGENTS.md section: RTK and Ponytail plugins (meta commands, no manual `rtk` prefix, compressed-output caution, ponytail levels)
 - `@slkiser/opencode-quota`: quota monitoring + `/tokens_*` reports via opencode.db local; runtime points at the local fork `/home/logout/opencode-quota` (403 EntitlementError fix, upstream issue slkiser/opencode-quota#247, PR #248 open) - switch back to the npm package once a release above 4.8.2 ships it
 - Submodule `nextlevelbuilder/ui-ux-pro-max-skill` (MIT, 120k stars): 7 UI/UX design skills via dual path `skills/` and `skills/ui-ux-pro-max/.claude/skills/`
 - AGENTS.md rule: always verify subagent findings (reviewer/investigator) before acting
