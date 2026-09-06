@@ -15,7 +15,7 @@
     "~/.config/opencode/plugins/caveman/plugin.js",
     "/home/logout/opencode-quota/dist/index.js",
     "opencode-pty",
-    "opencode-damage-control"
+    "/home/logout/projets/github/opencode-damage-control/dist/index.js"
   ],
   "permission": {
     "bash": {
@@ -42,7 +42,8 @@
       "git clean -fdx*": "deny",
       "git clean -fx*": "deny",
       "history -c*": "deny",
-      ":(){ :|:& };:": "deny"
+      ":(){ :|:& };:": "deny",
+      "proxychains4*": "ask"
     },
     "edit": "allow",
     "external_directory": {
@@ -100,6 +101,7 @@
   },
   "share": "disabled",
   "autoupdate": "notify",
+  "plans_directory": "~/.local/share/opencode/plans",
   "formatter": true,
   "provider": {
     "llamacpp-ricinus": {

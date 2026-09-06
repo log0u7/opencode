@@ -1,5 +1,17 @@
 # Global rules
 
+## AGENTS.md scoping and network boundaries
+
+- Repo-level AGENTS.md files apply ONLY when working inside that repository
+  tree. Reading a repo's files for context does NOT activate its rules for
+  other work.
+- Proxy, tunnel, and wrapper rules (proxychains4, VPN, SSH tunnels) defined by
+  a repo apply ONLY to that repo's own endpoints. NEVER route public internet
+  hosts (gitlab.com, github.com, public registries) through a work proxy or
+  tunnel: those are direct connections.
+- Before following an "always"/"must" rule, resolve its scope (which host,
+  which repo, which environment). Ambiguous scope: ask the user.
+
 ## Writing style
 
 - Never use em dash (`—`). Use `:`, `,`, or `()`. Plain hyphen `-` for dash.
@@ -84,6 +96,36 @@ While in plan mode (read-only phase), how to end a turn depends on tool availabi
 - **MUST NOT** install or invoke a different version than what the project declares.
 - When no pinned version exists, use the system default. Never assume or pick a version.
 - If the required version is missing: report the exact gap ("project requires X, found Y or none") and ask the user before proceeding.
+
+## Home directory hygiene
+
+- The user keeps `$HOME` tidy. **MUST NOT** scatter tool artifacts, caches, or ad-hoc directories in it.
+- Dedicated locations:
+  - Go: `~/go` (GOPATH)
+  - Node: `~/.npm-global` (npm global prefix; runtime versions managed by mise)
+  - Python: `~/venv` (virtualenvs)
+  - Binaries: `~/.local/bin`
+- Project-local artifacts (`node_modules/`, `.venv/`, `vendor/`, build outputs) live inside the project: that is fine.
+- Anything user-wide or non-standard (global package install, new toolchain location): first check how the user already manages it, then ask before creating or installing anything. Never invent ad-hoc locations like `~/opt/<tool>`; those are past-agent messes, not conventions.
+
+## Docker builds (local plugin repos)
+
+Applies when building local repos whose build targets damage-control protected paths (`dist/`, `build/`), e.g. `opencode-quota`, `opencode-damage-control`.
+
+- Repos live in `~/projets/github/<name>`. Canonical location: never reference stale or copied paths in configs, commands, or `opencode.json`.
+- Build with docker, bind-mounting the repo. Purpose: reproducible environment, zero pollution of `$HOME` with build artifacts or root-owned files. Sanctioned method, NOT a damage-control bypass.
+- **MUST** run the container with `--user "$(id -u):$(id -g)"` so bind-mount writes belong to the user. Container-root writes through a bind mount create root-owned files in `$HOME` (2026-08-28 incident: 22k files needed manual chown).
+- **MUST NOT** evade the damage-control matcher in other ways (script-name aliases, quoting tricks, wrappers). If the docker command itself is blocked, hand the exact command to the user instead of reformulating it.
+- **MUST** remove build-only images afterward (`docker rmi`); prefer mise-managed runtimes on the host for daily work.
+
+Recipe (pnpm/corepack repos):
+
+```bash
+docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp -e COREPACK_ENABLE_DOWNLOAD_PROMPT=0 \
+  -v "$PWD":/app -w /app node:22 bash -c "mkdir -p /tmp/cpbin && \
+  corepack enable --install-directory /tmp/cpbin && export PATH=/tmp/cpbin:\$PATH && \
+  pnpm install --frozen-lockfile && pnpm build && pnpm test"
+```
 
 ## Third-party dependencies and repositories
 
