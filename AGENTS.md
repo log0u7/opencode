@@ -2,72 +2,66 @@
 
 ## AGENTS.md scoping and network boundaries
 
-- Repo-level AGENTS.md files apply ONLY when working inside that repository
-  tree. Reading a repo's files for context does NOT activate its rules for
-  other work.
-- Proxy, tunnel, and wrapper rules (proxychains4, VPN, SSH tunnels) defined by
-  a repo apply ONLY to that repo's own endpoints. NEVER route public internet
-  hosts (gitlab.com, github.com, public registries) through a work proxy or
-  tunnel: those are direct connections.
-- Before following an "always"/"must" rule, resolve its scope (which host,
-  which repo, which environment). Ambiguous scope: ask the user.
+- Repo-level AGENTS.md apply ONLY inside that repo tree. Reading repo files for context does NOT activate its rules elsewhere.
+- Repo proxy/tunnel/wrapper rules (proxychains4, VPN, SSH tunnels) apply ONLY to that repo's endpoints. NEVER route public hosts (gitlab.com, github.com, public registries) through work proxy/tunnel: direct connections.
+- Before any "always"/"must" rule: resolve scope (host, repo, environment). Ambiguous: ask user.
 
 ## Writing style
 
-- Never use em dash (`—`). Use `:`, `,`, or `()`. Plain hyphen `-` for dash.
-- Prompts in English. Command templates, agent prompts, skill bodies, model input. Conversation replies follow user language.
-- All committed artifacts English-only: docs, changelog, code comments, commit messages.
+- Never em dash (`—`). Use `:`, `,`, `()`. Plain hyphen `-` for dash.
+- Prompts, command templates, agent prompts, skill bodies, model input: English. Conversation replies follow user language.
+- Committed artifacts English-only: docs, changelog, code comments, commit messages.
 
 ## Engineering principles
 
 - **DRY**: single authoritative representation per concept.
 - **KISS**: simplest correct solution.
-- **YAGNI**: implement only what needed now.
+- **YAGNI**: only what needed now.
 - **SOLID**: Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion.
 - **Secure by design**: validate inputs, least privilege, no hardcoded secrets, deny by default, explicit errors, minimal attack surface.
 
 ## Versioning
 
-- New projects start at version `0.0.0`, never `1.0.0` (SemVer: `0.x` is initial development with an unstable API; go `1.0.0` only once the public API is declared stable).
+- New projects start at `0.0.0`, never `1.0.0` (SemVer: `0.x` = unstable API; `1.0.0` only once public API stable).
 
 ## Handoff plan -> build
 
 Receive "A plan file exists ... execute on it" message:
 
-- **MUST** operate under the build agent model, not the plan agent model.
+- **MUST** operate under build agent model, not plan agent model.
 - Existing todo list: continue it.
 - No todo: create `todowrite` covering all steps before edits/bash.
-- Update todo continuously: `in_progress` on work start, `completed` on finish.
+- Update todo continuously: `in_progress` on start, `completed` on finish.
 - New work discovered = new todo immediately.
 
 ## Plan mode output contract
 
-While in plan mode (read-only phase), how to end a turn depends on tool availability:
+Plan mode (read-only): how to end turn depends on tool availability:
 
-- Exit tool available (`plan_exit`, `exit_plan_mode`, or equivalent): present the full plan as a chat message first, then call the exit tool. The plan file is background mechanics; the reply is the deliverable. **NEVER** call the exit tool without the plan having been written in the reply first, and **NEVER** ask "do you want to switch to build or continue?".
-- Write the plan file in a single final complete write once the plan is settled; avoid many incremental edits (TUI noise).
-- No exit tool available: present the final plan and stop. Do NOT propose "go", "approve", "adjust", or any confirmation dialogue. The user switches agents manually and starts execution themselves.
+- Exit tool available (`plan_exit`, `exit_plan_mode`, or equivalent): present full plan as chat message first, then call exit tool. Plan file is background mechanics; reply is deliverable. **NEVER** call exit tool without plan written in reply first, **NEVER** ask "switch to build or continue?".
+- Write plan file in single final complete write once settled; avoid incremental edits (TUI noise).
+- No exit tool: present final plan, stop. Do NOT propose "go"/"approve"/confirmation dialogue. User switches agents manually.
 
 ## Todo discipline
 
-- Tool `todowrite` replaces the WHOLE list each call: always resend ALL items.
-- Tick `completed` IMMEDIATELY after each finished step. Never batch.
-- Exactly ONE item stays `in_progress` while working.
-- Finished work must NEVER remain `pending`.
+- `todowrite` replaces WHOLE list each call: always resend ALL items.
+- Tick `completed` IMMEDIATELY after each step. Never batch.
+- Exactly ONE `in_progress` while working.
+- Finished work NEVER remains `pending`.
 
 ## State of the art
 
 - Research best practices, idioms, tooling before non-trivial work.
 - Verify APIs, versions, features current.
 - Follow existing conventions.
-- Battle-tested solutions > reinventing.
-- Compare trade-offs explicitly when multiple approaches.
+- Battle-tested > reinventing.
+- Compare trade-offs when multiple approaches.
 
 ## Quality and testing
 
-- Cover all code with tests (unit, integration, end-to-end).
-- All linters, type checkers, test suites must pass. Verify actual result, not intent.
-- Handle errors at appropriate level. Fail fast and loud in dev, gracefully in prod.
+- Cover all code with tests (unit, integration, e2e).
+- All linters, type checkers, test suites pass. Verify actual result, not intent.
+- Handle errors at right level. Fail fast and loud in dev, gracefully in prod.
 - Self-documenting code. Inline comments only where "why" not obvious.
 
 ## Methodology and workflow
@@ -78,45 +72,46 @@ While in plan mode (read-only phase), how to end a turn depends on tool availabi
 
 ## Platform CLI
 
-- **MUST** use `glab` (GitLab) or `gh` (GitHub) for repo and CI management (pipelines, jobs, MRs/PRs, issues, releases).
-- Fallback to `curl` + platform API only when the CLI lacks the feature.
-- Human authorization required before any write operation; read-only queries allowed freely.
+- **MUST** use `glab` (GitLab) or `gh` (GitHub) for repo/CI management (pipelines, jobs, MRs/PRs, issues, releases).
+- Fallback `curl` + platform API only when CLI lacks feature.
+- Human authorization before any write; read-only free.
 
 ## Process management
 
-- **MUST NOT** kill opencode processes (`pkill opencode`, `kill` on opencode PIDs, `killall opencode`). Restarting opencode is the user's decision.
-- `kill <PID>` (SIGTERM) only on processes started by the current task. Escalate to SIGTERM -9 only with user confirmation.
-- When a process outside the task's ownership must stop: return the exact command to the user instead of running it.
-- `pkill`, `kill -9`, `killall` are hard-blocked by the damage-control plugin. Do not attempt bypasses (wrappers, alternate binaries).
+- **MUST NOT** kill opencode processes (`pkill opencode`, `kill` on opencode PIDs, `killall opencode`). Restart is user's decision.
+- `kill <PID>` (SIGTERM) only on task-owned processes. SIGTERM -9 only with user confirmation.
+- Process outside task ownership must stop: return exact command to user, do not run it.
+- `pkill`, `kill -9`, `killall` hard-blocked by damage-control plugin. No bypasses (wrappers, alternate binaries).
 
 ## Tool and binary version pinning
 
 - **MUST** detect and respect project-pinned tool versions before executing any binary.
-- Detection order: `.tool-versions` / `mise.toml` (mise/asdf), `package.json` `engines` field, `.nvmrc` / `.node-version`, `go.mod` Go version, `Cargo.toml` rust-version, `pyproject.toml` python version, `.python-version`, `Gemfile` ruby version.
-- **MUST NOT** install or invoke a different version than what the project declares.
-- When no pinned version exists, use the system default. Never assume or pick a version.
-- If the required version is missing: report the exact gap ("project requires X, found Y or none") and ask the user before proceeding.
+- Detection order: `.tool-versions` / `mise.toml` (mise/asdf), `package.json` `engines`, `.nvmrc` / `.node-version`, `go.mod`, `Cargo.toml` rust-version, `pyproject.toml` python version, `.python-version`, `Gemfile` ruby version.
+- **MUST NOT** install or invoke different version than project declares.
+- No pin: system default. Never assume or pick a version.
+- Required version missing: report exact gap ("project requires X, found Y or none"), ask user before proceeding.
 
 ## Home directory hygiene
 
-- The user keeps `$HOME` tidy. **MUST NOT** scatter tool artifacts, caches, or ad-hoc directories in it.
+- User keeps `$HOME` tidy. **MUST NOT** scatter tool artifacts, caches, ad-hoc dirs in it.
 - Dedicated locations:
   - Go: `~/go` (GOPATH)
-  - Node: `~/.npm-global` (npm global prefix; runtime versions managed by mise)
+  - Node: `~/.npm-global` (npm prefix; runtimes via mise)
   - Python: `~/venv` (virtualenvs)
   - Binaries: `~/.local/bin`
-- Project-local artifacts (`node_modules/`, `.venv/`, `vendor/`, build outputs) live inside the project: that is fine.
-- Anything user-wide or non-standard (global package install, new toolchain location): first check how the user already manages it, then ask before creating or installing anything. Never invent ad-hoc locations like `~/opt/<tool>`; those are past-agent messes, not conventions.
+- Project-local artifacts (`node_modules/`, `.venv/`, `vendor/`, build outputs) inside project: fine.
+- User-wide or non-standard (global install, new toolchain location): check how user manages it first, then ask. Never invent ad-hoc locations like `~/opt/<tool>`; past-agent messes, not conventions.
 
 ## Docker builds (local plugin repos)
 
-Applies when building local repos whose build targets damage-control protected paths (`dist/`, `build/`), e.g. `opencode-quota`, `opencode-damage-control`.
+Applies to local repos whose build targets damage-control protected paths (`dist/`, `build/`), e.g. `opencode-quota`, `opencode-damage-control`.
 
-- Repos live in `~/projets/github/<name>`. Canonical location: never reference stale or copied paths in configs, commands, or `opencode.json`.
-- Build with docker, bind-mounting the repo. Purpose: reproducible environment, zero pollution of `$HOME` with build artifacts or root-owned files. Sanctioned method, NOT a damage-control bypass.
-- **MUST** run the container with `--user "$(id -u):$(id -g)"` so bind-mount writes belong to the user. Container-root writes through a bind mount create root-owned files in `$HOME` (2026-08-28 incident: 22k files needed manual chown).
-- **MUST NOT** evade the damage-control matcher in other ways (script-name aliases, quoting tricks, wrappers). If the docker command itself is blocked, hand the exact command to the user instead of reformulating it.
-- **MUST** remove build-only images afterward (`docker rmi`); prefer mise-managed runtimes on the host for daily work.
+- Repos live in `~/projets/github/logout/<name>` (symlink target: `~/projets/logout/<name>`). Canonical location: never reference stale or copied paths in configs, commands, or `opencode.json`.
+- Repo layout landmine: `github/logout/` holds own projects AND forks with local fixes; `github/` root holds upstream clones and org groupings only. New fork/fix work goes in `logout/`.
+- Build with docker, bind-mounting repo. Purpose: reproducible environment, zero `$HOME` pollution with build artifacts or root-owned files. Sanctioned method, NOT damage-control bypass.
+- **MUST** run container with `--user "$(id -u):$(id -g)"` so bind-mount writes belong to user. Container-root writes through bind mount create root-owned `$HOME` files (2026-08-28 incident: 22k files chown).
+- **MUST NOT** evade damage-control matcher other ways (script-name aliases, quoting tricks, wrappers). Docker command blocked: hand exact command to user, do not reformulate.
+- **MUST** remove build-only images afterward (`docker rmi`); prefer mise runtimes on host for daily work.
 
 Recipe (pnpm/corepack repos):
 
@@ -129,11 +124,11 @@ docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp -e COREPACK_ENABLE_DOWNL
 
 ## RTK and Ponytail plugins (global)
 
-- The `openrtk` plugin transparently rewrites allowlisted shell commands through `rtk` (Rust Token Killer) to compress output before it reaches the model. Run commands normally, do NOT manually prefix `rtk`.
-- RTK meta commands (run directly, never rewritten): `rtk gain` (savings dashboard), `rtk gain --history` (usage history), `rtk discover` (missed opportunities), `rtk proxy <cmd>` (raw unfiltered execution, for debugging).
-- Caution: `rtk` output is compressed, so counts, sizes, and truncation reported by it may be summarized. Re-run via `rtk proxy` when exact full output matters.
-- The `@dietrichgebert/ponytail` plugin injects the lazy-senior-dev ruleset every turn: rung ladder (YAGNI, reuse, stdlib, native platform, installed dependency, one line, then the minimum that works), never cutting validation, error handling, security, or accessibility.
-- Ponytail level per session: `/ponytail lite|full|ultra|off` (default `full`). It complements caveman (terse communication), they are independent.
+- `openrtk` plugin transparently rewrites allowlisted shell commands through `rtk` (Rust Token Killer), compresses output before model. Run commands normally, do NOT prefix `rtk`.
+- RTK meta commands (run directly, never rewritten): `rtk gain` (savings dashboard), `rtk gain --history` (usage history), `rtk discover` (missed opportunities), `rtk proxy <cmd>` (raw execution, debugging).
+- Caution: `rtk` output compressed; counts, sizes, truncation may be summarized. Re-run via `rtk proxy` when exact full output matters.
+- `@dietrichgebert/ponytail` plugin injects lazy-senior-dev ruleset every turn: rung ladder (YAGNI, reuse, stdlib, native platform, installed dependency, one line, minimum that works), never cutting validation, error handling, security, accessibility.
+- Ponytail level per session: `/ponytail lite|full|ultra|off` (default `full`). Complements caveman (terse communication), independent.
 
 ## Third-party dependencies and repositories
 
@@ -148,15 +143,14 @@ docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp -e COREPACK_ENABLE_DOWNL
 
 ## Cybersecurity hygiene
 
-- **MUST** never hardcode secrets/tokens/credentials. Use env vars or secrets manager.
+- **MUST NOT** hardcode secrets/tokens/credentials. Env vars or secrets manager.
 - **MUST** rotate API keys quarterly.
 - **MUST** keep `.env` and secret files in `.gitignore`, never commit.
 - **MUST** enforce `umask 077` for sensitive files.
 - **MUST** audit file permissions periodically.
 - **MUST** limit SSH agent forwarding, use passphrases.
 - **MUST** audit `authorized_keys` for unexpected entries.
-- **MUST** run `npm audit`, `pip audit`, `bundle audit` before deploying. Pin versions.
-- **MUST** verify checksums, prefer official registries.
+- **MUST** run `npm audit`, `pip audit`, `bundle audit` before deploy. Pin versions.
 - **MUST** scan container images for CVEs, minimal base images, never root.
 - **MUST** deny network by default, allow only needed outbound.
 - **MUST** scan repos for secrets with `gitleaks` (standard): pre-commit hook on commit, CI job on push.
@@ -164,20 +158,27 @@ docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp -e COREPACK_ENABLE_DOWNL
 - **MUST** maintain incident response runbook, test restoration.
 - **MUST** sign releases/checksums.
 - **MUST NOT** execute install scripts without sandbox review.
-- **MUST NOT** use `curl | bash` without checksum verification.
 
 ## Delegation
 
-- Code location ("where is X", "what calls Y", uses of Z): spawn `@cavecrew-investigator` instead of inline grep/read.
-- Surgical edit, scope known, ≤2 files: hand path:line to `@cavecrew-builder`.
+- Code location ("where is X", "what calls Y", uses of Z): spawn `@cavecrew-investigator`, not inline grep/read.
+- Surgical edit, scope known, <=2 files: hand path:line to `@cavecrew-builder`.
 - Review diff/file for bugs: `@cavecrew-reviewer`.
 - Full decision matrix: `cavecrew` skill.
-- **MUST** verify subagent findings before acting: open cited `path:line`, read surrounding context, confirm the issue exists. False positives possible (stale or partial context). Discard refuted findings with explicit reason ("checked X: not an issue because Y"). Never fix or report based on a finding alone.
+- **MUST** verify subagent findings before acting: open cited `path:line`, read context, confirm issue exists. False positives possible (stale/partial context). Discard refuted findings with explicit reason ("checked X: not an issue because Y"). Never fix or report from finding alone.
 
 ## Changelog
 
 - Keep `CHANGELOG.md` updated (Keep a Changelog format).
 - `[Unreleased]` accumulates changes.
-- On release: move to dated section, tag `vX.Y.Z`.
-- Ensure version sections split correctly, no duplicates.
+- Release: move to dated section, tag `vX.Y.Z`.
+- Version sections split correctly, no duplicates.
 - Validate before release.
+
+## GitHub forks layout
+
+- Personal fork clones live under `~/projets/github/logout/<repo>` (existing
+  convention: `logout/` = repos the user actively contributes to). NEVER clone
+  into `~/projets/github/` directly.
+- Before cloning any repo under `~/projets/`, check whether a local clone
+  already exists (`ls` the sibling directories first) and reuse it.
