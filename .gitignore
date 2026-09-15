@@ -21,6 +21,9 @@ node_modules/
 # opencode
 .env.opencode
 
+# opencode SDK auto-install + local plans (never commit)
+.opencode/
+
 # Tooling caches
 .cache/
 
