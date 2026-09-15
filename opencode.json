@@ -13,11 +13,11 @@
   },
   "plugin": [
     "~/.config/opencode/plugins/caveman/plugin.js",
-    "/home/logout/opencode-quota/dist/index.js",
+    "~/projets/github/logout/opencode-quota/dist/index.js",
+    "~/projets/github/logout/opencode-damage-control/dist/index.js",
     "opencode-pty",
     "openrtk",
-    "@dietrichgebert/ponytail",
-    "/home/logout/projets/github/opencode-damage-control/dist/index.js"
+    "@dietrichgebert/ponytail"
   ],
   "permission": {
     "bash": {
