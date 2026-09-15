@@ -41,6 +41,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - AGENTS.md rule: present the full plan in the chat reply before calling the plan exit tool (plan file stays background)
 - AGENTS.md rule: `gitleaks` as the standard secret scanner (pre-commit hook on commit, CI job on push)
 - AGENTS.md rule: prefer `glab`/`gh` over `curl` for repo and CI management, human-gated writes
+- AGENTS.md rule: TDD mandatory (Red-Green-Refactor: failing test before any production code, regression test before every bug fix, unit + integration + e2e layers, not unit-only)
+- AGENTS.md section `Language preference`: prefer strict languages with pedantic verbose compilers (Rust, TypeScript, Go, Kotlin, Swift) in strictest toolchain modes (clippy, `strict` tsconfig, warnings-as-errors); nothing forbidden, existing stack or user choice wins
 - pre-commit quality gates: JSON checks, markdownlint on owned docs, gitleaks secret scan (checksum-verified binary), commitlint (Conventional Commits)
 - Makefile targets: `lint`, `smoke`, `skills-update`
 - GitLab CI pipeline: pre-commit lint job + gitleaks security job

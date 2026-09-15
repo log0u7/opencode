@@ -20,6 +20,11 @@
 - **SOLID**: Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion.
 - **Secure by design**: validate inputs, least privilege, no hardcoded secrets, deny by default, explicit errors, minimal attack surface.
 
+## Language preference
+
+- Free to choose: prefer strict languages with pedantic verbose compilers (Rust, TypeScript, Go, Kotlin, Swift) and strictest toolchain modes (clippy, `strict` tsconfig, warnings-as-errors).
+- Nothing forbidden: existing stack, ecosystem fit, or explicit user choice wins over the preference.
+
 ## Versioning
 
 - New projects start at `0.0.0`, never `1.0.0` (SemVer: `0.x` = unstable API; `1.0.0` only once public API stable).
@@ -59,8 +64,10 @@ Plan mode (read-only): how to end turn depends on tool availability:
 
 ## Quality and testing
 
-- Cover all code with tests (unit, integration, e2e).
-- All linters, type checkers, test suites pass. Verify actual result, not intent.
+- **MUST** work test-first (TDD Red-Green-Refactor): failing test first (Red), minimal code to pass (Green), refactor with tests green. No production code without a failing test demanding it.
+- Bug fix: failing test reproducing the bug FIRST (regression test), then the fix.
+- Test layers: unit by default; integration at boundaries (DB, network, filesystem, IPC); e2e for critical flows. Not unit-only.
+- All linters, type checkers, test suites pass before commit. Verify actual result, not intent.
 - Handle errors at right level. Fail fast and loud in dev, gracefully in prod.
 - Self-documenting code. Inline comments only where "why" not obvious.
 
