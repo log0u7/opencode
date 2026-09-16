@@ -8,7 +8,7 @@
 
 ## Writing style
 
-- Never em dash (`—`). Use `:`, `,`, `()`. Plain hyphen `-` for dash.
+- Never em dash (U+2014). Use `:`, `,`, `()`. Plain hyphen `-` for dash.
 - Prompts, command templates, agent prompts, skill bodies, model input: English. Conversation replies follow user language.
 - Committed artifacts English-only: docs, changelog, code comments, commit messages.
 
