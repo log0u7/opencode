@@ -26,9 +26,15 @@
       { "pattern": "history\\s+-c", "reason": "Clear shell history", "action": "block" },
       { "pattern": "\\bhalt\\b", "reason": "System halt", "action": "block" },
       { "pattern": "git\\s+clean\\s+.*-fdx", "reason": "git clean -fdx (deletes ALL untracked incl. ignored, unrecoverable)", "action": "ask" },
-      { "pattern": "git\\s+clean\\s+.*-fx", "reason": "git clean -fx (deletes ALL untracked incl. ignored, unrecoverable)", "action": "ask" }
+      { "pattern": "git\\s+clean\\s+.*-fx", "reason": "git clean -fx (deletes ALL untracked incl. ignored, unrecoverable)", "action": "ask" },
+      { "pattern": "\\u2014", "reason": "Em dash (U+2014) forbidden by writing style", "action": "block" },
+      { "pattern": "\\u2013", "reason": "En dash (U+2013) forbidden by writing style", "action": "block" }
     ]
   },
+  "contentPatterns": [
+    { "pattern": "\\u2014", "reason": "Em dash (U+2014) forbidden by writing style", "action": "block" },
+    { "pattern": "\\u2013", "reason": "En dash (U+2013) forbidden by writing style", "action": "block" }
+  ],
   "paths": {
     "override": {
       "~/.config/opencode": "none",

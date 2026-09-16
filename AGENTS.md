@@ -109,6 +109,17 @@ Plan mode (read-only): how to end turn depends on tool availability:
 - Project-local artifacts (`node_modules/`, `.venv/`, `vendor/`, build outputs) inside project: fine.
 - User-wide or non-standard (global install, new toolchain location): check how user manages it first, then ask. Never invent ad-hoc locations like `~/opt/<tool>`; past-agent messes, not conventions.
 
+## Live-state mutation safety
+
+Applies to any command overwriting existing files outside a project tree or in shared state: rsync/cp to `$HOME`, config deploys, chown/permission changes, bulk edits.
+
+- Dry run against the REAL target first (`rsync -avn ... ~/`), not a dummy target. Read the FULL transfer list unfiltered (no grep/head pipes): every line is a file that will change.
+- Back up before overwriting: `rsync --backup --backup-dir=...` or `cp -a` of the target. No rollback path = do not run.
+- Placeholders never deploy: a repo file that is a template (generic credentials, example hosts, `<...>` values) must not overwrite live state. Exclude it from deploys or get explicit per-file user confirmation.
+- Verify FUNCTION after mutation, not just file state: after an ssh config deploy run `ssh -G <host>` / `ssh -T git@host`; after a git config change run `git config user.email` in the affected scopes.
+- An approved task is not approval for deployment/side-effect steps: executing them is a separate decision; confirm when the blast radius is shared or user-visible state.
+- Report every file actually overwritten, not a summary.
+
 ## Docker builds (local plugin repos)
 
 Applies to local repos whose build targets damage-control protected paths (`dist/`, `build/`), e.g. `opencode-quota`, `opencode-damage-control`.
