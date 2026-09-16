@@ -23,6 +23,8 @@ node_modules/
 
 # opencode SDK auto-install + local plans (never commit)
 .opencode/
+package.json
+package-lock.json
 
 # Tooling caches
 .cache/
