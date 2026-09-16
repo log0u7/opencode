@@ -12,9 +12,9 @@
     ]
   },
   "plugin": [
-    "~/.config/opencode/plugins/caveman/plugin.js",
-    "~/projets/github/logout/opencode-quota/dist/index.js",
-    "~/projets/github/logout/opencode-damage-control/dist/index.js",
+    "/home/logout/.config/opencode/plugins/caveman/plugin.js",
+    "/home/logout/projets/github/logout/opencode-quota/dist/index.js",
+    "/home/logout/projets/github/logout/opencode-damage-control/dist/index.js",
     "opencode-pty",
     "openrtk",
     "@dietrichgebert/ponytail"

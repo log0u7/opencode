@@ -1,5 +1,5 @@
 {
   "$schema": "https://opencode.ai/tui.json",
   "theme": "transparent",
-  "plugin": ["~/projets/github/logout/opencode-quota/dist/tui.js"]
+  "plugin": ["/home/logout/projets/github/logout/opencode-quota/dist/tui.js"]
 }
