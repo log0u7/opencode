@@ -14,7 +14,8 @@
   // Re-add "opencode-go" once subscribed. Context: draft-issue-opencode-go-403.md
   // in the opencode-quota fork.
   // anthropic/openai disabled as quota sources: providers disabled in opencode.json.
-  // "opencode-go" re-enabled for live-testing the local fork patch
-  // (test/opencode-go-403, silent-skip on 403 EntitlementError).
-  "enabledProviders": ["openrouter", "opencode-go"]
+  // "opencode-go" stays off: no subscription, and the 403 silent-skip patch
+  // (PR #248) is NOT in the npm package (not merged upstream) - re-enable
+  // once subscribed or once the PR lands in a release.
+  "enabledProviders": ["openrouter"]
 }
