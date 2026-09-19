@@ -22,8 +22,8 @@
 
 ## Language preference
 
-- Free to choose: prefer strict languages with pedantic verbose compilers (Rust, TypeScript, Go, Kotlin, Swift) and strictest toolchain modes (clippy, `strict` tsconfig, warnings-as-errors).
-- Nothing forbidden: existing stack, ecosystem fit, or explicit user choice wins over the preference.
+- Free choice: prefer strict languages, pedantic verbose compilers (Rust, TypeScript, Go, Kotlin, Swift), strictest toolchain modes (clippy, `strict` tsconfig, warnings-as-errors).
+- Existing stack, ecosystem fit, or explicit user choice wins over the preference.
 
 ## Versioning
 
@@ -41,18 +41,18 @@ Receive "A plan file exists ... execute on it" message:
 
 ## Plan mode output contract
 
-Plan mode (read-only): how to end turn depends on tool availability:
+Plan mode (read-only): end turn per tool availability.
 
-- Exit tool available (`plan_exit`, `exit_plan_mode`, or equivalent): present full plan as chat message first, then call exit tool. Plan file is background mechanics; reply is deliverable. **NEVER** call exit tool without plan written in reply first, **NEVER** ask "switch to build or continue?".
-- Write plan file in single final complete write once settled; avoid incremental edits (TUI noise).
-- No exit tool: present final plan, stop. Do NOT propose "go"/"approve"/confirmation dialogue. User switches agents manually.
+- Exit tool available (`plan_exit`, `exit_plan_mode` or equivalent): present full plan in chat first, then call exit. Plan file = background mechanics; reply = deliverable. **NEVER** call exit without plan written in reply, **NEVER** ask "switch to build or continue?".
+- Write plan file in one final complete write once settled; no incremental edits (TUI noise).
+- No exit tool: present final plan, stop. No "go"/"approve" dialogue. User switches agents manually.
 
 ## Todo discipline
 
-- `todowrite` replaces WHOLE list each call: always resend ALL items.
-- Tick `completed` IMMEDIATELY after each step. Never batch.
+- `todowrite` replaces WHOLE list each call: resend ALL items.
+- Tick `completed` immediately after each step. Never batch.
 - Exactly ONE `in_progress` while working.
-- Finished work NEVER remains `pending`.
+- Finished work never stays `pending`.
 
 ## State of the art
 
@@ -66,7 +66,7 @@ Plan mode (read-only): how to end turn depends on tool availability:
 
 - **MUST** work test-first (TDD Red-Green-Refactor): failing test first (Red), minimal code to pass (Green), refactor with tests green. No production code without a failing test demanding it.
 - Bug fix: failing test reproducing the bug FIRST (regression test), then the fix.
-- Test layers: unit by default; integration at boundaries (DB, network, filesystem, IPC); e2e for critical flows. Not unit-only.
+- Test layers: unit default; integration at boundaries (DB, network, filesystem, IPC); e2e for critical flows. Not unit-only.
 - All linters, type checkers, test suites pass before commit. Verify actual result, not intent.
 - Handle errors at right level. Fail fast and loud in dev, gracefully in prod.
 - Self-documenting code. Inline comments only where "why" not obvious.
@@ -83,12 +83,20 @@ Plan mode (read-only): how to end turn depends on tool availability:
 - Fallback `curl` + platform API only when CLI lacks feature.
 - Human authorization before any write; read-only free.
 
+## PR/MR and issue templates
+
+- Before opening or editing any PR/MR or issue: read project contributing guide + templates (`CONTRIBUTING.md`, `.github/pull_request_template.md`, `.github/ISSUE_TEMPLATE/`, GitLab equivalents), conform EXACTLY.
+- Never rename, reorder, merge, or drop template section headers: CI bots match exact headers (e.g. `### Issue for this PR`), auto-close non-compliant PRs/issues after grace window (opencode: 2h, then closed).
+- Keep required checkboxes checked and `Closes #<n>` references inside template's designated section.
+- After editing a PR/issue body: confirm compliance labels/bot comments cleared and required checks pass.
+- Platform refuses reopen on closed PR (opaque 422): open new PR from same branch with fully compliant body, cross-reference old one.
+
 ## Process management
 
-- **MUST NOT** kill opencode processes (`pkill opencode`, `kill` on opencode PIDs, `killall opencode`). Restart is user's decision.
+- **MUST NOT** kill opencode processes (`pkill opencode`, `kill` on opencode PIDs, `killall opencode`). Restart = user decision.
 - `kill <PID>` (SIGTERM) only on task-owned processes. SIGTERM -9 only with user confirmation.
 - Process outside task ownership must stop: return exact command to user, do not run it.
-- `pkill`, `kill -9`, `killall` hard-blocked by damage-control plugin. No bypasses (wrappers, alternate binaries).
+- `pkill`, `kill -9`, `killall` hard-blocked by workflow-guard plugin. No bypasses (wrappers, alternate binaries).
 
 ## Tool and binary version pinning
 
@@ -101,11 +109,7 @@ Plan mode (read-only): how to end turn depends on tool availability:
 ## Home directory hygiene
 
 - User keeps `$HOME` tidy. **MUST NOT** scatter tool artifacts, caches, ad-hoc dirs in it.
-- Dedicated locations:
-  - Go: `~/go` (GOPATH)
-  - Node: `~/.npm-global` (npm prefix; runtimes via mise)
-  - Python: `~/venv` (virtualenvs)
-  - Binaries: `~/.local/bin`
+- Dedicated locations: Go `~/go` (GOPATH), Node `~/.npm-global` (npm prefix; runtimes via mise), Python `~/venv` (virtualenvs), binaries `~/.local/bin`.
 - Project-local artifacts (`node_modules/`, `.venv/`, `vendor/`, build outputs) inside project: fine.
 - User-wide or non-standard (global install, new toolchain location): check how user manages it first, then ask. Never invent ad-hoc locations like `~/opt/<tool>`; past-agent messes, not conventions.
 
@@ -113,22 +117,22 @@ Plan mode (read-only): how to end turn depends on tool availability:
 
 Applies to any command overwriting existing files outside a project tree or in shared state: rsync/cp to `$HOME`, config deploys, chown/permission changes, bulk edits.
 
-- Dry run against the REAL target first (`rsync -avn ... ~/`), not a dummy target. Read the FULL transfer list unfiltered (no grep/head pipes): every line is a file that will change.
-- Back up before overwriting: `rsync --backup --backup-dir=...` or `cp -a` of the target. No rollback path = do not run.
-- Placeholders never deploy: a repo file that is a template (generic credentials, example hosts, `<...>` values) must not overwrite live state. Exclude it from deploys or get explicit per-file user confirmation.
-- Verify FUNCTION after mutation, not just file state: after an ssh config deploy run `ssh -G <host>` / `ssh -T git@host`; after a git config change run `git config user.email` in the affected scopes.
-- An approved task is not approval for deployment/side-effect steps: executing them is a separate decision; confirm when the blast radius is shared or user-visible state.
+- Dry run against REAL target first (`rsync -avn ... ~/`), not dummy target. Read FULL transfer list unfiltered (no grep/head pipes): every line = a file that will change.
+- Back up before overwriting: `rsync --backup --backup-dir=...` or `cp -a` of target. No rollback path = do not run.
+- Placeholders never deploy: repo file that is a template (generic credentials, example hosts, `<...>` values) must not overwrite live state. Exclude from deploys or get explicit per-file user confirmation.
+- Verify FUNCTION after mutation, not just file state: after ssh config deploy run `ssh -G <host>` / `ssh -T git@host`; after git config change run `git config user.email` in affected scopes.
+- Approved task is not approval for deployment/side-effect steps: separate decision; confirm when blast radius is shared or user-visible state.
 - Report every file actually overwritten, not a summary.
 
 ## Docker builds (local plugin repos)
 
-Applies to local repos whose build targets damage-control protected paths (`dist/`, `build/`), e.g. `opencode-quota`, `opencode-damage-control`.
+Applies to local repos whose build targets protected paths (`dist/`, `build/`), e.g. `opencode-quota`, `opencode-damage-control`.
 
 - Repos live in `~/projets/github/logout/<name>` (symlink target: `~/projets/logout/<name>`). Canonical location: never reference stale or copied paths in configs, commands, or `opencode.json`.
 - Repo layout landmine: `github/logout/` holds own projects AND forks with local fixes; `github/` root holds upstream clones and org groupings only. New fork/fix work goes in `logout/`.
-- Build with docker, bind-mounting repo. Purpose: reproducible environment, zero `$HOME` pollution with build artifacts or root-owned files. Sanctioned method, NOT damage-control bypass.
+- Build with docker, bind-mounting repo. Purpose: reproducible environment, zero `$HOME` pollution with build artifacts or root-owned files. Sanctioned method, NOT a workflow-guard bypass.
 - **MUST** run container with `--user "$(id -u):$(id -g)"` so bind-mount writes belong to user. Container-root writes through bind mount create root-owned `$HOME` files (2026-08-28 incident: 22k files chown).
-- **MUST NOT** evade damage-control matcher other ways (script-name aliases, quoting tricks, wrappers). Docker command blocked: hand exact command to user, do not reformulate.
+- **MUST NOT** evade workflow-guard matcher other ways (script-name aliases, quoting tricks, wrappers). Docker command blocked: hand exact command to user, do not reformulate.
 - **MUST** remove build-only images afterward (`docker rmi`); prefer mise runtimes on host for daily work.
 
 Recipe (pnpm/corepack repos):
@@ -185,6 +189,17 @@ docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp -e COREPACK_ENABLE_DOWNL
 - Full decision matrix: `cavecrew` skill.
 - **MUST** verify subagent findings before acting: open cited `path:line`, read context, confirm issue exists. False positives possible (stale/partial context). Discard refuted findings with explicit reason ("checked X: not an issue because Y"). Never fix or report from finding alone.
 
+## Multi-session repo coordination
+
+Two agent sessions mutating the same repo clone caused real damage (2026-09-17, vim-plugin-manager): commits on foreign branch, tags orphaned by squash merge, PR merged mid-plan.
+
+- Discipline enforced by plugins: `opencode-worktree-guard` (one session = one worktree: writes/commits gated on `worktree_lock`, no re-lock after `worktree_done`, main-branch sessions bypass bootstrap gate, no branch creation from main) and `opencode-workflow-guard` (protected branches, PR preflight, destructive CLI). Do not restate those rules here; comply with tool output. Emergency escape: `OPENCODE_WORKTREE_GUARD_DISABLE=1`.
+- **Worktree path convention**: `git worktree add ~/projets/wt/<repo>/<topic> -b <topic>` from main clone. One worktree = one session. Main clone stays on `main`, never mutated by sessions.
+- **Lifecycle**: push/integration from worktree; `git worktree remove ~/projets/wt/<repo>/<topic>` when merged.
+- **Verify before any commit**: `git branch --show-current` + `git status` + `git reflog -5`; re-verify after every pause.
+- **Release tags only AFTER the merge**, on exact main commit, pushed one by one. Squash merge orphans pre-merge tags (and needs `worktree_done {force: true}`).
+- Dependabot PRs: bot prepares, human approves (`gh pr review --approve`) then merges. No auto-merge.
+
 ## Changelog
 
 - Keep `CHANGELOG.md` updated (Keep a Changelog format).
@@ -195,8 +210,5 @@ docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp -e COREPACK_ENABLE_DOWNL
 
 ## GitHub forks layout
 
-- Personal fork clones live under `~/projets/github/logout/<repo>` (existing
-  convention: `logout/` = repos the user actively contributes to). NEVER clone
-  into `~/projets/github/` directly.
-- Before cloning any repo under `~/projets/`, check whether a local clone
-  already exists (`ls` the sibling directories first) and reuse it.
+- Personal fork clones live under `~/projets/github/logout/<repo>` (convention: `logout/` = repos user actively contributes to). NEVER clone into `~/projets/github/` directly.
+- Before cloning any repo under `~/projets/`: check local clone exists first (`ls` sibling directories), reuse it.
