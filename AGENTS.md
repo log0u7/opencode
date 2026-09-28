@@ -91,6 +91,17 @@ Plan mode (read-only): end turn per tool availability.
 - After editing a PR/issue body: confirm compliance labels/bot comments cleared and required checks pass.
 - Platform refuses reopen on closed PR (opaque 422): open new PR from same branch with fully compliant body, cross-reference old one.
 
+## Pre-merge review
+
+- Every MR/PR passes `/mr-review` before merge. No merge without an explicit `Verdict: MERGE OK` from the `mr-reviewer` subagent.
+- Reviewer protocol (enforced by the subagent, 3 phases, none skipped):
+  1. **Mental trace**: full execution trace per modified file: all callers/callees, error paths, edge cases, security pass, regression pass. One-line change in a shared helper = full caller trace, no skims.
+  2. **Run tests**: reviewer detects and runs the repo test command itself, reports the REAL result. Never claim green without running.
+  3. **Missing tests**: list every untested error path, edge case, and security check the diff introduces, one line each with suggested test file.
+- Blocking verdict (`BLOCK: <reason>`) when: a test fails, a 🔴 bug is unresolved, or a sensitive path (auth, money, DB, API, permissions) lacks sufficient tests. Sensitive path touched = state it in the verdict even when OK.
+- Merge stays a human decision: the verdict never auto-merges. `MERGE OK` = ask user confirmation first.
+- Reviewer is read-only plus the test command: no commits, no pushes, no edits. Security-diff deep dives can chain with `@cavecrew-reviewer`.
+
 ## Process management
 
 - **MUST NOT** kill opencode processes (`pkill opencode`, `kill` on opencode PIDs, `killall opencode`). Restart = user decision.
@@ -149,6 +160,7 @@ docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp -e COREPACK_ENABLE_DOWNL
 - `openrtk` plugin transparently rewrites allowlisted shell commands through `rtk` (Rust Token Killer), compresses output before model. Run commands normally, do NOT prefix `rtk`.
 - RTK meta commands (run directly, never rewritten): `rtk gain` (savings dashboard), `rtk gain --history` (usage history), `rtk discover` (missed opportunities), `rtk proxy <cmd>` (raw execution, debugging).
 - Caution: `rtk` output compressed; counts, sizes, truncation may be summarized. Re-run via `rtk proxy` when exact full output matters.
+- rtk loses stdin: payload-bearing commands through rtk got empty stdin (2026-09-22: `gh pr edit --body-file -` with heredoc wiped a PR body). For commands taking content (`gh pr edit/comment/create`, `gh api -f`): write payload to a file, pass file flag (`--body-file <path>`); never feed heredoc/stdin through rtk.
 - `@dietrichgebert/ponytail` plugin injects lazy-senior-dev ruleset every turn: rung ladder (YAGNI, reuse, stdlib, native platform, installed dependency, one line, minimum that works), never cutting validation, error handling, security, accessibility.
 - Ponytail level per session: `/ponytail lite|full|ultra|off` (default `full`). Complements caveman (terse communication), independent.
 
