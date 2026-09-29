@@ -107,7 +107,7 @@ Plan mode (read-only): end turn per tool availability.
 - **MUST NOT** kill opencode processes (`pkill opencode`, `kill` on opencode PIDs, `killall opencode`). Restart = user decision.
 - `kill <PID>` (SIGTERM) only on task-owned processes. SIGTERM -9 only with user confirmation.
 - Process outside task ownership must stop: return exact command to user, do not run it.
-- `pkill`, `kill -9`, `killall` hard-blocked by workflow-guard plugin. No bypasses (wrappers, alternate binaries).
+- `pkill`, `kill -9`, `killall` hard-blocked by `opencode.json` permission deny globs (workflow-guard currently disabled, pending upstream update; re-enable restores plugin enforcement). No bypasses (wrappers, alternate binaries).
 
 ## Tool and binary version pinning
 
@@ -205,7 +205,7 @@ docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp -e COREPACK_ENABLE_DOWNL
 
 Two agent sessions mutating the same repo clone caused real damage (2026-09-17, vim-plugin-manager): commits on foreign branch, tags orphaned by squash merge, PR merged mid-plan.
 
-- Discipline enforced by plugins: `opencode-worktree-guard` (one session = one worktree: writes/commits gated on `worktree_lock`, no re-lock after `worktree_done`, main-branch sessions bypass bootstrap gate, no branch creation from main) and `opencode-workflow-guard` (protected branches, PR preflight, destructive CLI). Do not restate those rules here; comply with tool output. Emergency escape: `OPENCODE_WORKTREE_GUARD_DISABLE=1`.
+- Discipline currently rule-based: `opencode-worktree-guard` (one session = one worktree: writes/commits gated on `worktree_lock`, no re-lock after `worktree_done`, main-branch sessions bypass bootstrap gate, no branch creation from main) and `opencode-workflow-guard` (protected branches, PR preflight, destructive CLI) are DISABLED (commented out in `opencode.json`, re-enable pending plugin updates). Until re-enabled, the rules below are hard rules. Comply with plugin tool output once they are back. Emergency escape: `OPENCODE_WORKTREE_GUARD_DISABLE=1`.
 - **Worktree path convention**: `git worktree add ~/projets/wt/<repo>/<topic> -b <topic>` from main clone. One worktree = one session. Main clone stays on `main`, never mutated by sessions.
 - **Lifecycle**: push/integration from worktree; `git worktree remove ~/projets/wt/<repo>/<topic>` when merged.
 - **Verify before any commit**: `git branch --show-current` + `git status` + `git reflog -5`; re-verify after every pause.
