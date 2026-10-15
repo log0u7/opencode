@@ -2,7 +2,7 @@
 
 ## AGENTS.md scoping and network boundaries
 
-- Repo-level AGENTS.md apply ONLY inside that repo tree. Reading repo files for context does NOT activate its rules elsewhere.
+- Repo-level AGENTS.md apply ONLY inside that repo tree. Reading repo files does NOT activate its rules elsewhere.
 - Repo proxy/tunnel/wrapper rules (proxychains4, VPN, SSH tunnels) apply ONLY to that repo's endpoints. NEVER route public hosts (gitlab.com, github.com, public registries) through work proxy/tunnel: direct connections.
 - Before any "always"/"must" rule: resolve scope (host, repo, environment). Ambiguous: ask user.
 
@@ -44,6 +44,8 @@ Receive "A plan file exists ... execute on it" message:
 Plan mode (read-only): end turn per tool availability.
 
 - Exit tool available (`plan_exit`, `exit_plan_mode` or equivalent): present full plan in chat first, then call exit. Plan file = background mechanics; reply = deliverable. **NEVER** call exit without plan written in reply, **NEVER** ask "switch to build or continue?".
+- **Challenge before exit**: every plan states viable design options, trade-offs, pick + why, assumptions, risks. Single-viable-option: state assumptions, no forced alternatives. Rubber-stamp plan (no options, no why, no risks) = incomplete, no exit yet.
+- **Ambiguity = question first**: real fork changing the plan (`question` tool) BEFORE writing it. Silent default when alternatives existed = missing plan. No question-spam: no bikeshedding, no "is this ok?" (exit handles approval).
 - Write plan file in one final complete write once settled; no incremental edits (TUI noise).
 - No exit tool: present final plan, stop. No "go"/"approve" dialogue. User switches agents manually.
 
@@ -64,8 +66,8 @@ Plan mode (read-only): end turn per tool availability.
 
 ## Quality and testing
 
-- **MUST** work test-first (TDD Red-Green-Refactor): failing test first (Red), minimal code to pass (Green), refactor with tests green. No production code without a failing test demanding it.
-- Bug fix: failing test reproducing the bug FIRST (regression test), then the fix.
+- **MUST** work test-first (TDD Red-Green-Refactor): failing test first (Red), minimal code to pass (Green), refactor tests green. No production code without failing test demanding it.
+- Bug fix: failing regression test reproducing the bug FIRST, then fix.
 - Test layers: unit default; integration at boundaries (DB, network, filesystem, IPC); e2e for critical flows. Not unit-only.
 - All linters, type checkers, test suites pass before commit. Verify actual result, not intent.
 - Handle errors at right level. Fail fast and loud in dev, gracefully in prod.
@@ -95,12 +97,12 @@ Plan mode (read-only): end turn per tool availability.
 
 - Every MR/PR passes `/mr-review` before merge. No merge without an explicit `Verdict: MERGE OK` from the `mr-reviewer` subagent.
 - Reviewer protocol (enforced by the subagent, 3 phases, none skipped):
-  1. **Mental trace**: full execution trace per modified file: all callers/callees, error paths, edge cases, security pass, regression pass. One-line change in a shared helper = full caller trace, no skims.
+  1. **Mental trace**: full execution trace per modified file: callers/callees, error paths, edge cases, security pass, regression pass. One-line change in shared helper = full caller trace, no skims.
   2. **Run tests**: reviewer detects and runs the repo test command itself, reports the REAL result. Never claim green without running.
-  3. **Missing tests**: list every untested error path, edge case, and security check the diff introduces, one line each with suggested test file.
-- Blocking verdict (`BLOCK: <reason>`) when: a test fails, a 🔴 bug is unresolved, or a sensitive path (auth, money, DB, API, permissions) lacks sufficient tests. Sensitive path touched = state it in the verdict even when OK.
+  3. **Missing tests**: list every untested error path, edge case, security check the diff introduces, one line each + suggested test file.
+- Blocking verdict (`BLOCK: <reason>`) when: test fails, 🔴 bug unresolved, or sensitive path (auth, money, DB, API, permissions) lacks sufficient tests. Sensitive path touched = state it in verdict even when OK.
 - Merge stays a human decision: the verdict never auto-merges. `MERGE OK` = ask user confirmation first.
-- Reviewer is read-only plus the test command: no commits, no pushes, no edits. Security-diff deep dives can chain with `@cavecrew-reviewer`.
+- Reviewer read-only plus test command: no commits, no pushes, no edits. Security-diff deep dives can chain with `@cavecrew-reviewer`.
 
 ## Process management
 
@@ -108,6 +110,18 @@ Plan mode (read-only): end turn per tool availability.
 - `kill <PID>` (SIGTERM) only on task-owned processes. SIGTERM -9 only with user confirmation.
 - Process outside task ownership must stop: return exact command to user, do not run it.
 - `pkill`, `kill -9`, `killall` hard-blocked by `opencode.json` permission deny globs (workflow-guard currently disabled, pending upstream update; re-enable restores plugin enforcement). No bypasses (wrappers, alternate binaries).
+
+## Parallelism and patience
+
+- **MUST NOT** idle-wait in terminal: no `sleep N`, no `while ! check; do sleep 1; done`, no repeated poll commands. Two valid states only: command blocks until done (just run it), or runs in background and you get notified. Sleeping between checks = bug.
+- Long-running process (dev server, build, test suite): `pty_spawn` with `notifyOnExit=true`, keep working, read output when the exit notification arrives or when output is actually needed. Never sleep-poll a PTY.
+- Blocking waits: use the tool's own blocking mechanism (`gh run watch`, `gh pr checks --watch`, `kubectl wait`, a build command that exits when finished). One blocking call > N sleep-checks.
+- Retry/backoff: implement inside the failing command or script, never as agent-side sleeps between tool calls.
+- bash `wait` legal ONLY as parallelism barrier (`cmd1 & cmd2 & cmd3 & wait`), never as idle-waiting.
+- **Parallel by default**:
+  - Independent tool calls (reads, greps, globs, independent bash commands): batch ALL in one message, multiple invokes. Sequential ONLY when output of step A feeds step B.
+  - Independent shell work inside one bash call: `cmd1 & cmd2 & wait`, `xargs -P`, GNU `parallel`.
+  - Context gathering first, parallelized: fetch every file/log/context needed up front, then edit. No read-edit-read-edit serial chains.
 
 ## Tool and binary version pinning
 
@@ -122,7 +136,7 @@ Plan mode (read-only): end turn per tool availability.
 - User keeps `$HOME` tidy. **MUST NOT** scatter tool artifacts, caches, ad-hoc dirs in it.
 - Dedicated locations: Go `~/go` (GOPATH), Node `~/.npm-global` (npm prefix; runtimes via mise), Python `~/venv` (virtualenvs), binaries `~/.local/bin`.
 - Project-local artifacts (`node_modules/`, `.venv/`, `vendor/`, build outputs) inside project: fine.
-- User-wide or non-standard (global install, new toolchain location): check how user manages it first, then ask. Never invent ad-hoc locations like `~/opt/<tool>`; past-agent messes, not conventions.
+- User-wide or non-standard (global install, new toolchain location): check how user manages it first, then ask. Never invent ad-hoc locations like `~/opt/<tool>`: past-agent messes, not conventions.
 
 ## Live-state mutation safety
 
@@ -130,7 +144,7 @@ Applies to any command overwriting existing files outside a project tree or in s
 
 - Dry run against REAL target first (`rsync -avn ... ~/`), not dummy target. Read FULL transfer list unfiltered (no grep/head pipes): every line = a file that will change.
 - Back up before overwriting: `rsync --backup --backup-dir=...` or `cp -a` of target. No rollback path = do not run.
-- Placeholders never deploy: repo file that is a template (generic credentials, example hosts, `<...>` values) must not overwrite live state. Exclude from deploys or get explicit per-file user confirmation.
+- Placeholders never deploy: repo file that is a template (generic credentials, example hosts, `<...>` values) must not overwrite live state. Exclude from deploys or get per-file user confirmation.
 - Verify FUNCTION after mutation, not just file state: after ssh config deploy run `ssh -G <host>` / `ssh -T git@host`; after git config change run `git config user.email` in affected scopes.
 - Approved task is not approval for deployment/side-effect steps: separate decision; confirm when blast radius is shared or user-visible state.
 - Report every file actually overwritten, not a summary.
@@ -141,7 +155,7 @@ Applies to local repos whose build targets protected paths (`dist/`, `build/`), 
 
 - Repos live in `~/projets/github/logout/<name>` (symlink target: `~/projets/logout/<name>`). Canonical location: never reference stale or copied paths in configs, commands, or `opencode.json`.
 - Repo layout landmine: `github/logout/` holds own projects AND forks with local fixes; `github/` root holds upstream clones and org groupings only. New fork/fix work goes in `logout/`.
-- Build with docker, bind-mounting repo. Purpose: reproducible environment, zero `$HOME` pollution with build artifacts or root-owned files. Sanctioned method, NOT a workflow-guard bypass.
+- Build with docker, bind-mounting repo. Purpose: reproducible environment, zero `$HOME` pollution (build artifacts, root-owned files). Sanctioned method, NOT a workflow-guard bypass.
 - **MUST** run container with `--user "$(id -u):$(id -g)"` so bind-mount writes belong to user. Container-root writes through bind mount create root-owned `$HOME` files (2026-08-28 incident: 22k files chown).
 - **MUST NOT** evade workflow-guard matcher other ways (script-name aliases, quoting tricks, wrappers). Docker command blocked: hand exact command to user, do not reformulate.
 - **MUST** remove build-only images afterward (`docker rmi`); prefer mise runtimes on host for daily work.
