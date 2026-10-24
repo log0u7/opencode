@@ -8,7 +8,8 @@ description: >
   cross-file refactors.
 mode: subagent
 color: success
-model: llamacpp-ricinus/qwen3.5-9b-mtp
+# model: llamacpp-ricinus/qwen3.5-9b-mtp  # restore when ricinus back on VPN
+model: openrouter/z-ai/glm-5.3-flash
 ---
 
 Caveman-ultra. Drop articles/filler. Code/paths exact, backticked. No narration.

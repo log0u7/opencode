@@ -37,3 +37,6 @@
 [submodule "skills/rust"]
 	path = skills/rust
 	url = https://github.com/leonardomso/rust-skills
+[submodule "vendor/reverse-skill"]
+	path = vendor/reverse-skill
+	url = https://github.com/zhaoxuya520/reverse-skill

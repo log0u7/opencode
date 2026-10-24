@@ -14,10 +14,14 @@
   "plugin": [
     "/home/logout/.config/opencode/plugins/caveman/plugin.js",
     "/home/logout/projets/github/logout/opencode-quota/dist/index.js",
-    "/home/logout/projets/github/logout/opencode-damage-control/dist/index.js",
     "opencode-pty",
     "openrtk",
-    "@dietrichgebert/ponytail"
+    "@dietrichgebert/ponytail",
+    "@log0u7/opencode-memory@0.5.0",
+    "@log0u7/opencode-mesh@0.4.0",
+    "@log0u7/opencode-watt@0.3.0"
+  //  "opencode-worktree-guard",
+  //  "opencode-workflow-guard"
   ],
   "permission": {
     "bash": {
@@ -60,12 +64,7 @@
       "command": [
         "/home/logout/.npm-global/bin/typescript-language-server",
         "--stdio"
-      ],
-      "initialization": {
-        "tsserver": {
-          "path": "/home/logout/.local/share/opencode/ts5/node_modules/typescript/lib/tsserver.js"
-        }
-      }
+      ]
     }
   },
   "compaction": {
@@ -74,8 +73,10 @@
     "preserve_recent_tokens": 6000,
     "reserved": 2000
   },
-  "model": "llamacpp-ricinus/qwen3.5-9b-mtp",
-  "small_model": "llamacpp-ricinus/qwen3.5-9b-mtp",
+  //"model": "llamacpp-ricinus/qwen3.5-9b-mtp",  // restore when ricinus back on VPN
+  "model": "openrouter/z-ai/glm-5.3-flash",
+  //"small_model": "llamacpp-ricinus/qwen3.5-9b-mtp",  // restore when ricinus back on VPN
+  "small_model": "openrouter/z-ai/glm-5.3-flash",
   "agent": {
     "build": {
       "model": "openrouter/z-ai/glm-5.3-flash",
@@ -89,21 +90,20 @@
       "model": "openrouter/z-ai/glm-5.3-flash"
     },
     "explore": {
-      "model": "llamacpp-ricinus/qwen3.5-9b-mtp",
+      //"model": "llamacpp-ricinus/qwen3.5-9b-mtp",
       "temperature": 0.6,
       "top_p": 0.95,
       "steps": 60
     },
     "title": {
-      "model": "llamacpp-ricinus/qwen3.5-9b-mtp"
+      //"model": "llamacpp-ricinus/qwen3.5-9b-mtp"  // restore when ricinus back on VPN
     },
     "summary": {
-      "model": "llamacpp-ricinus/qwen3.5-9b-mtp"
+      //"model": "llamacpp-ricinus/qwen3.5-9b-mtp"  // restore when ricinus back on VPN
     }
   },
   "share": "disabled",
   "autoupdate": "notify",
-  "plans_directory": "~/.local/share/opencode/plans",
   "formatter": true,
   "provider": {
     "llamacpp-ricinus": {
@@ -160,14 +160,14 @@
       }
     },
     "opencode": {
-      "options": {
-        "setCacheKey": true
-      }
+     // "options": {
+     //   "setCacheKey": true
+     // }
     },
     "openrouter": {
-      "options": {
-        "setCacheKey": true
-      },
+     // "options": {
+     //   "setCacheKey": true
+     // },
       "models": {
         "z-ai/glm-5.3-flash": {
           "id": "z-ai/glm-5.3-flash",
@@ -177,12 +177,27 @@
     },
     "opencode-go": {}
   },
-  "enabled_providers": ["llamacpp-ricinus", "opencode", "openrouter"],
+  "enabled_providers": ["llamacpp-ricinus", "opencode", "opencode-go" , "openrouter"],
   "disabled_providers": ["anthropic", "openai"],
   "mcp": {
     "context7": {
       "type": "remote",
       "url": "https://mcp.context7.com/mcp",
+      "enabled": true
+    },
+    "serena": {
+      "type": "local",
+      "command": ["serena", "start-mcp-server", "--context", "ide", "--project-from-cwd"],
+      "enabled": true
+    },
+    "rea": {
+      "type": "local",
+      "command": ["npx", "-y", "rea-agents@6.7.0", "mcp"],
+      "enabled": true
+    },
+    "playwright": {
+      "type": "local",
+      "command": ["npx", "-y", "@playwright/mcp@0.0.83", "--headless", "--isolated"],
       "enabled": true
     }
   }

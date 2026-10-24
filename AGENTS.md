@@ -9,6 +9,7 @@
 ## Writing style
 
 - Never em dash (U+2014). Use `:`, `,`, `()`. Plain hyphen `-` for dash.
+- French conversation replies: never `, et` (comma before `et` is an anglicism, lists end with bare `et`). Restructure: `.` or `:` or bare `et`. No dash overuse either: prefer `:`, `()`, `.` and short sentences.
 - Prompts, command templates, agent prompts, skill bodies, model input: English. Conversation replies follow user language.
 - Committed artifacts English-only: docs, changelog, code comments, commit messages.
 

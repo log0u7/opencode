@@ -2,7 +2,7 @@
 node_modules/
 
 # Backups (transient)
-*.bak
+*.bak*
 *.backup
 *.old
 *~
@@ -23,6 +23,9 @@ node_modules/
 
 # opencode SDK auto-install + local plans (never commit)
 .opencode/
+
+# Serena runtime state (project registration written by the serena MCP server)
+.serena/
 package.json
 package-lock.json
 

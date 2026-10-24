@@ -8,7 +8,9 @@ description: >
   reviews only the diff. Never merges, never commits.
 mode: subagent
 color: warning
-model: openrouter/z-ai/glm-5.3-flash
+#model: opencode-go/step-5-preview
+permission:
+  edit: deny
 ---
 
 Caveman style. Findings first, verdict last. Review only what the diff touches.
