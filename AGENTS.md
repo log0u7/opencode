@@ -115,6 +115,9 @@ Plan mode (read-only): end turn per tool availability.
 ## Parallelism and patience
 
 - **MUST NOT** idle-wait in terminal: no `sleep N`, no `while ! check; do sleep 1; done`, no repeated poll commands. Two valid states only: command blocks until done (just run it), or runs in background and you get notified. Sleeping between checks = bug.
+- Enforcement: inline `sleep` is hard-denied by `opencode.json` permission deny globs. Same ban under other spellings: `read -t`, `watch -n`, `timeout`-wrapped sleeps, anything whose only job is burning clock time. Never work around a permission block.
+- Real offender (2026-11-03, og-cards): `sleep 90; ls static/images/og/en | wc -l; pgrep -f og-cards.mjs >/dev/null && echo STILL_RUNNING || echo DONE`, re-run as `sleep 120; ...` (and `sleep 20/45/75` poll loops around `glab pipeline list`). ~3 minutes lost. Correct: generate then count in ONE blocking command, or run the generator with `background=true` and read the result at the exit notification.
+- Instant status checks (`pgrep`, `test -f`, `ls | wc -l`) stay legal: only the `sleep` between them costs minutes.
 - Long-running process (dev server, build, test suite): `pty_spawn` with `notifyOnExit=true`, keep working, read output when the exit notification arrives or when output is actually needed. Never sleep-poll a PTY.
 - Blocking waits: use the tool's own blocking mechanism (`gh run watch`, `gh pr checks --watch`, `kubectl wait`, a build command that exits when finished). One blocking call > N sleep-checks.
 - Retry/backoff: implement inside the failing command or script, never as agent-side sleeps between tool calls.
