@@ -10,17 +10,26 @@
     "~/.config/opencode/skills/impeccable/.opencode/skills"
   ],
   "plugins": [
+    "./plugins/caveman",
     "@slkiser/opencode-quota",
-    "@log0u7/opencode-mesh",
-    "@log0u7/opencode-memory",
-    "@log0u7/opencode-watt",
-    "./plugins/caveman"
+    //"@log0u7/opencode-mesh",
+    //"@log0u7/opencode-watt",
+    "@log0u7/opencode-memory"
   ],
   "permissions": [
     { "action": "shell", "resource": "*", "effect": "allow" },
     { "action": "shell", "resource": "pkill*", "effect": "deny" },
     { "action": "shell", "resource": "kill -9*", "effect": "deny" },
     { "action": "shell", "resource": "killall*", "effect": "deny" },
+    { "action": "shell", "resource": "sleep*", "effect": "deny" },
+    { "action": "shell", "resource": "*;sleep*", "effect": "deny" },
+    { "action": "shell", "resource": "*; sleep*", "effect": "deny" },
+    { "action": "shell", "resource": "*&&sleep*", "effect": "deny" },
+    { "action": "shell", "resource": "*&& sleep*", "effect": "deny" },
+    { "action": "shell", "resource": "*||sleep*", "effect": "deny" },
+    { "action": "shell", "resource": "*|| sleep*", "effect": "deny" },
+    { "action": "shell", "resource": "*&sleep*", "effect": "deny" },
+    { "action": "shell", "resource": "*& sleep*", "effect": "deny" },
     { "action": "shell", "resource": "shutdown*", "effect": "deny" },
     { "action": "shell", "resource": "reboot*", "effect": "deny" },
     { "action": "shell", "resource": "halt*", "effect": "deny" },
