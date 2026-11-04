@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "default_agent": "plan",
+  //"default_agent": "plan",
   "instructions": [
     "AGENTS.md"
   ],
@@ -62,7 +62,6 @@
     "buffer": 2000
   },
   "model": "openrouter/z-ai/glm-5.3-flash",
-  // "model": "llamacpp-ricinus/qwen3.5-9b-mtp",  // restore when ricinus back on VPN
   "agents": {
     "build": {
       "model": "openrouter/z-ai/glm-5.3-flash",
@@ -86,16 +85,6 @@
   "share": "disabled",
   "update": "notify",
   "formatter": true,
-  "enabled_providers": [
-    "llamacpp-ricinus",
-    "opencode",
-    "opencode-go",
-    "openrouter"
-  ],
-  "disabled_providers": [
-    "anthropic",
-    "openai"
-  ],
   "providers": {
     "llamacpp-ricinus": {
       "name": "00 llama.cpp@ricinus-communis",
@@ -195,26 +184,31 @@
           "ide",
           "--project-from-cwd"
         ]
-      },
-      "rea": {
-        "type": "local",
-        "command": [
-          "npx",
-          "-y",
-          "rea-agents@6.7.0",
-          "mcp"
-        ]
-      },
-      "playwright": {
-        "type": "local",
-        "command": [
-          "npx",
-          "-y",
-          "@playwright/mcp@0.0.83",
-          "--headless",
-          "--isolated"
-        ]
       }
+      // "augure": {
+      //   "type": "local",
+      //   "command": ["/home/logout/.local/bin/augure-mcp-server"]
+      // },
+      // "lictor": {
+      //   "type": "local",
+      //   "command": ["/home/logout/.local/bin/lictor-mcp-server"]
+      // },
+      // "playwright": {
+      //   "type": "local",
+      //   "command": ["npx", "-y", "@playwright/mcp@0.0.83", "--headless", "--isolated"]
+      // },
+      // "rea": {
+      //   "type": "local",
+      //   "command": ["npx", "-y", "rea-agents@6.7.0", "mcp"]
+      // },
+      // "socraticode": {
+      //   "type": "local",
+      //   "command": ["npx", "-y", "socraticode", "mcp"]
+      // },
+      // "graphicle": {
+      //   "type": "local",
+      //   "command": ["graphicle", "mcp"]
+      // }
     }
   }
 }

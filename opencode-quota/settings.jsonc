@@ -1,0 +1,45 @@
+// OpenCode Quota server settings, converted on 2026-10-28 from:
+//   /home/logout/.config/opencode/opencode-quota/quota-toast.jsonc
+// The old file was left in place; OpenCode Quota no longer reads it.
+// Only the settings you chose there are here; a missing key uses its default.
+// Every setting and its default: https://github.com/slkiser/opencode-quota/blob/main/docs/readme/configuration.md
+{
+  "version": 6,
+  "sidebar": {
+    "show": true
+  },
+  "statusLine": {
+    "show": true,
+    "withSidebar": true,
+    "home": true
+  },
+  "toast": {
+    "show": true,
+    "afterReply": "off"
+  },
+  "providers": {
+    "off": [
+      "anthropic",
+      "copilot",
+      "openai",
+      "cursor",
+      "alibaba-coding-plan",
+      "alibaba-token-plan",
+      "google-gemini-cli",
+      "google-agy",
+      "zai",
+      "zhipu",
+      "minimax-coding-plan",
+      "minimax-china-coding-plan",
+      "kimi-code-plan-global",
+      "kimi-code-plan-cn",
+      "deepseek",
+      "xai",
+      "xiaomi",
+      "opencode-go",
+      "opencode",
+      "ollama-cloud",
+      "custom"
+    ]
+  }
+}
