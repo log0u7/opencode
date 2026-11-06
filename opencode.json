@@ -12,8 +12,8 @@
   "plugins": [
     "./plugins/caveman",
     "@slkiser/opencode-quota",
-    //"@log0u7/opencode-mesh",
-    //"@log0u7/opencode-watt",
+    "@log0u7/opencode-mesh",
+    "@log0u7/opencode-watt",
     "@log0u7/opencode-memory"
   ],
   "permissions": [
