@@ -207,12 +207,12 @@ docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp -e COREPACK_ENABLE_DOWNL
 
 ## RTK and Ponytail plugins (global)
 
-- `openrtk` plugin transparently rewrites allowlisted shell commands through `rtk` (Rust Token Killer), compresses output before model. Run commands normally, do NOT prefix `rtk`.
+- `rtk` (official rtk-ai/rtk v1.2.0): binary in `~/.cargo/bin/rtk`, plugin `~/.config/opencode/plugins/rtk.ts` (dual-shape V1/V2). The npm package `openrtk` (0.1.0) is V1-only and dead on V2 (SchemaError); do not use it. Rewrites allowlisted commands (git, gh, cargo, file ops, JS/TS tooling, docker, kubectl, curl) for 60-90% output compression. Run commands normally, do NOT prefix `rtk`. Resolves rtk from PATH only.
 - RTK meta commands (run directly, never rewritten): `rtk gain` (savings dashboard), `rtk gain --history` (usage history), `rtk discover` (missed opportunities), `rtk proxy <cmd>` (raw execution, debugging).
 - Caution: `rtk` output compressed; counts, sizes, truncation may be summarized. Re-run via `rtk proxy` when exact full output matters.
 - rtk loses stdin: payload-bearing commands through rtk got empty stdin (2026-09-22: `gh pr edit --body-file -` with heredoc wiped a PR body). For commands taking content (`gh pr edit/comment/create`, `gh api -f`): write payload to a file, pass file flag (`--body-file <path>`); never feed heredoc/stdin through rtk.
-- `@dietrichgebert/ponytail` plugin injects lazy-senior-dev ruleset every turn: rung ladder (YAGNI, reuse, stdlib, native platform, installed dependency, one line, minimum that works), never cutting validation, error handling, security, accessibility.
-- Ponytail level per session: `/ponytail lite|full|ultra|off` (default `full`). Complements caveman (terse communication), independent.
+- **Trap (V2 shell hook)**: on OpenCode 2.x, `ctx.tool.hook("execute.before")` may not fire for shell commands (issue #4665). If rewriting is silent, patch `plugins/rtk.ts` to also register `ctx.shell.hook("create.before")`. WARNING: `rtk init -g --opencode` overwrites `plugins/rtk.ts` silently on every upgrade. Re-apply the patch after any rtk upgrade. Also: rtk reads permission rules from `opencode.json`/`.jsonc` but its Rust parser does not support JSONC comments - permission-aware rewriting is degraded; OpenCode itself still enforces permissions on the final command.
+- **`@dietrichgebert/ponytail` 5.3.3** (V2-ready, pinned): lazy-senior-dev ruleset, rewritten shorter in v5.0 (map everything the change must reach, every reply ends with what it skipped and any risk). Commands: `/ponytail lite|full|ultra/off` (default `full`), plus `/ponytail-review`, `/ponytail-audit`, `/ponytail-debt`, `/ponytail band` (Claude Code only), `/ponytail default`. Code comment marker changed from `ponytail:` to `shortcut:` in v5.1 (old markers still detected by `/ponytail-debt`). Level survives context compaction (v5.2.0 fix). Complements caveman (terse communication), independent.
 
 ## Third-party dependencies and repositories
 

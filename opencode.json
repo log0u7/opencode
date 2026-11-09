@@ -14,7 +14,8 @@
     "@slkiser/opencode-quota",
     "@log0u7/opencode-mesh",
     "@log0u7/opencode-watt",
-    "@log0u7/opencode-memory"
+    "@log0u7/opencode-memory",
+    "@dietrichgebert/ponytail@5.3.3"
   ],
   "permissions": [
     { "action": "shell", "resource": "*", "effect": "allow" },
