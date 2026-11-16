@@ -186,6 +186,11 @@ Plan mode (read-only): end turn per tool availability.
 - Project-local artifacts (`node_modules/`, `.venv/`, build outputs) inside project: fine.
 - User-wide or non-standard (global install, new toolchain location): check how user manages it first, then ask. Never invent ad-hoc locations like `~/opt/<tool>`: past-agent messes, not conventions.
 
+## Temporary files
+
+- Temp files and dirs: `/tmp/<project-name>/`. Never dump directly into `/tmp/opencode/` (generic, collisions between projects) and never scatter loose entries in `/tmp`.
+- One subdir per project/task. Create it, work inside it, clean it up when the task ends.
+
 ## Live-state mutation safety
 
 Applies to any command overwriting existing files outside a project tree or in shared state: rsync/cp to `$HOME`, config deploys, chown/permission changes, bulk edits.

@@ -54,8 +54,7 @@
     { "action": "shell", "resource": "proxychains4*", "effect": "ask" },
     { "action": "edit", "resource": "*", "effect": "allow" },
     { "action": "external_directory", "resource": "*", "effect": "ask" },
-    { "action": "external_directory", "resource": "/tmp/opencode/**", "effect": "allow" },
-    { "action": "external_directory", "resource": "/tmp/opencode", "effect": "allow" }
+    { "action": "external_directory", "resource": "/tmp/**", "effect": "allow" }
   ],
   "compaction": {
     "auto": true,
