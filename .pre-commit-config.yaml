@@ -16,6 +16,16 @@ repos:
         pass_filenames: false
         always_run: true
 
+  - repo: local
+    hooks:
+      - id: gitleaks-push
+        name: Detect secrets in all commits being pushed
+        language: system
+        entry: gitleaks git --pre-push --redact --verbose
+        pass_filenames: false
+        always_run: true
+        stages: [pre-push]
+
   - repo: https://github.com/DavidAnson/markdownlint-cli2
     rev: v0.17.2 # newest release compatible with system Node >= 18; bump with Node
     hooks:
