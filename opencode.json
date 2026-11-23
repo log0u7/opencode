@@ -12,7 +12,7 @@
   "plugins": [
     "./plugins/caveman",
     "@slkiser/opencode-quota",
-    "@log0u7/opencode-mesh",
+    {"package": "@log0u7/opencode-mesh", "options": {"bind": "lan"}},
     "@log0u7/opencode-watt",
     "@log0u7/opencode-memory",
     "@dietrichgebert/ponytail@5.3.3",
@@ -192,16 +192,16 @@
         "type": "remote",
         "url": "https://mcp.context7.com/mcp"
       },
-      "serena": {
-        "type": "local",
-        "command": [
-          "serena",
-          "start-mcp-server",
-          "--context",
-          "ide",
-          "--project-from-cwd"
-        ]
-      }
+      //"serena": {
+      //  "type": "local",
+      //  "command": [
+      //    "serena",
+      //    "start-mcp-server",
+      //    "--context",
+      //    "ide",
+      //    "--project-from-cwd"
+      //  ]
+      //}
       // "augure": {
       //   "type": "local",
       //   "command": ["/home/logout/.local/bin/augure-mcp-server"]

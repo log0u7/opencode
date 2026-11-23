@@ -23,6 +23,7 @@
       "copilot",
       "openai",
       "cursor",
+      "commandcode",
       "alibaba-coding-plan",
       "alibaba-token-plan",
       "google-gemini-cli",

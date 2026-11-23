@@ -323,7 +323,7 @@ own turn (mesh_register binds the mailbox to YOUR sessionID):
 
 1. `mesh_register(name=<your-name>, role=<your-role>)` (lowercase, no spaces)
 2. `mesh_join(pool=<pool>)` for every pool on your line
-3. Confirm by DM: `mesh_send(to="orchestrator", subject="enrolement: <name>", body="<pools joined>")`
+3. Confirm by DM: `mesh_send(to="opencode-plugins", subject="enrolement: <name>", body="<pools joined>")`
 
 Org table (name / role / pools):
 
