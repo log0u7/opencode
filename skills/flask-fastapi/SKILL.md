@@ -6,6 +6,8 @@ description: >
   per environment, and test clients. Use when the project uses Flask, FastAPI,
   Starlette, or when choosing between them; framework internals covered by
   context7 docs.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # Flask and FastAPI services

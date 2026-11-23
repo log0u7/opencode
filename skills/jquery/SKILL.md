@@ -6,6 +6,8 @@ description: >
   migration to vanilla JS. Use when a project imports `$`/`jQuery`, when asked
   to fix or add features to jQuery code, or when converting jQuery to modern
   JavaScript.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # jQuery (legacy maintenance)

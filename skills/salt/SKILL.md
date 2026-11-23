@@ -7,6 +7,8 @@ metadata:
   domain: infrastructure
   triggers: salt, master, minion, sls, state, ssh, cloud, orchestration
   related-skills: ansible, terraform
+metadata:
+  opencode/autoinvoke: false
 ---
 # Salt
 

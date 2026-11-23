@@ -7,6 +7,8 @@ metadata:
   domain: infrastructure
   triggers: puppet, manifest, agent, catalog, reporting, external_facts
   related-skills: ansible, salt
+metadata:
+  opencode/autoinvoke: false
 ---
 # Puppet
 

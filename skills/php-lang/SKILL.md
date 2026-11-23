@@ -6,6 +6,8 @@ description: >
   handling, and testing with PHPUnit/Pest. Use for PHP language questions,
   plain-PHP or library code, legacy PHP upgrades, and any PHP work not covered
   by the Laravel or Symfony skills.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # Modern PHP (language level)
