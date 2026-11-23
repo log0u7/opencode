@@ -100,8 +100,8 @@
     "todo": true
   },
   // "media": { "image": { "auto_resize": true, "max_width": 2000, "max_height": 2000, "max_base64_bytes": 5242880 } },
-  // "tool_output": { "max_lines": 2000, "max_bytes": 51200 },
-  // "watcher": { "ignore": ["dist/**", "node_modules/**", "coverage/**"] },
+  "tool_output": { "max_lines": 2000, "max_bytes": 51200 },
+  "watcher": { "ignore": ["dist/**", "node_modules/**", "coverage/**", ".cache/**"] },
   "providers": {
     "llamacpp-ricinus": {
       "name": "00 llama.cpp@ricinus-communis",
@@ -190,7 +190,8 @@
     "servers": {
       "context7": {
         "type": "remote",
-        "url": "https://mcp.context7.com/mcp"
+        "url": "https://mcp.context7.com/mcp",
+        "timeout": { "catalog": 30000, "execution": 60000 }
       },
       //"serena": {
       //  "type": "local",
