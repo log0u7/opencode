@@ -12,9 +12,9 @@
   "plugins": [
     "./plugins/caveman",
     "@slkiser/opencode-quota@6.3.0",
-    {"package": "@log0u7/opencode-mesh@0.11.0", "options": {"bind": "lan"}},
+    {"package": "@log0u7/opencode-mesh@0.12.0", "options": {"bind": "lan"}},
     "@log0u7/opencode-watt@0.6.0",
-    "@log0u7/opencode-memory@0.18.0",
+    "@log0u7/opencode-memory@0.19.0",
     "@dietrichgebert/ponytail@5.3.3",
     /*{
     //  "package": "@plannotator/opencode@0.29.1",
