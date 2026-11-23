@@ -261,6 +261,7 @@ docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp -e COREPACK_ENABLE_DOWNL
 - Caution: rtk output compressed; counts, sizes, truncation may be summarized. Re-run via `rtk proxy` when exact full output matters. **WARNING: rtk can swallow a command silently** (seen: `helm upgrade`, `gh pr edit --body-file`): the command runs without effect or output. When a payload-bearing or state-changing command misbehaves through rtk, re-run with `rtk proxy <cmd>`.
 - rtk loses stdin: payload-bearing commands through rtk got empty stdin (2026-09-22, `gh pr edit --body-file -` with heredoc wiped a PR body). For content commands (`gh pr edit/comment/create`, `gh api -f`): write payload to a file, pass file flag; never feed heredoc/stdin through rtk.
 - **Trap (V2 shell hook)**: on OpenCode 2.x, `ctx.tool.hook("execute.before")` may not fire for shell commands (issue #4665). If rewriting is silent, patch `plugins/rtk.ts` to also register `ctx.shell.hook("create.before")`. WARNING: `rtk init -g --opencode` overwrites `plugins/rtk.ts` silently on every upgrade: re-apply the patch after any rtk upgrade. rtk's Rust parser does not support JSONC comments: permission-aware rewriting degraded; OpenCode itself still enforces permissions on the final command.
+- More swallowed-command instances (2026-11-23): `pnpm exec biome format --write <files>` ran with no effect and compressed output. Same rule: state-changing or payload-bearing commands misbehaving through rtk go through `rtk proxy`.
 - **`@dietrichgebert/ponytail` 5.3.3** (V2-ready, pinned): lazy-senior-dev ruleset, rewritten shorter in v5.0 (map everything the change must reach, every reply ends with what it skipped and any risk). Commands: `/ponytail lite|full|ultra/off` (default `full`), plus `/ponytail-review`, `/ponytail-audit`, `/ponytail-debt`, `/ponytail band` (Claude Code only), `/ponytail default`. Comment marker `ponytail:` -> `shortcut:` in v5.1 (old markers still detected by `/ponytail-debt`). Level survives compaction (v5.2.0 fix). Complements caveman (terse communication), independent.
 
 ## Third-party dependencies and repositories
@@ -368,21 +369,22 @@ own turn (mesh_register binds the mailbox to YOUR sessionID):
 
 1. `mesh_register(name=<your-name>, role=<your-role>)` (lowercase, no spaces)
 2. `mesh_join(pool=<pool>)` for every pool on your line
-3. Confirm by DM: `mesh_send(to="opencode-plugins", subject="enrolement: <name>", body="<pools joined>")`. Target = the ORG TABLE, never a hardcoded name; the DM confirmation goes to opencode-plugins (replaceable by `mesh_status` if offline).
+3. Confirm by DM to the LEAD OF YOUR PRIMARY GROUP — declared at enrollment via `mesh_register(primary=<pool>)` or designated by the human; fallback: the orchestrator when the lead is yourself or offline. The org table (primary column) is the source of truth; plugin-scope enrollments still confirm to opencode-plugins.
 
-Org table (name / role / pools):
+Org table (name / role / pools / primary):
 
-| Name | Role | Pools |
-| --- | --- | --- |
-| 6admin | lead | team:infra, team:quartermaster |
-| quartermaster | lead | team:quartermaster, team:purser |
-| k8s-oci | pair | team:infra, team:foreman, team:quartermaster |
-| theforeman | lead | team:foreman |
-| purser | lead (produit purser) | team:purser |
-| opencode-plugins | lead-po (opencode plugins) | team:opencode |
-| opencode | housekeeper (upstream opencode) | team:opencode |
-| opencode-config | ops (config + housekeeping) | team:opencode |
-| orchestrator | orchestrator | team:infra, team:foreman, team:quartermaster, team:purser |
+| Name | Role | Pools | Primary |
+| --- | --- | --- | --- |
+| 6admin | lead | team:infra, team:quartermaster | team:infra |
+| quartermaster | lead | team:quartermaster, team:purser | team:quartermaster |
+| k8s-oci | pair | team:infra, team:foreman, team:quartermaster | team:infra |
+| theforeman | lead | team:foreman | team:foreman |
+| purser | lead (produit purser) | team:purser | team:purser |
+| opencode-plugins | lead-po (opencode plugins) | team:opencode | team:opencode |
+| opencode | housekeeper (upstream opencode) | team:opencode | team:opencode |
+| opencode-config | ops (config + housekeeping) | team:opencode | team:opencode |
+| orchestrator | orchestrator | team:infra, team:foreman, team:quartermaster, team:purser | team:opencode |
+| blog-editor | editor | blog | blog |
 
 Sessions NOT in this table: do not enroll; ignore mesh org mail.
 
