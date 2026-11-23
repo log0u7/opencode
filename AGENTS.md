@@ -155,7 +155,7 @@ Plan mode (read-only): end turn per tool availability.
 - **MUST NOT** kill opencode processes (`pkill opencode`, `kill` on opencode PIDs, `killall opencode`). Restart = user decision.
 - `kill <PID>` (SIGTERM) only on task-owned processes. SIGTERM -9 only with user confirmation.
 - Process outside task ownership must stop: return exact command to user, do not run it.
-- `pkill`, `kill -9`, `killall` hard-blocked by `opencode.json` permission deny globs (workflow-guard currently disabled, pending upstream update; re-enable restores plugin enforcement). No bypasses (wrappers, alternate binaries).
+- `pkill`, `kill -9`, `killall` hard-blocked by `opencode.json` permission deny globs. No bypasses (wrappers, alternate binaries).
 
 ## Parallelism and patience
 
@@ -208,9 +208,8 @@ Applies to local repos whose build targets protected paths (`dist/`, `build/`), 
 
 - Repos live in `~/projets/github/logout/<name>` (symlink target: `~/projets/logout/<name>`). Canonical location: never reference stale or copied paths in configs, commands, or `opencode.json`.
 - Repo layout landmine: `github/logout/` holds own projects AND forks with local fixes; `github/` root holds upstream clones and org groupings only. New fork/fix work goes in `logout/`.
-- Build with docker, bind-mounting repo. Purpose: reproducible environment, zero `$HOME` pollution (build artifacts, root-owned files). Sanctioned method, NOT a workflow-guard bypass.
+- Build with docker, bind-mounting repo. Purpose: reproducible environment, zero `$HOME` pollution (build artifacts, root-owned files). Sanctioned method, NOT a guard bypass.
 - **MUST** run container with `--user "$(id -u):$(id -g)"` so bind-mount writes belong to user. Container-root writes through bind mount create root-owned `$HOME` files (2026-08-28 incident: 22k files chown).
-- **MUST NOT** evade workflow-guard matcher other ways (script-name aliases, quoting tricks, wrappers). Docker command blocked: hand exact command to user, do not reformulate.
 - **MUST** remove build-only images afterward (`docker rmi`); prefer mise runtimes on host for daily work.
 
 Recipe (pnpm/corepack repos):
@@ -272,11 +271,11 @@ docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp -e COREPACK_ENABLE_DOWNL
 
 Two agent sessions mutating the same repo clone caused real damage: commits on foreign branch, tags orphaned by squash merge, PR merged mid-plan.
 
-- Discipline currently rule-based: `opencode-worktree-guard` (one session = one worktree: writes/commits gated on `worktree_lock`, no re-lock after `worktree_done`, main-branch sessions bypass bootstrap gate, no branch creation from main) and `opencode-workflow-guard` (protected branches, PR preflight, destructive CLI) are DISABLED (commented out in `opencode.json`, re-enable pending plugin updates). Until re-enabled, the rules below are hard rules. Comply with plugin tool output once they are back. Emergency escape: `OPENCODE_WORKTREE_GUARD_DISABLE=1`.
+- Discipline rule-based: guard plugins are disabled (`opencode-worktree-guard` abandoned upstream, 0.3.7 stale since Feb 2026; `opencode-workflow-guard` commented out in `opencode.json`, lead decision - too aggressive enforcement). The rules below are hard rules until the lead decides otherwise.
 - **Worktree path convention**: `git worktree add ~/projets/wt/<repo>/<topic> -b <topic>` from main clone. One worktree = one session. Main clone stays on `main`, never mutated by sessions.
 - **Lifecycle**: push/integration from worktree; `git worktree remove ~/projets/wt/<repo>/<topic>` when merged.
 - **Verify before any commit**: `git branch --show-current` + `git status` + `git reflog -5`; re-verify after every pause.
-- **Release tags only AFTER the merge**, on exact main commit, pushed one by one. Squash merge orphans pre-merge tags (and needs `worktree_done {force: true}`).
+- **Release tags only AFTER the merge**, on exact main commit, pushed one by one. Squash merge orphans pre-merge tags.
 - Dependabot PRs: bot prepares, human approves (`gh pr review --approve`) then merges. No auto-merge.
 
 ## Changelog
@@ -315,3 +314,38 @@ Auto-Clarity: plain prose for security warnings, irreversible actions, step orde
 Boundaries: code, comments, commits, PRs, docs written normal; existing comments kept unless asked.
 Floor: code, commands, paths, numbers and error strings verbatim; never drop not/never/no/only.
 <!-- caveman-end -->
+
+## Mesh inter-agents (opencode-mesh >= 0.10.2)
+
+Named mailboxes + pools replace the shared-inbox era. Every session that is
+part of the 6admin.io agent organization MUST enroll at session start, in its
+own turn (mesh_register binds the mailbox to YOUR sessionID):
+
+1. `mesh_register(name=<your-name>, role=<your-role>)` (lowercase, no spaces)
+2. `mesh_join(pool=<pool>)` for every pool on your line
+3. Confirm by DM: `mesh_send(to="orchestrator", subject="enrolement: <name>", body="<pools joined>")`
+
+Org table (name / role / pools):
+
+| Name | Role | Pools |
+| --- | --- | --- |
+| 6admin | lead | team:infra, team:quartermaster |
+| quartermaster | lead | team:quartermaster, team:purser |
+| k8s-oci | pair | team:infra, team:foreman, team:quartermaster |
+| theforeman | lead | team:foreman |
+| purser | lead (produit purser) | team:purser |
+| opencode-plugins | lead-po (opencode plugins) | team:opencode |
+| opencode | housekeeper (upstream opencode) | team:opencode |
+| opencode-config | ops (config + housekeeping) | team:opencode |
+| orchestrator | orchestrator | team:infra, team:foreman, team:quartermaster, team:purser |
+
+Sessions NOT in this table: do not enroll; ignore mesh org mail.
+
+Communication convention (mandatory):
+
+- Pools = announcements only. Subjects: `status: ...` (task done), `decision: ...` (lead arbitration), `alert: ...`. No discussion in pools.
+- Discussions, questions, brainstorms, tasks: direct DM between mailboxes (`mesh_send(to="<mailbox>")`). Sender uses `mesh_wait(id, timeout)` right after sending for a synchronous reply; receiver answers with `reply_to=<id>`.
+- Cross-host DMs need BOTH fields: `mesh_send(peer="<node id du host du destinataire>", to="<mailbox>")` — `peer` says WHERE (node), `to` says WHICH box. Same-host DMs need `to` only. Reply cross-host: same rule (peer + to + reply_to).
+- Pairing is now a 6-digit code (opencode-mesh >= 0.10.2): side A runs `mesh_pair()`, side B runs `mesh_pair(code="<code>")` (LAN autodiscovers the address; cross-subnet adds `address="ip:4399"`). One command each side, both paired. Offers carry the emitter's hostname — no more "manual" labels.
+- Every agent: `mesh_inbox(ack=true)` at the START of each turn. Your inbox is your mailbox only (no more cross-drain).
+- Leads post a `status:` in their pool at the end of each significant task; the orchestrator and the human lead read pools to know where every team stands.
