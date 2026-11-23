@@ -1,6 +1,8 @@
 ---
 name: parasite-seo-check
 description: Self-audit for Google's site reputation abuse policy — finds third-party or low-oversight content exploiting the domain's ranking signals and prescribes remediation with trade-offs. Use when the user says parasite SEO, site reputation abuse, third-party content, or coupon subdomain.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # Parasite SEO Check (Site Reputation Abuse Self-Audit)

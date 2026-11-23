@@ -1,6 +1,8 @@
 ---
 name: image-seo
 description: Audits and fixes image SEO — filenames, alt text, modern formats, responsive images, lazy loading, layout stability, and image sitemaps. Use when the user says image SEO, alt text, or optimize images.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # Image SEO

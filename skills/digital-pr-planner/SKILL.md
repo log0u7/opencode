@@ -1,6 +1,8 @@
 ---
 name: digital-pr-planner
 description: Plans digital PR campaigns that earn editorial links — data-study asset angles, journalist target lists from live link and mention data, pitch structure, and pickup measurement. Use when the user says digital PR, PR for SEO, link earning, data study, or journalist outreach.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # Digital PR Planner

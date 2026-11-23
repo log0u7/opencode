@@ -1,6 +1,8 @@
 ---
 name: backlink-opportunity-planner
 description: Plans ethical link acquisition using competitor referring-domain gaps, anchor patterns, and pitchable asset ideas from live DataForSEO backlink data. Use when the user says link building, backlink opportunities, get backlinks, digital PR, or who links to competitors.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # Backlink Opportunity Planner

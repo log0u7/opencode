@@ -1,6 +1,8 @@
 ---
 name: javascript-seo
 description: Audits JavaScript rendering risks for SEO — SPA shells, client-side-rendered content, hydration pitfalls — and recommends SSR, SSG, or prerendering where needed. Use when the user says JavaScript SEO, React SEO, Next.js SEO, or rendering.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # JavaScript SEO

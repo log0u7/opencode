@@ -1,6 +1,8 @@
 ---
 name: workflow-sxo
 description: Evidence-first Search Experience Optimization workflow that compares a landing page with live SERP page-type consensus, deterministic experience signals and first-party outcomes when available. Use when the user says SXO, search experience optimization, page type mismatch, searcher experience, wrong page type, SERP-fit, or why a technically good page does not rank or convert.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # Workflow: Search Experience Optimisation

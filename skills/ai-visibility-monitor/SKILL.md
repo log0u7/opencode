@@ -1,6 +1,8 @@
 ---
 name: ai-visibility-monitor
 description: Checks whether AI assistants mention your brand for the prompts buyers actually ask, tracks visibility over time, and reports it with charts. Use when the user says AI visibility, does ChatGPT mention us, AI share of voice, are we visible in AI, or LLM monitoring.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # Workflow: AI Visibility Monitor

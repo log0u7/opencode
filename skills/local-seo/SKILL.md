@@ -1,6 +1,8 @@
 ---
 name: local-seo
 description: Builds a local SEO program covering NAP consistency, local pack factors, landing pages, reviews, citations, and LocalBusiness schema with live DataForSEO checks. Use when the user says local SEO, local rankings, map pack, local search, or rank in a city.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # Local SEO

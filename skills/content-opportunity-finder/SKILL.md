@@ -1,6 +1,8 @@
 ---
 name: content-opportunity-finder
 description: Finds new content opportunities from striking-distance keywords, underserved SERP intents, and question keywords with weak current results. Use when the user says content opportunities, what content should I create, easy wins, or quick SEO wins.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # Content Opportunity Finder

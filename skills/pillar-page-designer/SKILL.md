@@ -1,6 +1,8 @@
 ---
 name: pillar-page-designer
 description: Designs a pillar (hub) page — scope, structure, sections, spoke linking, word count guidance, and Article + BreadcrumbList schema. Use when the user says pillar page, hub page, cornerstone content, or design a pillar.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # Pillar Page Designer

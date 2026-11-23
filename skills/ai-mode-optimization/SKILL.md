@@ -1,6 +1,8 @@
 ---
 name: ai-mode-optimization
 description: Optimizes content for Google AI Mode conversational search by covering full question spaces, follow-up chains, and decision-stage comparisons. Use when the user says AI Mode, Google AI Mode, or conversational search.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # AI Mode Optimization

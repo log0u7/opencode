@@ -1,6 +1,8 @@
 ---
 name: robots-advisor
 description: robots.txt and meta robots authoring and audit — Disallow vs noindex semantics, AI crawler rules (GPTBot, ClaudeBot, PerplexityBot, Google-Extended) with blocking trade-offs, and sitemap directives. Use when the user says robots.txt, robots meta, block crawlers, or AI crawlers.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # Robots Advisor

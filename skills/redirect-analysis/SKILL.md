@@ -1,6 +1,8 @@
 ---
 name: redirect-analysis
 description: Audits redirect chains and loops, advises on 301 vs 302 vs 307 semantics, and builds redirect maps for migrations with ready-to-use server rules. Use when the user says redirects, 301, redirect chain, redirect map, or migration URLs.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # Redirect Analysis

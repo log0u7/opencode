@@ -1,6 +1,8 @@
 ---
 name: answer-engine-optimization
 description: Applies answer engine optimization (AEO) fundamentals by researching real questions from SERP data and restructuring content into direct-answer blocks. Use when the user says AEO, answer engine optimization, or answer optimization.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # Answer Engine Optimization

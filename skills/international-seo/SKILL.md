@@ -1,6 +1,8 @@
 ---
 name: international-seo
 description: Plans and audits international SEO — domain structure choices, hreflang implementation and validation, and localization versus translation. Can generate a correct hreflang tag set for supplied URL patterns. Use when the user says hreflang, international SEO, multi-language, or multi-region.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # International SEO

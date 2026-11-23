@@ -1,6 +1,8 @@
 ---
 name: content-calendar
 description: Turns keyword and cluster data into a prioritized publishing calendar with cadence, seasonality from trend data, and page-type assignments. Use when the user says content calendar, publishing schedule, editorial calendar, or plan my content.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # Content Calendar

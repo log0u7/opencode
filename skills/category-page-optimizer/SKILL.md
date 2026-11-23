@@ -1,6 +1,8 @@
 ---
 name: category-page-optimizer
 description: Optimizes category and product-listing pages — intro copy, H1/title patterns, facet indexation rules, pagination canonicals, and internal linking. Use when the user says category page, PLP, collection page, or optimize a category.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # Category Page Optimizer

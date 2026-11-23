@@ -1,6 +1,8 @@
 ---
 name: faq-generator
 description: Generates FAQ sections from real People-Also-Ask and related-keyword questions pulled from the live SERP, with self-contained 40-60 word answers. Use when the user says FAQ, FAQ section, people also ask, or questions to answer.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # FAQ Generator

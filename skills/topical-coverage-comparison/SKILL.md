@@ -1,6 +1,8 @@
 ---
 name: topical-coverage-comparison
 description: Compares topical coverage between the user's site and competitors by clustering live ranked-keyword data and scoring each domain per topic. Use when the user says topical coverage, coverage comparison, competitor topics, or content gap by topic.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # Topical Coverage Comparison

@@ -1,6 +1,8 @@
 ---
 name: llm-citation-readiness
 description: Scores how ready a page is to be cited by LLM-based search engines against a citability checklist, with a mention baseline and prioritized fix list. Use when the user says LLM citations, citation readiness, AI citations, or get cited by AI.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # LLM Citation Readiness

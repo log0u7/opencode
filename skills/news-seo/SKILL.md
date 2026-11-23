@@ -1,6 +1,8 @@
 ---
 name: news-seo
 description: Optimises news and publisher sites for Google News and Top Stories — NewsArticle schema, news sitemaps, author pages, editorial E-E-A-T, and headline conventions. Use when the user says news SEO, Google News, publisher SEO, Top Stories, or news site.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # News SEO

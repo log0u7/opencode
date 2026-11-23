@@ -1,6 +1,8 @@
 ---
 name: competitor-audit
 description: Profiles a competitor's SEO using live DataForSEO rankings, backlinks, and page-level analysis of their top content. Use when the user says competitor audit, analyze competitor, competitor SEO, or what is a rival doing in search.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # Competitor Audit

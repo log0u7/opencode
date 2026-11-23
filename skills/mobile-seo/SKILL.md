@@ -1,6 +1,8 @@
 ---
 name: mobile-seo
 description: Reviews a site against mobile-first indexing — content parity, viewport configuration, tap targets, font sizes, intrusive interstitials, and mobile Core Web Vitals. Use when the user says mobile SEO, mobile friendly, or mobile-first indexing.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # Mobile SEO

@@ -1,6 +1,8 @@
 ---
 name: semantic-seo
 description: Semantic completeness analysis that maps a topic's full meaning space — the related concepts, attributes, and relationships top-ranking pages share — into a coverage checklist for writers. Use when the user says semantic SEO, semantic coverage, or topical completeness.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # Semantic SEO

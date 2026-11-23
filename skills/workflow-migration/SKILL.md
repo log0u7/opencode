@@ -1,6 +1,8 @@
 ---
 name: workflow-migration
 description: End-to-end site migration workflow covering pre-launch baselines and redirect mapping, launch-day checks, and post-launch drift monitoring, so rankings and link equity survive a domain move, replatform, or redesign. Use when the user says site migration, domain migration, replatform, redesign SEO, or move domain.
+metadata:
+  opencode/autoinvoke: false
 ---
 
 # Workflow: Site Migration
