@@ -384,7 +384,7 @@ Org table (name / role / pools / primary):
 | opencode | housekeeper (upstream opencode) | team:opencode | team:opencode |
 | opencode-config | ops (config + housekeeping) | team:opencode | team:opencode |
 | orchestrator | orchestrator | team:infra, team:foreman, team:quartermaster, team:purser | team:opencode |
-| blogger | editor | blog, team:brainforge | blog |
+| blogger | editor | blog | blog |
 
 Sessions NOT in this table: do not enroll; ignore mesh org mail.
 
