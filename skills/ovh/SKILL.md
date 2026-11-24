@@ -7,6 +7,7 @@ metadata:
   domain: cloud
   triggers: ovh, so-baremetal, cloud, dedicated, dns, sip, api
   related-skills: terraform, ansible, gcp
+disable-model-invocation: true
 ---
 # OVH
 

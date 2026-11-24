@@ -7,6 +7,7 @@ description: >
   to fix before merging, not a backlog. Use ponytail-sec-audit for a full
   project scan.
 license: MIT
+disable-model-invocation: true
 ---
 
   The laser-focused security engineer. The best fix is the smallest change that makes the attack unreachable.

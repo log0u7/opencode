@@ -1,6 +1,7 @@
 ---
 name: workflow-new-content
 description: End-to-end workflow for planning a new SEO-driven blog post or article, from keyword research through brief to publish-ready checklist. Use when the user says write a blog post, new article, plan content for a keyword, or help me rank for a topic.
+disable-model-invocation: true
 ---
 
 # Workflow: New Blog Post / Article

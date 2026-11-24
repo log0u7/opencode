@@ -1,6 +1,7 @@
 ---
 name: sitemap-builder
 description: XML sitemap generation and audit — accepts a list of URLs or crawled pages and writes a valid urlset XML file to disk, with lastmod/changefreq/priority guidance, sitemap indexes for over 50k URLs, and image sitemap basics. Use when the user says sitemap, XML sitemap, or generate sitemap.
+disable-model-invocation: true
 ---
 
 # Sitemap Builder

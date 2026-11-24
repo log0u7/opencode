@@ -3,6 +3,7 @@ name: chatgpt-citation-optimizer
 description: Improves the likelihood of being cited by ChatGPT web search through crawler access, factual sourcing, and entity consistency, with mention baselines from DataForSEO. Use when the user says ChatGPT optimization, ChatGPT citations, or cited by ChatGPT.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # ChatGPT Citation Optimizer

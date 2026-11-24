@@ -1,6 +1,7 @@
 ---
 name: site-audit
 description: Atomic single-page or small-site SEO audit of metadata, headings, links, and indexability basics using webfetch and DataForSEO on-page data. Use when the user says audit this page, check this page SEO, on-page audit, or quick SEO check of a URL.
+disable-model-invocation: true
 ---
 
 # Site Audit (Atomic)

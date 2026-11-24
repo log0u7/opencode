@@ -1,6 +1,7 @@
 ---
 name: fact-verification
 description: Fact-checks a draft by extracting factual claims — statistics, dates, named studies — and verifying each against authoritative sources, returning a claim-by-claim verdict table with citations. Use when the user says fact check, verify claims, or check accuracy.
+disable-model-invocation: true
 ---
 
 # Fact Verification

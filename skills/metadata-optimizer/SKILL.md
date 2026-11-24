@@ -1,6 +1,7 @@
 ---
 name: metadata-optimizer
 description: Title tag and meta description optimization — length limits, uniqueness, keyword placement, and CTR copywriting; rewrites pasted lists of URLs and titles. Use when the user says title tags, meta descriptions, rewrite titles, or CTR.
+disable-model-invocation: true
 ---
 
 # Metadata Optimizer

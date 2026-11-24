@@ -7,6 +7,7 @@ description: >
   `~/.config/opencode/skills/ruby-rails/ruby-skill.md` (Ruby style, Rails
   conventions) and `~/.config/opencode/skills/ruby-rails/rspec-skill.md`
   (RSpec patterns), with deep dives under their `references/` directories.
+disable-model-invocation: true
 ---
 
 # Ruby and Rails

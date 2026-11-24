@@ -2,6 +2,7 @@
 name: antislop
 description: "Anti Slop: Rules for AI Coding Agents. The core filter. Load always to stop generic AI slop."
 allowed-tools: Read Write Edit Glob Grep
+disable-model-invocation: true
 ---
 # antislop
 

@@ -1,6 +1,7 @@
 ---
 name: seo-checklist-generator
 description: Generates role-specific SEO checklists — pre-publish, launch, migration, quarterly review — tailored to the site type from project memory. Use when the user says SEO checklist, pre-publish checklist, launch checklist, or migration checklist.
+disable-model-invocation: true
 ---
 
 # SEO Checklist Generator

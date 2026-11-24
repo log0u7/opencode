@@ -1,6 +1,7 @@
 ---
 name: keyword-research
 description: Data-driven keyword research using live DataForSEO search volume, keyword ideas, and related-keyword expansion. Use when the user says keyword research, find keywords, search volume, keyword ideas, seed keywords, or what should I rank for.
+disable-model-invocation: true
 ---
 
 # Keyword Research

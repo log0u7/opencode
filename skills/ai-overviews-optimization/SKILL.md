@@ -3,6 +3,7 @@ name: ai-overviews-optimization
 description: Optimizes pages for Google AI Overviews with answer-block structure, question-form headings, and SERP feature tracking via DataForSEO. Use when the user says AI Overviews, AIO, SGE, or Google AI answers.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # AI Overviews Optimization

@@ -1,6 +1,7 @@
 ---
 name: keyword-gap
 description: Finds keywords competitors rank for that the user's site does not, using DataForSEO domain intersection, then clusters and prioritizes them. Use when the user says keyword gap, competitor keywords, missing keywords, or what do competitors rank for that I don't.
+disable-model-invocation: true
 ---
 
 # Keyword Gap

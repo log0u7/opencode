@@ -3,6 +3,7 @@ name: product-page-optimizer
 description: Optimizes a single product page — title formula, unique copy, reviews, images, Product+Offer schema, cross-sells, and UGC. Use when the user says product page, optimize product page, or improve a product listing.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # Product Page Optimizer

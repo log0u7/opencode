@@ -1,6 +1,7 @@
 ---
 name: knowledge-graph-enhancement
 description: Strengthens brand knowledge graph presence through Organization schema with sameAs, honest Wikidata and Wikipedia eligibility checks, and cross-web naming consistency. Use when the user says knowledge graph, knowledge panel, entity home, or Wikidata.
+disable-model-invocation: true
 ---
 
 # Knowledge Graph Enhancement

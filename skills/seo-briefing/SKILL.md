@@ -1,6 +1,7 @@
 ---
 name: seo-briefing
 description: Morning briefing / CEO mode — a 30-second executive feed of site health, what changed, what needs attention and today's top actions, read from the local recommendation store, drift snapshots and event timeline. Use when the user says briefing, morning briefing, what should I do today, CEO mode, dashboard, or daily standup.
+disable-model-invocation: true
 ---
 
 # SEO Briefing

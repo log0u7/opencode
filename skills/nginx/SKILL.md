@@ -7,6 +7,7 @@ metadata:
   domain: infrastructure
   triggers: nginx, web server, server block, ssl, certbot, load balancer, proxy
   related-skills: traefik, apache
+disable-model-invocation: true
 ---
 # Nginx
 

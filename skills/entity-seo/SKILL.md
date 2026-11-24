@@ -1,6 +1,7 @@
 ---
 name: entity-seo
 description: Applies entity-first SEO by defining the site's key entities, connecting them with sameAs and knowsAbout schema, and auditing entity consistency. Use when the user says entity SEO, entities, named entities, or entity building.
+disable-model-invocation: true
 ---
 
 # Entity SEO

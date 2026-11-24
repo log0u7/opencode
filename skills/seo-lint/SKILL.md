@@ -1,6 +1,7 @@
 ---
 name: seo-lint
 description: Deterministic SEO linting of a URL, HTML file, or directory using the suite's rule engine — 26+ checks with scores, severity-ranked findings, and a CI quality gate. Use when the user says lint, SEO lint, check this page, SEO tests, CI SEO check, or quality gate.
+disable-model-invocation: true
 ---
 
 # SEO Lint

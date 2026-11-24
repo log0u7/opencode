@@ -7,6 +7,7 @@ metadata:
   domain: infrastructure
   triggers: opentofu, hcl, iac, terraform, module, provider, state, plan, apply
   related-skills: terraform, aws
+disable-model-invocation: true
 ---
 # OpenTofu
 

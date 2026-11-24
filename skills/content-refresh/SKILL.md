@@ -1,6 +1,7 @@
 ---
 name: content-refresh
 description: Refresh a single decaying page by confirming decay with live ranking data, replacing stale facts, and expanding coverage to match today's SERP. Use when the user says refresh content, update old post, or content decay.
+disable-model-invocation: true
 ---
 
 # Content Refresh

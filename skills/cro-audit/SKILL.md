@@ -1,6 +1,7 @@
 ---
 name: cro-audit
 description: Conversion rate optimisation audit with deterministic page analysis, SERP intent-goal alignment, competitor benchmarking, objection mining, and an ICE-scored experiment plan. Use when the user says CRO, conversion rate, landing page not converting, improve conversions, A/B test ideas, or why aren't visitors converting.
+disable-model-invocation: true
 ---
 
 # CRO Audit

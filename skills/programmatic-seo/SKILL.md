@@ -3,6 +3,7 @@ name: programmatic-seo
 description: Plans programmatic SEO programmes — demand validation, template quality gates, staged indexation, and internal linking at scale for dataset-driven pages. Use when the user says programmatic SEO, pSEO, template pages, pages at scale, or directory site.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # Programmatic SEO

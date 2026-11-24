@@ -3,6 +3,7 @@ name: retrieval-optimization
 description: Makes content retrieval-friendly for RAG-style AI systems with chunk-surviving passages, unambiguous references, and consistent terminology. Use when the user says retrieval optimization, RAG, or chunk-friendly content.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # Retrieval Optimization

@@ -7,6 +7,7 @@ metadata:
   domain: ci-cd
   triggers: jenkins, jenkinsci, remoting, inbound agent, jnlp, jnlpMac, agent secret, @Exported, @Restricted, JenkinsRule, core-pr-reviewers, ci.jenkins.io, doCreateItem, crumbIssuer, agent.jar, LTS upgrade
   related-skills: ansible
+disable-model-invocation: true
 ---
 
 # Jenkins core and jenkinsci contribution

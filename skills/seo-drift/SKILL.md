@@ -1,6 +1,7 @@
 ---
 name: seo-drift
 description: Captures dated SEO snapshots for a domain — audit scores, live rankings, backlink counts, and AI mentions — and diffs any two snapshots into an evidence-based change report. Use when the user says drift, what changed, rankings dropped, compare snapshots, or SEO monitoring.
+disable-model-invocation: true
 ---
 
 # SEO Drift Monitoring

@@ -3,6 +3,7 @@ name: external-linking
 description: Outbound link practices — citing authoritative sources, when to link out, rel attribute usage (nofollow/sponsored/ugc), and link rot checking. Use when the user says external links, outbound links, or nofollow.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # External Linking

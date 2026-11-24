@@ -1,6 +1,7 @@
 ---
 name: readability-analysis
 description: Analyzes supplied text for sentence and paragraph length, passive voice, jargon, and scanning aids, estimates grade level, and suggests meaning-preserving rewrites. Use when the user says readability, reading level, or simplify text.
+disable-model-invocation: true
 ---
 
 # Readability Analysis

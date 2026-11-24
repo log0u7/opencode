@@ -6,6 +6,7 @@ description: >
   disassembly workflows with objdump/gdb. Use when optimizing hot loops,
   reading compiler output, writing inline asm or freestanding routines,
   reverse-engineering, or debugging at assembly level.
+disable-model-invocation: true
 ---
 
 # Assembly: x86-64 and AArch64

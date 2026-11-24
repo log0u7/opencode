@@ -6,6 +6,7 @@ description: >
   authoring C++ code, fixing memory/UB bugs, build system work, and code
   review; complements the trailofbits modern-cpp skill which focuses on
   security review.
+disable-model-invocation: true
 ---
 
 # Modern C++

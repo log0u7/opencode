@@ -9,6 +9,7 @@ metadata:
   related-skills: ansible, terraform
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 # Salt
 

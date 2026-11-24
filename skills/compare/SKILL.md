@@ -3,6 +3,7 @@ name: compare
 description: Consolidated side-by-side comparison of your site against a competitor — authority, keyword footprint, keyword gap, SERP features, on-page lint and citation readiness in one report. Use when the user says compare my site, site vs competitor, compare websites, or benchmark against a competitor.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # Compare: Your Site vs Competitor

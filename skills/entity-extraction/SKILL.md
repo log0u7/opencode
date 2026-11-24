@@ -1,6 +1,7 @@
 ---
 name: entity-extraction
 description: Identifies the named entities (people, brands, products, concepts) content should mention to demonstrate topical completeness, benchmarked against top-ranking pages. Use when the user says entities, entity SEO, NLP entities, or what entities should I mention.
+disable-model-invocation: true
 ---
 
 # Entity Extraction

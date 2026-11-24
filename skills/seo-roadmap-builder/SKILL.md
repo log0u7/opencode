@@ -1,6 +1,7 @@
 ---
 name: seo-roadmap-builder
 description: Builds a 30/60/90-day or quarterly SEO roadmap from audit findings and goals, sequenced by dependency and impact with measurement checkpoints. Use when the user says SEO roadmap, 90 day plan, SEO strategy timeline, or what should we do next quarter.
+disable-model-invocation: true
 ---
 
 # SEO Roadmap Builder

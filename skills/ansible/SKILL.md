@@ -7,6 +7,7 @@ metadata:
   domain: infrastructure
   triggers: ansible, playbook, role, inventory, foreman, dynamic, ad-hoc
   related-skills: terraform, docker-swarm, foreman
+disable-model-invocation: true
 ---
 # Ansible
 

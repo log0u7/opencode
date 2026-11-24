@@ -7,6 +7,7 @@ metadata:
   domain: infrastructure
   triggers: traefik, reverse proxy, tls, letsencrypt, middleware, load balancer, docker labels, edge stack, ingress, certificate, http routing
   related-skills: docker-swarm
+disable-model-invocation: true
 ---
 # Traefik
 

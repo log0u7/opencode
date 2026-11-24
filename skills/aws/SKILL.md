@@ -7,6 +7,7 @@ metadata:
   domain: cloud
   triggers: aws, ec2, s3, iam, vpc, rds, lambda, terraform aws
   related-skills: terraform, gcp, ansible
+disable-model-invocation: true
 ---
 # Amazon Web Services (AWS)
 

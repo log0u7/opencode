@@ -3,6 +3,7 @@ name: ecommerce-seo
 description: Plans an ecommerce SEO program covering catalog architecture, faceted navigation, product/category page standards, Product schema, and marketplace context. Use when the user says ecommerce SEO, shop SEO, online store SEO, or SEO for a product catalog.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # Ecommerce SEO

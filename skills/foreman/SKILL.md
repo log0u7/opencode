@@ -7,6 +7,7 @@ metadata:
   domain: infrastructure
   triggers: foreman, smartproxy, pxe, ipxe, tftp, dhcp, dns, hostgroup, bare metal, provisioning, ansible
   related-skills: ansible, docker-swarm, traefik
+disable-model-invocation: true
 ---
 # Foreman
 

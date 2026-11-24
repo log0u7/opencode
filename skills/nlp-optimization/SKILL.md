@@ -3,6 +3,7 @@ name: nlp-optimization
 description: NLP-friendly writing pass that aligns content with how search engines parse language — clear subject-predicate sentences, answer-first paragraphs, consistent entity naming, and unambiguous references. Use when the user says NLP optimization, natural language optimization, or salience.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # NLP Optimization

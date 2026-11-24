@@ -3,6 +3,7 @@ name: content-gap-analysis
 description: Finds subtopics competitors cover that the user's page or site misses by comparing coverage against live top SERP results in a gap matrix. Use when the user says content gap, what am I missing, or gap analysis.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # Content Gap Analysis

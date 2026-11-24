@@ -7,6 +7,7 @@ metadata:
   domain: infrastructure
   triggers: apache, httpd, virtualhost, mod wsgi, mod proxy, mod ssl, .htaccess
   related-skills: nginx, traefik
+disable-model-invocation: true
 ---
 # Apache HTTP Server
 

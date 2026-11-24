@@ -1,6 +1,7 @@
 ---
 name: seo-project-planner
 description: Plans an SEO project or engagement with phases, milestones, deliverables, and dependencies, and can scaffold the seo-project.yml memory file. Use when the user says SEO project plan, plan SEO engagement, or scope an SEO project.
+disable-model-invocation: true
 ---
 
 # SEO Project Planner

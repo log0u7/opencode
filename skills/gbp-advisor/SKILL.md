@@ -1,6 +1,7 @@
 ---
 name: gbp-advisor
 description: Audits and optimizes a Google Business Profile using live DataForSEO business data — categories, description, services, photos, posts, Q&A, and reviews. Use when the user says Google Business Profile, GBP, Google My Business, or optimize my business listing.
+disable-model-invocation: true
 ---
 
 # GBP Advisor

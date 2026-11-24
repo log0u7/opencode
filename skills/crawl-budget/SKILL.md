@@ -1,6 +1,7 @@
 ---
 name: crawl-budget
 description: Finds and fixes crawl waste on larger sites — faceted navigation explosion, parameter sprawl, infinite spaces, soft 404s, and redirect chains — so crawlers spend budget on pages that matter. Use when the user says crawl budget, crawl waste, or faceted navigation.
+disable-model-invocation: true
 ---
 
 # Crawl Budget

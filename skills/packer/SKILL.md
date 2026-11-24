@@ -7,6 +7,7 @@ metadata:
   domain: infrastructure
   triggers: packer, build, image, vm, iso, qemu, hyperv, vsphere, aws, gcp
   related-skills: terraform, ansible
+disable-model-invocation: true
 ---
 # Packer
 

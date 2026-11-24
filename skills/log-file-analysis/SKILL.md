@@ -1,6 +1,7 @@
 ---
 name: log-file-analysis
 description: Analyses server access logs to show which search and AI bots crawl the site, where they spend requests, which status codes they hit, and what crawl waste to fix. Use when the user says log file, log analysis, server logs, crawl stats, or Googlebot logs.
+disable-model-invocation: true
 ---
 
 # Log File Analysis

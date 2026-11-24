@@ -3,6 +3,7 @@ name: video-seo
 description: Optimises videos for YouTube search and Google's video surfaces — titles, descriptions, chapters, VideoObject schema, video sitemaps, and live SERP video-feature checks. Use when the user says video SEO, YouTube SEO, video schema, or rank videos.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # Video SEO

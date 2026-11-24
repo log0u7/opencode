@@ -9,6 +9,7 @@ metadata:
   related-skills: ansible, salt
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 # Puppet
 

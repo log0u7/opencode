@@ -7,6 +7,7 @@ metadata:
   domain: infrastructure
   triggers: docker, swarm, make, compose, traefik, overlay, edge
   related-skills: traefik, foreman, ansible
+disable-model-invocation: true
 ---
 # Docker Swarm
 

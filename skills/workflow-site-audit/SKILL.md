@@ -1,6 +1,7 @@
 ---
 name: workflow-site-audit
 description: End-to-end website SEO audit workflow chaining technical, on-page, content, competitive, and AI-search skills with DataForSEO live data. Use when the user says audit my site, full SEO audit, site health check, complete analysis, or wants a prioritized action plan for a domain.
+disable-model-invocation: true
 ---
 
 # Workflow: Complete Site Audit

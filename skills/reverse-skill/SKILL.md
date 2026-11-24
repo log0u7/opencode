@@ -5,6 +5,7 @@ description: >
   vendor/reverse-skill): authorized reverse engineering, security analysis, CTF
   challenges, and defensive testing. Use for binary/protocol/APK analysis,
   crackmes, CTF tasks, or when the user says RE, reversing, or CTF.
+disable-model-invocation: true
 ---
 
 # reverse-skill router (OpenCode wrapper)

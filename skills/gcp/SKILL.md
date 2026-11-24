@@ -7,6 +7,7 @@ metadata:
   domain: cloud
   triggers: gcp, google, gke, cloudfunctions, cloudstorage, iam, terraform gcp
   related-skills: terraform, aws, ansible
+disable-model-invocation: true
 ---
 # Google Cloud Platform (GCP)
 

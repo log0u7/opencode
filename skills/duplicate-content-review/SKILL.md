@@ -3,6 +3,7 @@ name: duplicate-content-review
 description: Finds internal duplicate and near-duplicate content — parameter URLs, protocol and www variants, pagination overlap, shared boilerplate — and prescribes canonical, 301, or noindex per case. Use when the user says duplicate content, content duplication, or near-duplicate.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # Duplicate Content Review

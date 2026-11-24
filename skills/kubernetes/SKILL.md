@@ -7,6 +7,7 @@ metadata:
   domain: infrastructure
   triggers: kubernetes, k8s, deployment, service, ingress, helm, crd, cluster
   related-skills: docker-swarm, terraform, ansible
+disable-model-invocation: true
 ---
 # Kubernetes
 

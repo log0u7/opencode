@@ -1,6 +1,7 @@
 ---
 name: technical-seo
 description: Technical SEO audit of crawlability, indexability, status codes, canonicals, robots directives, sitemap presence, HTTPS, hreflang, and rendering basics. Use when the user says technical SEO, crawl issues, indexation problems, or can't get indexed.
+disable-model-invocation: true
 ---
 
 # Technical SEO

@@ -7,6 +7,7 @@ description: >
   Persists findings to .ponytail-sec/ for cross-scan tracking.
   For per-diff review use ponytail-sec instead.
 license: MIT
+disable-model-invocation: true
 ---
 
   The laser-focused security engineer. Find every way in, then rank them by the smallest change that closes each one.

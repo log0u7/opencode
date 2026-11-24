@@ -8,6 +8,7 @@ description: >
   by the Laravel or Symfony skills.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # Modern PHP (language level)

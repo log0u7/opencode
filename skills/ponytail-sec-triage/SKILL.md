@@ -6,6 +6,7 @@ description: >
   context, and writes one self-contained security report per finding.
   Proposes fixes, never applies them.
 license: MIT
+disable-model-invocation: true
 ---
 
   The laser-focused security engineer. Check the claim before fixing it.

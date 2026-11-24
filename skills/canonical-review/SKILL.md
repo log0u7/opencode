@@ -3,6 +3,7 @@ name: canonical-review
 description: Canonical tag audit — self-referencing canonicals, cross-domain canonicals, pagination, parameter handling, canonical chains and conflicts, and when to use canonical vs 301 vs noindex. Use when the user says canonical, canonical tag, duplicate URLs, or URL parameters.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # Canonical Review

@@ -8,6 +8,7 @@ description: >
   context7 docs.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # Flask and FastAPI services

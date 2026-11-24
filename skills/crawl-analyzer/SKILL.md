@@ -1,6 +1,7 @@
 ---
 name: crawl-analyzer
 description: Analyses a full-site crawl into prioritised findings — status codes, missing or duplicate titles and meta, thin pages, orphan candidates, canonical coverage, and noindex review. Use when the user says crawl my site, site crawl, crawl analysis, or all pages audit.
+disable-model-invocation: true
 ---
 
 # Crawl Analysis

@@ -3,6 +3,7 @@ name: content-brief
 description: Generates a complete writer's brief — live keyword volumes, intent, competitor outline analysis, H2/H3 outline, word count, entities, questions, internal links, schema, and meta drafts. Use when the user says content brief, writing brief, outline for, or brief for.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # Content Brief

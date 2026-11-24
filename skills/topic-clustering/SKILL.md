@@ -3,6 +3,7 @@ name: topic-clustering
 description: Groups a keyword list into topic clusters (pillar + spokes) using live DataForSEO keyword data, with an internal-linking map. Use when the user says topic cluster, content cluster, keyword grouping, hub and spoke, or content architecture.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # Topic Clustering

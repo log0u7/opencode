@@ -3,6 +3,7 @@ name: internal-linking
 description: Internal link analysis and planning — orphan pages, anchor text diversity, hub-and-spoke linking, link equity flow, and contextual links; turns a list of site URLs into a concrete link plan. Use when the user says internal links, linking structure, or orphan pages.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # Internal Linking

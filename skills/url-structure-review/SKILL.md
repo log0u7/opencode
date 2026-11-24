@@ -3,6 +3,7 @@ name: url-structure-review
 description: Reviews URL architecture for readability, crawl depth, consistency, parameter strategy, and breadcrumb alignment — and advises when changing URLs would do more harm than good. Use when the user says URL structure, URL review, slug, or permalink structure.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # URL Structure Review

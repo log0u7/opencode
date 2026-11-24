@@ -1,6 +1,7 @@
 ---
 name: serp-analysis
 description: Deep analysis of a single SERP using live DataForSEO data — ranking page types, domains, SERP features, and realistic difficulty. Use when the user says SERP analysis, analyze SERP, who ranks for, or what does Google reward for a query.
+disable-model-invocation: true
 ---
 
 # SERP Analysis

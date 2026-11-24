@@ -1,6 +1,7 @@
 ---
 name: seo-report-writer
 description: Turns SEO analysis data into a client-ready markdown report with executive summary, scorecard, findings by severity, roadmap, and appendix. Use when the user says SEO report, write report, client report, or summarize findings.
+disable-model-invocation: true
 ---
 
 # SEO Report Writer

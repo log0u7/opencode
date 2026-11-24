@@ -7,6 +7,7 @@ metadata:
   domain: infrastructure
   triggers: nomad, job, scheduler, cluster, server, client, consul, vault
   related-skills: terraform, ansible
+disable-model-invocation: true
 ---
 # Nomad
 

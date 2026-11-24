@@ -3,6 +3,7 @@ name: schema-validator
 description: Audits a page's existing structured data for syntax errors, missing required or recommended properties, deprecated types, and conflicts between blocks. Use when the user says validate schema, schema errors, structured data audit, or check my markup.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # Schema Validator

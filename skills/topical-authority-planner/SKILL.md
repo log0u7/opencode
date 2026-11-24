@@ -3,6 +3,7 @@ name: topical-authority-planner
 description: Plans complete topical coverage for a niche — entity map, subtopic inventory, coverage scoring against competitors, and a prioritized publishing sequence. Use when the user says topical authority, topical map, cover a niche, or content coverage plan.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # Topical Authority Planner

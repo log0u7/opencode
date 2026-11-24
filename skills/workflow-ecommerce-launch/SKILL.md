@@ -3,6 +3,7 @@ name: workflow-ecommerce-launch
 description: End-to-end workflow for launching or optimizing an ecommerce category or product line with keyword mapping, page templates, product schema, and marketplace intelligence via DataForSEO. Use when the user says launch a category, new product line, ecommerce SEO plan, or optimize my shop pages.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # Workflow: Ecommerce Category Launch

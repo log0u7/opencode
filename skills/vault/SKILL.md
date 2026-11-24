@@ -7,6 +7,7 @@ metadata:
   domain: security
   triggers: vault, secret, engine, cubbyhole, transit, token, rotation, kms
   related-skills: ansible, aws, gcp
+disable-model-invocation: true
 ---
 # Vault
 

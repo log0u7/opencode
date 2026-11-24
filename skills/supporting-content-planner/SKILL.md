@@ -3,6 +3,7 @@ name: supporting-content-planner
 description: Plans supporting (spoke) articles around a pillar — titles, live target keywords, differentiated angles, and the interlinking pattern back to the pillar. Use when the user says supporting content, spoke articles, cluster content plan, or what articles support my pillar.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # Supporting Content Planner

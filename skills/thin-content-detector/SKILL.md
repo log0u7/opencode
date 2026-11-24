@@ -1,6 +1,7 @@
 ---
 name: thin-content-detector
 description: Detects thin and low-value pages using word-count floors by page type, doorway-page patterns, and boilerplate-ratio tests, then triages each into expand, merge, noindex, or remove. Use when the user says thin content, low quality pages, or doorway pages.
+disable-model-invocation: true
 ---
 
 # Thin Content Detector

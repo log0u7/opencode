@@ -3,6 +3,7 @@ name: perplexity-optimization
 description: Optimizes content for the Perplexity answer engine with PerplexityBot access, quotable stat-rich passages, freshness, and top-of-page direct answers. Use when the user says Perplexity, Perplexity optimization, or PerplexityBot.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # Perplexity Optimization

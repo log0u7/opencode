@@ -1,6 +1,7 @@
 ---
 name: on-page-seo
 description: Full on-page optimization review of one URL covering title, meta, headings, content depth, internal links, images, and schema presence. Use when the user says optimize this page, on-page SEO, or page optimization.
+disable-model-invocation: true
 ---
 
 # On-Page SEO

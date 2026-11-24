@@ -8,6 +8,7 @@ description: >
   JavaScript.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # jQuery (legacy maintenance)

@@ -1,6 +1,7 @@
 ---
 name: seo-task-generator
 description: Converts SEO audit findings into a prioritized task list with impact/effort scoring, owner suggestions, and acceptance criteria, formatted for issue trackers. Use when the user says SEO tasks, task list, action items, or turn findings into tickets.
+disable-model-invocation: true
 ---
 
 # SEO Task Generator

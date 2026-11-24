@@ -1,6 +1,7 @@
 ---
 name: content-review
 description: Holistic quality review of a single piece of content — accuracy, depth, structure, originality, and usefulness benchmarked against the live top 5 SERP results. Use when the user says review my content, content quality check, or is this article good.
+disable-model-invocation: true
 ---
 
 # Content Review

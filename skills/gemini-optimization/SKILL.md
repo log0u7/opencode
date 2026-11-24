@@ -3,6 +3,7 @@ name: gemini-optimization
 description: Optimizes for Google Gemini surfaces (Gemini app and AI features in Search) via shared AI Overviews fundamentals, Google-Extended trade-off review, and entity grounding. Use when the user says Gemini, Gemini optimization, or Google Gemini.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # Gemini Optimization

@@ -7,6 +7,7 @@ metadata:
   domain: security
   triggers: openbao, vault, secret, engine, cubbyhole, transit, token, rotation
   related-skills: ansible, gcp, aws
+disable-model-invocation: true
 ---
 # OpenBao
 

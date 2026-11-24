@@ -4,6 +4,7 @@ description: >
   Show recorded output and cache-read token usage and mode attribution for
   the current Claude Code session, or locate the host's native usage report.
   Trigger: /caveman-stats.
+disable-model-invocation: true
 ---
 
 In Claude Code, `src/hooks/caveman-mode-tracker.js` resolves `src/hooks/caveman-stats.js` next to itself and runs it on `/caveman-stats`. The hook does not block the prompt: it supplies the report through `hookSpecificOutput.additionalContext` with an instruction to print it verbatim inside a fenced code block. Do exactly that, and do not calculate, recompute or re-round the numbers yourself.

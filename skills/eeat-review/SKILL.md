@@ -1,6 +1,7 @@
 ---
 name: eeat-review
 description: E-E-A-T audit covering first-hand experience signals, author expertise, external authoritativeness via live mention data, and trust elements like policies and contact info. Use when the user says E-E-A-T, EEAT, expertise signals, or trust signals.
+disable-model-invocation: true
 ---
 
 # E-E-A-T Review

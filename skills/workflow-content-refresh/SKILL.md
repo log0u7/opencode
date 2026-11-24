@@ -1,6 +1,7 @@
 ---
 name: workflow-content-refresh
 description: Site-scale content refresh campaign workflow that finds decaying, thin, and overlapping pages using DataForSEO ranking data, then triages each URL into update, merge, redirect, or prune. Use when the user says content decay, refresh old posts, content pruning, or content audit campaign.
+disable-model-invocation: true
 ---
 
 # Workflow: Content Refresh Campaign

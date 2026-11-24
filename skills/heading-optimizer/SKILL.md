@@ -3,6 +3,7 @@ name: heading-optimizer
 description: H1-H6 heading hierarchy audit — single H1, logical nesting, keyword-aligned natural headings, and question-form headings for AI search. Use when the user says headings, H1, heading structure, or heading hierarchy.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # Heading Optimizer

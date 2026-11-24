@@ -1,6 +1,7 @@
 ---
 name: schema-generator
 description: Generates JSON-LD structured data for a page by choosing the right schema.org types, gathering properties from the page content, and emitting markup via schema_gen.py. Use when the user says schema, structured data, JSON-LD, generate schema, or rich results.
+disable-model-invocation: true
 ---
 
 # Schema Generator

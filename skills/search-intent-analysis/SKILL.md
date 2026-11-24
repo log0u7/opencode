@@ -1,6 +1,7 @@
 ---
 name: search-intent-analysis
 description: Classifies keywords by search intent (informational / commercial / transactional / navigational) using the live SERP instead of guesswork. Use when the user says search intent, intent analysis, what intent is this keyword, or what kind of page should I build for X.
+disable-model-invocation: true
 ---
 
 # Search Intent Analysis

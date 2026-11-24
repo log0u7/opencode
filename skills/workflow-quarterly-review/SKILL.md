@@ -3,6 +3,7 @@ name: workflow-quarterly-review
 description: Quarterly SEO business review workflow that turns drift snapshots, GSC and GA4 trends, and content decay triage into a wins/losses narrative and next-quarter plan, rendered as a client-ready HTML pack. Use when the user says quarterly review, QBR, SEO report for client, monthly report, or stakeholder update.
 metadata:
   opencode/autoinvoke: false
+disable-model-invocation: true
 ---
 
 # Workflow: Quarterly SEO Review
