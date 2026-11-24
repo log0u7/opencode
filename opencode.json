@@ -13,7 +13,7 @@
     "./plugins/caveman",
     "@slkiser/opencode-quota@6.3.0",
     {"package": "@log0u7/opencode-mesh@0.23.2", "options": {"bind": "lan"}},
-    "@log0u7/opencode-watt@0.6.0",
+    "@log0u7/opencode-watt@0.7.0",
     {"package": "@log0u7/opencode-memory@0.21.2", "options": {"caveman": "auto"}},
     "@dietrichgebert/ponytail@5.3.3",
     /*{
