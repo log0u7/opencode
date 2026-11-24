@@ -14,7 +14,7 @@
     "@slkiser/opencode-quota@6.3.0",
     {"package": "@log0u7/opencode-mesh@0.24.2", "options": {"bind": "lan"}},
     "@log0u7/opencode-watt@0.7.0",
-    {"package": "@log0u7/opencode-memory@0.21.3", "options": {"caveman": "auto"}},
+    {"package": "@log0u7/opencode-memory@0.21.4", "options": {"caveman": "auto"}},
     "@dietrichgebert/ponytail@5.3.3",
     /*{
     //  "package": "@plannotator/opencode@0.29.1",
