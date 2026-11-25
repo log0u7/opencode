@@ -308,18 +308,24 @@ Named mailbox + pool replace old shared-inbox era. Every session part of
 
 Org table (name / role / pools / primary):
 
-| Name | Role | Pools | Primary |
-| --- | --- | --- | --- |
-| 6admin | lead | team:infra, team:quartermaster | team:infra |
-| quartermaster | lead | team:quartermaster, team:purser | team:quartermaster |
-| k8s-oci | pair | team:infra, team:foreman, team:quartermaster | team:infra |
-| theforeman | lead | team:foreman | team:foreman |
-| purser | lead (produit purser) | team:purser | team:purser |
-| opencode-plugins | lead-po (opencode plugins) | team:opencode | team:opencode |
-| opencode | housekeeper (upstream opencode) | team:opencode | team:opencode |
-| opencode-config | ops (config + housekeeping) | team:opencode | team:opencode |
-| orchestrator | orchestrator | team:infra, team:foreman, team:quartermaster, team:purser | team:opencode |
-| blogger | editor | blog | blog |
+| Name | Role | Pools | Primary | Scope |
+| --- | --- | --- | --- | --- |
+| orq | lead | team:infra, team:foreman, team:quartermaster, team:log0u7, team:web, team:jenkins, team:brainforge, team:opencode | team:opencode | routing, arbitrage, reporting PO |
+| 6admin | po | team:infra | team:infra | groupe GitLab 6admin.io + pilotage sysops; jamais de write upstream |
+| sysops-aconitum | ops | team:infra | team:infra | config opencode + sessions opencode (backup, suppression) + VMs/libvirt/réseau/hôtes aconitum |
+| quartermaster | po | team:quartermaster | team:quartermaster | médias/templates/PE, katello design D1, charts |
+| purser | po | team:quartermaster | team:quartermaster | cycles wizard, e2e validation |
+| theforeman | po | team:foreman | team:foreman | lane upstream UNIQUE: foreman, katello, foreman-kubernetes, foreman-oci, candlepin + releases foreman; toute write upstream = lui seul + GO PO |
+| log0u7 | po | team:log0u7 | team:log0u7 | dépôts GitHub maison + gitlab.com/log0u7: releases, images OCI, CI, pins |
+| blogger | po | team:web | team:web | rédaction, investigation, contenu sites |
+| webmaster | po | team:web | team:web | création/maintenance sites (technique): déploiement, ingress/DNS via 6admin, uptime, updates, certs |
+| opencode-plugins | po | team:opencode | team:opencode | plugins opencode |
+| opencode | po | team:opencode | team:opencode | upstream du projet opencode |
+| brainforge | po | team:brainforge | team:brainforge | projet brainforge |
+| jenkins | po | team:jenkins | team:jenkins | projet jenkins |
+| jenkins-plugins | po | team:jenkins | team:jenkins | plugins jenkins (dormant) |
+
+Futurs (à spawn quand le PO lance): sysops-ricinus (ops, team:infra, VMs/libvirt/réseau/hôtes ricinus + sessions opencode), agents QA (qa, team:qa, lane transversale).
 
 Sessions NOT in this table: do not enroll; ignore mesh org mail.
 
@@ -332,4 +338,6 @@ Communication convention (mandatory):
 - Every agent: `mesh_inbox(ack=true)` at START of each turn. Your inbox is your mailbox only (no cross-drain now). Notification for mailbox not yours: ignore silent.
 - `mesh_wait(id, timeout)`: reply expected under 2 min; past that, fire-and-forget with `reply_to=<id>` — never block turn on slow peer.
 - Re-enroll after opencode restart is TEMPORARY dated rule (with expiry): dies once session-start hook makes enroll automatic.
-- Lead posts `status:` in own pool at end of each big task; orchestrator and human lead read pools to know where each team stands.
+- Lead posts `status:` in own pool at end of each big task; orq and human lead read pools to know where each team stands.
+- Roles: `lead` = orq (routing, arbitrage, reporting PO). `po` = owner of one project/lane, decides within scope, reports to orq. `ops` = execution under a po. `qa` = transverse testing, claims tasks.
+- Write upstream rule (lesson #5856): ANY write on a public upstream repo (open/close/comment/push/rename) = theforeman only, with human PO GO before each write. No other agent touches public repos.
