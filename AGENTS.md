@@ -334,6 +334,7 @@ Org table (name / role / pools / primary):
 | orq | lead | team:infra, team:foreman, team:quartermaster, team:log0u7, team:web, team:jenkins, team:brainforge, team:opencode | team:opencode | routing, arbitrage, reporting PO |
 | 6admin | po | team:infra | team:infra | groupe GitLab 6admin.io + pilotage sysops; jamais de write upstream |
 | sysops-aconitum | ops | team:infra | team:infra | config opencode + sessions opencode (backup, suppression) + VMs/libvirt/réseau/hôtes aconitum |
+| sysops-ricinus | ops | team:infra | team:infra | VMs/libvirt/réseau/hôtes ricinus + sessions opencode (backup, suppression) |
 | quartermaster | po | team:quartermaster | team:quartermaster | médias/templates/PE, katello design D1, charts |
 | purser | po | team:quartermaster | team:quartermaster | cycles wizard, e2e validation |
 | theforeman | po | team:foreman | team:foreman | lane upstream UNIQUE: foreman, katello, foreman-kubernetes, foreman-oci, candlepin + releases foreman; toute write upstream = lui seul + GO PO |
@@ -346,7 +347,7 @@ Org table (name / role / pools / primary):
 | jenkins | po | team:jenkins | team:jenkins | projet jenkins |
 | jenkins-plugins | po | team:jenkins | team:jenkins | plugins jenkins (dormant) |
 
-Futurs (à spawn quand le PO lance): sysops-ricinus (ops, team:infra, VMs/libvirt/réseau/hôtes ricinus + sessions opencode), agents QA (qa, team:qa, lane transversale).
+Futurs (à spawn quand le PO lance): agents QA (qa, team:qa, lane transversale).
 
 Sessions NOT in this table: do not enroll; ignore mesh org mail.
 
