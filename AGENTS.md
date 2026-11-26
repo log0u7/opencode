@@ -61,7 +61,7 @@ Five rule from real failure. Verify beats guess; each new real failure: write it
 
 ## Handoff plan -> build
 
-Plans: multi-file in `~/.opencode/plan/<slug>.md` (one file per plan/session; old single-file way crashed under concurrent sessions).
+Plans: one file per plan/session in `~/.opencode/plan/<slug>.md`. Never touch another agent's plan file. The old single `plan` file is dead (archive 2026-11-26).
 
 Get "A plan file exists ... execute on it" message:
 
