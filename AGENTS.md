@@ -63,6 +63,13 @@ Five rule from real failure. Verify beats guess; each new real failure: write it
 
 Plans: one file per plan/session in `~/.opencode/plan/<slug>.md`. Never touch another agent's plan file. The old single `plan` file is dead (archive 2026-11-26).
 
+## Plan retention policy
+
+- Plan = working memory, not a durable artifact. Durable content (decisions, recipes, lessons) is promoted to memory; the plan then dies.
+- Owner re-dates the state line at each session on their lane. No update > 30 days = sysops archives it after notifying the owner (owner veto = re-date).
+- Deletion: archive verbatim to `~/.local/share/opencode/archive/` first, never direct rm. Purge beyond 90 days only with owner confirming death.
+- `~/.opencode/plan/` is covered by the periodic backup job (plans-DATE.tar.gz).
+
 Get "A plan file exists ... execute on it" message:
 
 - **MUST** run as build agent, not plan agent.
