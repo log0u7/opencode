@@ -65,10 +65,9 @@ Plans: one file per plan/session in `~/.opencode/plan/<slug>.md`. Never touch an
 
 ## Plan retention policy
 
-- Plan = working memory, not a durable artifact. Durable content (decisions, recipes, lessons) is promoted to memory; the plan then dies.
-- Owner re-dates the state line at each session on their lane. No update > 30 days = sysops archives it after notifying the owner (owner veto = re-date).
-- Deletion: archive verbatim to `~/.local/share/opencode/archive/` first, never direct rm. Purge beyond 90 days only with owner confirming death.
-- `~/.opencode/plan/` is covered by the periodic backup job (plans-DATE.tar.gz).
+- Plan = working memory; durable content promoted to memory (ADR pattern), the plan then dies.
+- Owner re-dates state each session; no update > 30d = sysops archives after notifying owner (veto = re-date).
+- Deletion = archive verbatim first, never direct rm; purge > 90d only with owner confirming death. `~/.opencode/plan/` in the backup job.
 
 Get "A plan file exists ... execute on it" message:
 
@@ -104,21 +103,12 @@ Todo list is single truth for "where are we": read before act, update the moment
 - Item = one actionable outcome with exact state, not a theme. Good: `[MESH] 0.11.0 TLS — builder DER + pinning — subagent in flight`. Bad: `TLS stuff`.
 - State in item: done, what remains, who holds it. Convention FROZEN: changes only by PO decision.
 
-### Item lifecycle (all agents)
+### Item lifecycle + format (all agents)
 
-- Done = verified outcome, never a claim alone. Never tick `completed` without evidence.
-- Done and cancelled items leave the list on the next `todowrite`. The list is a board, not an archive: transcripts and memory hold history.
-- WIP = 1. Waiting on someone else = `pending` with `— BLOCKED on <what>`: the wait is not work.
-- Backlog (not actionable yet, PO decides later) = one `[BACKLOG]` item, not scattered pendings.
-- Prune the list at every round. A todo list is never a backlog graveyard.
-
-### Item format (all agents)
-
-- Item = the remaining work, not the history: `[<project>:<epic>] @owner — <what remains> ; <blocker / calendar deadline>`.
-- What is already done lives in transcripts and round reports, not in the item.
-- No duplication with the status field: text carries only what the field cannot (blocker, hard deadline).
-- One line, ~140 chars max. Detail beyond that goes to memory.
-- Percent never lives in an item; ETA only as hard calendar deadline (`— ETA 27-11`), never soft durations.
+- Done = verified outcome, never a claim. Done/cancelled leave the list at next `todowrite`: the list is a board, history lives in transcripts + memory.
+- WIP = 1. Waiting on someone = `pending — BLOCKED on <what>`. Backlog = one `[BACKLOG]` item, not scattered pendings. Prune every round.
+- Item = remaining work only: `[<project>:<epic>] @owner — <what remains> ; <blocker / deadline>`. ~140 chars, detail to memory.
+- % never in item; ETA only hard calendar deadline. No duplication with the status field.
 
 ### Orchestrator variant (multi-project, multi-agent)
 
@@ -128,17 +118,11 @@ Todo list is single truth for "where are we": read before act, update the moment
 
 ### Orq loop (lead)
 
-- Round triggers: PO asks, or a real event (verdict, blocker, lane close, spawn/rename). No cron, no idle polling. Max 2 rounds/day unless PO asks. Silence on ghost turns.
-- Round: drain inbox, read pool `status:` posts, reconcile agent todos against them, then one report. Agents clean their own todos before replying.
-- Report (frozen):
-  1. Headline: 1-2 lines, outcomes only ("2 lanes closed, 1 blocker fleet-wide"). Mechanics ("12/12 replies") stays in the table, never in the headline.
-  2. Table: `| Agent | Tâche | Blockers | % | ETA |`
-  3. % moyen des actifs + ETA générale (balle critique).
-  4. Open decisions: max 5, each as a packet: `decision — option A / option B — reco + deadline — consequence of no choice`. Cap counts the rest.
-- Escalation ladder: lane silent 1 round = nothing (board tracks it). 2 rounds = targeted DM to the owner. 3 rounds = escalate to PO with a decision packet.
-- Decision defaults: reversible decision + no PO answer by deadline = apply the recommendation and announce it. Irreversible (write upstream, delete, release) = wait, never default.
-- Pre-authorized (PO standing GO, no per-action ask): rebuild of a finalized media whose boot.wim is proven stale (wimdir-verified) = infra may delete + re-run the build Job autonomously. Conditions: proof of staleness first, announce AFTER the action, one `status:` line to the pool. Nothing else is pre-authorized.
-- After each round: prune own todos to live lanes only. Permanent job, not on demand.
+- Round triggers: PO ask or real event (verdict, blocker, lane close, spawn/rename). No cron, no idle poll, max 2 rounds/day, silence on ghost turns. Round = drain inbox, read pool `status:`, reconcile agent todos, prune own todos, then one report.
+- Report (frozen): (1) headline 1-2 lines outcomes only, mechanics in table; (2) table `| Agent | Tâche | Blockers | % | ETA |`; (3) % moyen actifs + ETA générale; (4) open decisions max 5, each a packet: `decision — option A / B — reco + deadline — consequence of no choice`.
+- Escalation: lane silent 1 round = nothing, 2 = DM owner, 3 = decision packet to PO.
+- Decision defaults: reversible + no PO answer by deadline = apply reco + announce. Irreversible (write upstream, delete, release) = wait, never default.
+- Pre-authorized (PO standing GO): media rebuild on wimdir-proven stale boot.wim = infra deletes + re-runs Job autonomously, proof first, announce after, one `status:` line. Nothing else pre-authorized.
 
 ## State of the art
 
