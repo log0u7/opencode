@@ -93,9 +93,9 @@ Plan mode (read-only): end turn per tool availability. Read-only hits FILES only
 - Tick `completed` right after each step. Never batch it.
 - Exactly ONE `in_progress` while work runs.
 - Finished work never stays `pending`.
-- Todo live at every pass: new task = add item on arrival, start work = set `in_progress`,
-  finish = `completed` immediately, prune at next swap. Applies to every session including
-  orchestrators. Refresh the board BEFORE working, never batch status changes.
+- Todo live at every pass: new task = add on arrival, start = `in_progress`,
+  finish = `completed` now, prune at next swap. Every session, orchestrators too.
+  Refresh the board BEFORE working, never batch status changes.
 - Rule lifecycle: add rule when agent fails it twice+; re-test without rule after weeks or model upgrade; drop rule when model does it right alone.
 
 ## Todo convention: epic-tagged items (all agents)
@@ -328,7 +328,7 @@ Named mailbox + pool replace old shared-inbox era. Every session part of
 
 1. `mesh_register(name=<your-name>, role=<your-role>)` (lowercase, no space)
 2. `mesh_join(pool=<pool>)` for every pool on your line
-3. Confirm by DM to LEAD OF YOUR PRIMARY GROUP - set at enrollment via `mesh_register(primary=<pool>)` or named by human; fallback: orchestrator when lead is you or offline. Org table (primary column) is source of truth; plugin-scope enrollment still confirms to opencode-plugins.
+3. Confirm by DM to your primary group lead - set at enrollment via `mesh_register(primary=<pool>)` or named by human; fallback: orchestrator when lead is you or offline. Org table (primary column) = source of truth; plugin-scope enrollment still confirms to opencode-plugins.
 
 Org table (name / role / pools / primary):
 
@@ -357,13 +357,13 @@ Sessions NOT in this table: do not enroll; ignore mesh org mail.
 Communication convention (mandatory):
 
 - Pools = announce only. Subjects: `status: ...` (task done), `decision: ...` (lead call), `alert: ...`. No discuss in pools.
-- Discussion, question, brainstorm, task: direct DM between mailboxes (`mesh_send(to="<mailbox>")`). Receiver answers with `reply_to=<id>`; sender answers with `reply_to=<id>` when responding. Sender does NOT wait by default.
-- Question needing an answer (mesh >= 0.33.0): `mesh_ask(to, body, group?, deadline?)` - NEVER blocks, returns a task id, the answer arrives as a wake. Reply with `mesh_reply(task_id, result)`. `mesh_tasks` lists your tasks read-only. A `group` batches several asks into ONE digest when fully answered. No blocking wait exists anymore: `mesh_send` + end turn + drain at next turn.
+- Discussion, question, task: direct DM (`mesh_send(to="<mailbox>")`). Reply with `reply_to=<id>`, both directions. Sender does NOT wait by default.
+- Question needing answer (mesh >= 0.33.0): `mesh_ask(to, body, group?, deadline?)` - NEVER blocks, returns task id, answer arrives as wake. Answer with `mesh_reply(task_id, result)`. `mesh_tasks` lists tasks read-only. `group` batches asks into ONE digest. No blocking wait exists: `mesh_send` + end turn + drain next turn.
 - Cross-host DM needs BOTH fields: `mesh_send(peer="<node id of recipient host>", to="<mailbox>")` - `peer` says WHERE (node), `to` says WHICH box. Same-host DM needs `to` only. Reply cross-host: same rule (peer + to + reply_to).
-- Pairing now 6-digit code (opencode-mesh >= 0.10.2): side A runs `mesh_pair()`, side B runs `mesh_pair(code="<code>")` (LAN auto-finds address; cross-subnet adds `address="ip:4399"`). One command each side, both paired. Offer carries emitter's hostname - no more "manual" label.
-- Every agent: `mesh_inbox(ack=true)` at START of each turn. Your inbox is your mailbox only (no cross-drain now). Notification for mailbox not yours: ignore silent.
-- Status = the BOARD, not a DM: `mesh_board_set(key, value)` (task | blocker | state | eta) writes your one line of shared state; `mesh_board_get(pool?)` reads it. Nobody is woken by a board write. Use the board instead of DMing a status.
-- Lead posts `status:` in own pool at end of each big task; orq and human lead read pools to know where each team stands.
+- Pairing = 6-digit code (mesh >= 0.10.2): side A `mesh_pair()`, side B `mesh_pair(code="<code>")` (LAN auto-finds; cross-subnet adds `address="ip:4399"`). One command per side, both paired. Offer carries emitter hostname.
+- Every agent: `mesh_inbox(ack=true)` at START of each turn. Your inbox = your mailbox only (no cross-drain). Notification for mailbox not yours: ignore silent.
+- Status = BOARD, not DM: `mesh_board_set(key, value)` (task | blocker | state | eta) = your one line of shared state; `mesh_board_get(pool?)` reads it. No wake on board write. Board over status DM.
+- Lead posts `status:` in own pool after each big task; orq + human lead read pools.
 - Re-enroll after opencode restart is TEMPORARY dated rule (with expiry): dies once session-start hook makes enroll automatic.
 - Roles: `lead` = orq (routing, arbitrage, reporting PO). `po` = owner of one project/lane, decides within scope, reports to orq. `ops` = execution under a po. `qa` = transverse testing, claims tasks.
-- Write upstream rule (lesson #5856): ANY write on a public upstream repo (open/close/comment/push/rename) = theforeman only, with human PO GO before each write. No other agent touches public repos.
+- Write upstream rule (lesson #5856): ANY write on a public upstream repo (open/close/comment/push/rename) = theforeman only, human PO GO before each write. No other agent touches public repos.
