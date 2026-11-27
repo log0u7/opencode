@@ -93,6 +93,9 @@ Plan mode (read-only): end turn per tool availability. Read-only hits FILES only
 - Tick `completed` right after each step. Never batch it.
 - Exactly ONE `in_progress` while work runs.
 - Finished work never stays `pending`.
+- Todo live at every pass: new task = add item on arrival, start work = set `in_progress`,
+  finish = `completed` immediately, prune at next swap. Applies to every session including
+  orchestrators. Refresh the board BEFORE working, never batch status changes.
 - Rule lifecycle: add rule when agent fails it twice+; re-test without rule after weeks or model upgrade; drop rule when model does it right alone.
 
 ## Todo convention: epic-tagged items (all agents)
@@ -100,26 +103,26 @@ Plan mode (read-only): end turn per tool availability. Read-only hits FILES only
 Todo list is single truth for "where are we": read before act, update the moment state shifts. Every item opens with bracket epic tag.
 
 - Tag = the epic (feature area, repo, workstream): `[MESH]`, `[MEMORY]`, `[DOCS]`, `[INFRA]`. One tag per item, CAPS, short.
-- Item = one actionable outcome with exact state, not a theme. Good: `[MESH] 0.11.0 TLS — builder DER + pinning — subagent in flight`. Bad: `TLS stuff`.
+- Item = one actionable outcome with exact state, not a theme. Good: `[MESH] 0.11.0 TLS - builder DER + pinning - subagent in flight`. Bad: `TLS stuff`.
 - State in item: done, what remains, who holds it. Convention FROZEN: changes only by PO decision.
 
 ### Item lifecycle + format (all agents)
 
 - Done = verified outcome, never a claim. Done/cancelled leave the list at next `todowrite`: the list is a board, history lives in transcripts + memory.
-- WIP = 1. Waiting on someone = `pending — BLOCKED on <what>`. Backlog = one `[BACKLOG]` item, not scattered pendings. Prune every round.
-- Item = remaining work only: `[<project>:<epic>] @owner — <what remains> ; <blocker / deadline>`. ~140 chars, detail to memory.
+- WIP = 1. Waiting on someone = `pending - BLOCKED on <what>`. Backlog = one `[BACKLOG]` item, not scattered pendings. Prune every round.
+- Item = remaining work only: `[<project>:<epic>] @owner - <what remains> ; <blocker / deadline>`. ~140 chars, detail to memory.
 - % never in item; ETA only hard calendar deadline. No duplication with the status field.
 
 ### Orchestrator variant (multi-project, multi-agent)
 
 - Tag = `[<project>:<epic>]`, owner suffix `@<mailbox-or-agent>` on every execution item.
 - Orchestrator never keeps item `in_progress` for delegated work: stays `pending` with owner named; `in_progress` only for orchestrator's own act.
-- Cross-host item carries host: `[MESH:sync] @sysops@ricinus — deploy 0.10.11 on the WSL node`. Blocked item says `— BLOCKED on <what>`.
+- Cross-host item carries host: `[MESH:sync] @sysops-ricinus - deploy 0.10.11 on the WSL node`. Blocked item says `- BLOCKED on <what>`.
 
 ### Orq loop (lead)
 
 - Round triggers: PO ask or real event (verdict, blocker, lane close, spawn/rename). No cron, no idle poll, max 2 rounds/day, silence on ghost turns. Round = drain inbox, read pool `status:`, reconcile agent todos, prune own todos, then one report.
-- Report (frozen): (1) headline 1-2 lines outcomes only, mechanics in table; (2) table `| Agent | Tâche | Blockers | % | ETA |`; (3) % moyen actifs + ETA générale; (4) open decisions max 5, each a packet: `decision — option A / B — reco + deadline — consequence of no choice`.
+- Report (frozen): (1) headline 1-2 lines outcomes only, mechanics in table; (2) table `| Agent | Task | Blockers | % | ETA |`; (3) average % of active agents + overall ETA; (4) open decisions max 5, each a packet: `decision - option A / B - reco + deadline - consequence of no choice`.
 - Escalation: lane silent 1 round = nothing, 2 = DM owner, 3 = decision packet to PO.
 - Decision defaults: reversible + no PO answer by deadline = apply reco + announce. Irreversible (write upstream, delete, release) = wait, never default.
 - Pre-authorized (PO standing GO): media rebuild on wimdir-proven stale boot.wim = infra deletes + re-runs Job autonomously, proof first, announce after, one `status:` line. Nothing else pre-authorized.
@@ -163,7 +166,7 @@ Todo list is single truth for "where are we": read before act, update the moment
 ## Pre-merge review
 
 - Every MR/PR passes `/mr-review` before merge. No merge without explicit `Verdict: MERGE OK` from `mr-reviewer` subagent. Merge stays human call: `MERGE OK` = ask user confirm first.
-- Reviewer protocol (3 phases, none skipped): (1) **Mental trace**: full caller/callee, error path, edge case, security + regression pass per changed file — one-line change in shared helper = full trace; (2) **Run tests**: find and run repo test command self, report REAL result, never claim green without run; (3) **Missing tests**: list every untested error path/edge case/security check the diff adds + test file suggest.
+- Reviewer protocol (3 phases, none skipped): (1) **Mental trace**: full caller/callee, error path, edge case, security + regression pass per changed file - one-line change in shared helper = full trace; (2) **Run tests**: find and run repo test command self, report REAL result, never claim green without run; (3) **Missing tests**: list every untested error path/edge case/security check the diff adds + test file suggest.
 - Blocking verdict (`BLOCK: <reason>`) when: test fails, bug unfixed, or sensitive path (auth, money, DB, API, permissions) lacks tests. Sensitive path touched = say it in verdict even when OK. Reviewer read-only plus test command, no commit/push/edit.
 
 ## Process management
@@ -176,7 +179,7 @@ Todo list is single truth for "where are we": read before act, update the moment
 
 ## Parallelism and patience
 
-- **MUST NOT** idle-wait in terminal: no `sleep N`, no poll loop (`while ! check; do sleep 1; done`). Two valid states only: command blocks till done, or background + notify. Scope: agent-side poll — NOT bounded loop inside one command, NOT sequencing under 1s. Inline `sleep` hard-denied by permission deny glob (same for `read -t`, `watch -n`, timeout-wrapped sleep). Never dodge a permission block.
+- **MUST NOT** idle-wait in terminal: no `sleep N`, no poll loop (`while ! check; do sleep 1; done`). Two valid states only: command blocks till done, or background + notify. Scope: agent-side poll - NOT bounded loop inside one command, NOT sequencing under 1s. Inline `sleep` hard-denied by permission deny glob (same for `read -t`, `watch -n`, timeout-wrapped sleep). Never dodge a permission block.
 - Instant status checks (`pgrep`, `test -f`, `ls | wc -l`) stay legal: only sleep between them costs.
 - Long-running process: `pty_spawn` with `notifyOnExit=true`, keep working. Blocking wait: use tool's own mechanism (`gh run watch`, `kubectl wait`). Retry/backoff: inside the failing command, never agent-side sleeps. bash `wait` legal ONLY as parallelism barrier, never idle-wait.
 - **Parallel by default**: independent tool calls batched in one message; sequential only when step A feeds step B. Independent shell work in one bash call: `cmd1 & cmd2 & wait`, `xargs -P`, GNU `parallel`. Gather context first, parallel.
@@ -230,7 +233,7 @@ docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp -e COREPACK_ENABLE_DOWNL
 - `rtk` (official rtk-ai/rtk v1.2.0): binary `~/.cargo/bin/rtk`, plugin `~/.config/opencode/plugins/rtk.ts` (dual-shape V1/V2). npm `openrtk` 0.1.0 V1-only, dead on V2. Rewrites allowlisted commands (git, gh, cargo, file ops, JS/TS, docker, kubectl, curl) for 60-90% output squeeze. Run command normal, do NOT prefix `rtk`.
 - Meta commands run direct, never rewritten: `rtk gain`, `rtk gain --history`, `rtk discover`, `rtk proxy <cmd>` (raw run, debug).
 - rtk can swallow a command silent (seen: `helm upgrade`, `gh pr edit --body-file`, `pnpm exec biome format --write`) and loses stdin (heredoc thru rtk wiped a PR body). Rule: state-changing or payload-bearing command misbehaves thru rtk, or needs stdin: write payload to file + `rtk proxy <cmd>`. Exact full output matters: `rtk proxy`.
-- V2 shell hook trap: `ctx.tool.hook("execute.before")` may not fire for shell (issue #4665) — patch `plugins/rtk.ts` to also register `ctx.shell.hook("create.before")`; re-apply after every `rtk init -g --opencode` (overwrites plugin silent). rtk Rust parser skips JSONC comments; OpenCode still enforces permission on final command.
+- V2 shell hook trap: `ctx.tool.hook("execute.before")` may not fire for shell (issue #4665) - patch `plugins/rtk.ts` to also register `ctx.shell.hook("create.before")`; re-apply after every `rtk init -g --opencode` (overwrites plugin silent). rtk Rust parser skips JSONC comments; OpenCode still enforces permission on final command.
 - **`@dietrichgebert/ponytail` 5.3.3** (V2-ready, pinned): lazy-senior-dev ruleset. Commands: `/ponytail lite|full|ultra/off` (default `full`), `/ponytail-review`, `/ponytail-audit`, `/ponytail-debt`, `/ponytail band` (Claude Code only), `/ponytail default`. Comment marker `ponytail:` -> `shortcut:` (v5.1). Level survives compaction. Pairs with caveman, stands alone.
 
 ## Third-party dependencies and repositories
@@ -325,29 +328,29 @@ Named mailbox + pool replace old shared-inbox era. Every session part of
 
 1. `mesh_register(name=<your-name>, role=<your-role>)` (lowercase, no space)
 2. `mesh_join(pool=<pool>)` for every pool on your line
-3. Confirm by DM to LEAD OF YOUR PRIMARY GROUP — set at enrollment via `mesh_register(primary=<pool>)` or named by human; fallback: orchestrator when lead is you or offline. Org table (primary column) is source of truth; plugin-scope enrollment still confirms to opencode-plugins.
+3. Confirm by DM to LEAD OF YOUR PRIMARY GROUP - set at enrollment via `mesh_register(primary=<pool>)` or named by human; fallback: orchestrator when lead is you or offline. Org table (primary column) is source of truth; plugin-scope enrollment still confirms to opencode-plugins.
 
 Org table (name / role / pools / primary):
 
 | Name | Role | Pools | Primary | Scope |
 | --- | --- | --- | --- | --- |
 | orq | lead | team:infra, team:foreman, team:quartermaster, team:log0u7, team:web, team:jenkins, team:brainforge, team:opencode | team:opencode | routing, arbitrage, reporting PO |
-| 6admin | po | team:infra | team:infra | groupe GitLab 6admin.io + pilotage sysops; jamais de write upstream |
-| sysops-aconitum | ops | team:infra | team:infra | config opencode + sessions opencode (backup, suppression) + VMs/libvirt/réseau/hôtes aconitum |
-| sysops-ricinus | ops | team:infra | team:infra | VMs/libvirt/réseau/hôtes ricinus + sessions opencode (backup, suppression) |
-| quartermaster | po | team:quartermaster | team:quartermaster | médias/templates/PE, katello design D1, charts |
+| 6admin | po | team:infra | team:infra | GitLab group 6admin.io + sysops steering; upstream write never |
+| sysops-aconitum | ops | team:infra | team:infra | opencode config + opencode sessions (backup, deletion) + VMs/libvirt/network/hosts aconitum |
+| sysops-ricinus | ops | team:infra | team:infra | VMs/libvirt/network/hosts ricinus + opencode sessions (backup, deletion) |
+| quartermaster | po | team:quartermaster | team:quartermaster | media/templates/PE, katello design D1, charts |
 | purser | po | team:quartermaster | team:quartermaster | cycles wizard, e2e validation |
-| theforeman | po | team:foreman | team:foreman | lane upstream UNIQUE: foreman, katello, foreman-kubernetes, foreman-oci, candlepin + releases foreman; toute write upstream = lui seul + GO PO |
-| log0u7 | po | team:log0u7 | team:log0u7 | dépôts GitHub maison + gitlab.com/log0u7: releases, images OCI, CI, pins |
-| blogger | po | team:web | team:web | rédaction, investigation, contenu sites |
-| webmaster | po | team:web | team:web | création/maintenance sites (technique): déploiement, ingress/DNS via 6admin, uptime, updates, certs |
+| theforeman | po | team:foreman | team:foreman | upstream lane UNIQUE: foreman, katello, foreman-kubernetes, foreman-oci, candlepin + foreman releases; any upstream write = him only + PO GO |
+| log0u7 | po | team:log0u7 | team:log0u7 | own GitHub repos + gitlab.com/log0u7: releases, OCI images, CI, pins |
+| blogger | po | team:web | team:web | writing, investigation, site content |
+| webmaster | po | team:web | team:web | site creation/maintenance (technical): deployment, ingress/DNS via 6admin, uptime, updates, certs |
 | opencode-plugins | po | team:opencode | team:opencode | plugins opencode |
-| opencode | po | team:opencode | team:opencode | upstream du projet opencode |
-| brainforge | po | team:brainforge | team:brainforge | projet brainforge |
-| jenkins | po | team:jenkins | team:jenkins | projet jenkins |
-| jenkins-plugins | po | team:jenkins | team:jenkins | plugins jenkins (dormant) |
+| opencode | po | team:opencode | team:opencode | upstream of the opencode project |
+| brainforge | po | team:brainforge | team:brainforge | brainforge project |
+| jenkins | po | team:jenkins | team:jenkins | jenkins project |
+| jenkins-plugins | po | team:jenkins | team:jenkins | jenkins plugins (dormant) |
 
-Futurs (à spawn quand le PO lance): agents QA (qa, team:qa, lane transversale).
+Future (spawn when PO launches): QA agents (qa, team:qa, transverse lane).
 
 Sessions NOT in this table: do not enroll; ignore mesh org mail.
 
@@ -355,9 +358,9 @@ Communication convention (mandatory):
 
 - Pools = announce only. Subjects: `status: ...` (task done), `decision: ...` (lead call), `alert: ...`. No discuss in pools.
 - Discussion, question, brainstorm, task: direct DM between mailboxes (`mesh_send(to="<mailbox>")`). Receiver answers with `reply_to=<id>`; sender answers with `reply_to=<id>` when responding. Sender does NOT wait by default.
-- Question needing an answer (mesh >= 0.33.0): `mesh_ask(to, body, group?, deadline?)` — NEVER blocks, returns a task id, the answer arrives as a wake. Reply with `mesh_reply(task_id, result)`. `mesh_tasks` lists your tasks read-only. A `group` batches several asks into ONE digest when fully answered. No blocking wait exists anymore: `mesh_send` + end turn + drain at next turn.
-- Cross-host DM needs BOTH fields: `mesh_send(peer="<node id du host du destinataire>", to="<mailbox>")` — `peer` says WHERE (node), `to` says WHICH box. Same-host DM needs `to` only. Reply cross-host: same rule (peer + to + reply_to).
-- Pairing now 6-digit code (opencode-mesh >= 0.10.2): side A runs `mesh_pair()`, side B runs `mesh_pair(code="<code>")` (LAN auto-finds address; cross-subnet adds `address="ip:4399"`). One command each side, both paired. Offer carries emitter's hostname — no more "manual" label.
+- Question needing an answer (mesh >= 0.33.0): `mesh_ask(to, body, group?, deadline?)` - NEVER blocks, returns a task id, the answer arrives as a wake. Reply with `mesh_reply(task_id, result)`. `mesh_tasks` lists your tasks read-only. A `group` batches several asks into ONE digest when fully answered. No blocking wait exists anymore: `mesh_send` + end turn + drain at next turn.
+- Cross-host DM needs BOTH fields: `mesh_send(peer="<node id of recipient host>", to="<mailbox>")` - `peer` says WHERE (node), `to` says WHICH box. Same-host DM needs `to` only. Reply cross-host: same rule (peer + to + reply_to).
+- Pairing now 6-digit code (opencode-mesh >= 0.10.2): side A runs `mesh_pair()`, side B runs `mesh_pair(code="<code>")` (LAN auto-finds address; cross-subnet adds `address="ip:4399"`). One command each side, both paired. Offer carries emitter's hostname - no more "manual" label.
 - Every agent: `mesh_inbox(ack=true)` at START of each turn. Your inbox is your mailbox only (no cross-drain now). Notification for mailbox not yours: ignore silent.
 - Status = the BOARD, not a DM: `mesh_board_set(key, value)` (task | blocker | state | eta) writes your one line of shared state; `mesh_board_get(pool?)` reads it. Nobody is woken by a board write. Use the board instead of DMing a status.
 - Lead posts `status:` in own pool at end of each big task; orq and human lead read pools to know where each team stands.
