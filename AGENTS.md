@@ -103,15 +103,11 @@ Plan mode (read-only): end turn per tool availability. Read-only hits FILES only
 Todo list is single truth for "where are we": read before act, update the moment state shifts. Every item opens with bracket epic tag.
 
 - Tag = the epic (feature area, repo, workstream): `[MESH]`, `[MEMORY]`, `[DOCS]`, `[INFRA]`. One tag per item, CAPS, short.
-- Item = one actionable outcome with exact state, not a theme. Good: `[MESH] 0.11.0 TLS - builder DER + pinning - subagent in flight`. Bad: `TLS stuff`.
-- State in item: done, what remains, who holds it. Convention FROZEN: changes only by PO decision.
-
-### Item lifecycle + format (all agents)
-
-- Done = verified outcome, never a claim. Done/cancelled leave the list at next `todowrite`: the list is a board, history lives in transcripts + memory.
-- WIP = 1. Waiting on someone = `pending - BLOCKED on <what>`. Backlog = one `[BACKLOG]` item, not scattered pendings. Prune every round.
-- Item = remaining work only: `[<project>:<epic>] @owner - <what remains> ; <blocker / deadline>`. ~140 chars, detail to memory.
+- Item = one outcome + exact state, remaining work only, not a theme: `[<project>:<epic>] @owner <what remains> ; <blocker / deadline>`. ~140 chars, detail to memory. One chained step = one item. Good: `[MESH] 0.11.0 TLS - builder DER + pinning - in flight`. Bad: `TLS stuff`.
+- Blocked = `pending - BLOCKED[<owner>:<what>]` (owner: OPER / ORQ / mailbox / env). Backlog = one `[BACKLOG]` item, not scattered pendings. Prune every round.
+- Passive watch = one item with explicit cadence: `[<me>:<lane>] watch X - 0 hits (check 24h)`.
 - % never in item; ETA only hard calendar deadline. No duplication with the status field.
+- Convention FROZEN: changes only by PO decision. History lives in transcripts + memory.
 
 ### Orchestrator variant (multi-project, multi-agent)
 
